@@ -1,6 +1,6 @@
 import { barlow, inter } from './fonts'
-import './globals.css'
 import type { Metadata } from 'next'
+import './globals.css'
 
 export const metadata: Metadata = {
   title: 'BiblioTroca',
@@ -40,9 +40,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <body className={`${inter.className} ${barlow.variable}`}>
-        {children}
-      </body>
+      <body className={`${inter.variable} ${barlow.variable}`}>{children}</body>
     </html>
   )
 }
