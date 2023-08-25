@@ -40,7 +40,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
-      <body className={`${inter.variable} ${barlow.variable}`}>{children}</body>
+      <body className={`bg-white-500 ${inter.variable} ${barlow.variable}`}>
+        {children}
+      </body>
     </html>
   )
 }

@@ -25,11 +25,11 @@ const config: Config = {
         xs: ['0.75rem', { fontWeight: '400', lineHeight: '1.6' }],
       },
       colors: {
-        'yellow-500': '#FEB822',
-        'yellow-400': '#FECC5F',
-        'yellow-300': '#FFE2A5',
+        'primary-500': '#7A2F73',
+        'primary-400': '#BE59B4',
+        'primary-100': '#FFEEFD',
 
-        'red-500': '#AB222E',
+        'red-500': '#AF1111',
 
         'orange-500': '#FBA94C',
 
@@ -49,6 +49,9 @@ const config: Config = {
         'white-200': '#F7F7F7',
         'white-100': '#FAFAFA',
         white: '#FFFFFF',
+      },
+      boxShadow: {
+        container: '0px 2px 6px 0px rgba(0, 0, 0, 0.20)',
       },
     },
   },

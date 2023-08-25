@@ -6,13 +6,13 @@ import { Button } from '@/components/Button'
 
 export default function Login() {
   return (
-    <main className="font-primary flex flex-col h-screen bg-white-500 gap-4 lg:bg-white md:flex-row md:items-center">
+    <main className="font-primary flex flex-col h-screen gap-4 lg:bg-white md:flex-row md:items-center">
       <Image
         src="/background-image-login.png"
         alt="Imagem de Fundo da Página de Login"
         width={683}
         height={1024}
-        className="h-2/4 w-full object-bottom object-cover lg:h-full lg:w-2/3"
+        className="h-2/4 w-full object-bottom object-cover md:h-full md:w-2/3"
       />
       <div className="px-9 pb-6 lg:pb-0 my-auto">
         <Logo className="w-[172px] mx-auto mb-5" />
