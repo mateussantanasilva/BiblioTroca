@@ -3,7 +3,7 @@
 import * as AvatarUI from '@radix-ui/react-avatar'
 import { twMerge } from 'tailwind-merge'
 
-type AvatarProps = {
+export type AvatarProps = {
   src: string
   name: string
   className?: string

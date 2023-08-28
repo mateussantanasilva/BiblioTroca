@@ -1,72 +1,162 @@
 'use client'
 
-import { Avatar } from './Avatar'
+import Link from 'next/link'
+
+import { Avatar, AvatarProps } from './Avatar'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import * as Icon from '@phosphor-icons/react'
 import { Card } from './Card'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Pagination } from 'swiper/modules'
+import { FreeMode } from 'swiper/modules'
 import 'swiper/css'
+import 'swiper/css/pagination'
+import '@/styles/swiper.css'
 
-type NavigationProps = {
-  avatarImg: string
-  avatarName: string
-}
-
-export function Navigation({ avatarImg, avatarName }: NavigationProps) {
+export function Navigation({ name, src }: AvatarProps) {
   return (
-    <nav className="max-w-5xl mx-auto font-primary">
+    <nav className="relative z-[2] max-w-5xl mx-auto font-primary">
       <section className="flex justify-between items-center mb-10">
         <div>
           <span className="font-primary text-sm md:text-lg">Bem vindo(a),</span>
           <p className="font-secondary text-title-base md:text-title-lg">
-            {avatarName}
+            {name}
           </p>
         </div>
         <DropdownMenu.Root>
           <DropdownMenu.Trigger asChild>
             <button className="rounded-full w-max h-max">
-              <Avatar src={avatarImg} name={avatarName} />
+              <Avatar src={src} name={name} />
             </button>
           </DropdownMenu.Trigger>
 
           <DropdownMenu.Portal>
-            <DropdownMenu.Content>
-              <DropdownMenu.Item></DropdownMenu.Item>
-              <DropdownMenu.Separator />
+            <DropdownMenu.Content className="bg-white rounded-lg">
+              <DropdownMenu.Item className="flex items-center gap-2">
+                <Icon.PencilSimple className="text-black" />
+              </DropdownMenu.Item>
             </DropdownMenu.Content>
           </DropdownMenu.Portal>
         </DropdownMenu.Root>
       </section>
 
-      <Swiper
-        pagination={{ dynamicBullets: true }}
-        modules={[Pagination]}
-        slidesPerView={2}
-      >
-        <SwiperSlide>
-          <Card className="pt-4 pb-6 px-3 w-32">
-            <Icon.Swap className="text-primary-500 mb-3" weight="bold" />
-            <p className="text-base mb-7 text-black font-medium">Trocas</p>
-            <p className="text-xs text-gray-400">3 pendentes</p>
-          </Card>
-        </SwiperSlide>
-        <SwiperSlide>
-          <Card className="pt-4 pb-6 px-3 w-32">
-            <Icon.Books className="text-primary-500 mb-3" weight="bold" />
-            <p className="text-base mb-7 text-black font-medium">Meus Livros</p>
-            <p className="text-xs text-gray-400">13 livros</p>
-          </Card>
-        </SwiperSlide>
-        <SwiperSlide className="!w-max ml-4">
-          <Card className="pt-4 pb-6 px-3 w-32">
-            <Icon.Books className="text-primary-500 mb-3" weight="bold" />
-            <p className="text-base mb-7 text-black font-medium">Meus Livros</p>
-            <p className="text-xs text-gray-400">13 livros</p>
-          </Card>
-        </SwiperSlide>
-      </Swiper>
+      <section className="relative">
+        <Swiper freeMode modules={[FreeMode]} spaceBetween={18}>
+          <SwiperSlide>
+            <Link href="/perfil/trocas-pendentes">
+              <Card type="menu">
+                <Icon.Swap
+                  className="text-primary-500 mb-3"
+                  weight="bold"
+                  size={26}
+                />
+                <p className="text-base mb-7 text-gray-600 font-medium h-10 md:h-max md:mb-0">
+                  Trocas
+                </p>
+                <p className="text-xs text-gray-400">3 pendentes</p>
+              </Card>
+            </Link>
+          </SwiperSlide>
+          <SwiperSlide>
+            <Link href="/perfil/meus-livros">
+              <Card type="menu">
+                <Icon.Books
+                  className="text-primary-500 mb-3"
+                  weight="bold"
+                  size={26}
+                />
+                <p className="text-base mb-7 text-gray-600 font-medium h-10">
+                  Meus Livros
+                </p>
+                <p className="text-xs text-gray-400">13 livros</p>
+              </Card>
+            </Link>
+          </SwiperSlide>
+          <SwiperSlide>
+            <Link href="/perfil/lista-desejos">
+              <Card type="menu">
+                <Icon.Heart
+                  className="text-primary-500 mb-3"
+                  weight="bold"
+                  size={26}
+                />
+                <p className="text-base mb-7 text-gray-600 font-medium h-10">
+                  Lista de Desejos
+                </p>
+                <p className="text-xs text-gray-400">12 livros</p>
+              </Card>
+            </Link>
+          </SwiperSlide>
+          <SwiperSlide>
+            <Link href="/perfil/historico">
+              <Card type="menu">
+                <Icon.ListMagnifyingGlass
+                  className="text-primary-500 mb-3"
+                  weight="bold"
+                  size={26}
+                />
+                <p className="text-base mb-7 text-gray-600 font-medium h-10">
+                  Histórico
+                </p>
+                <p className="text-xs text-gray-400">4 trocas</p>
+              </Card>
+            </Link>
+          </SwiperSlide>
+        </Swiper>
+
+        <div className="hidden min-[650px]:grid grid-cols-4 absolute w-full gap-5">
+          <Link href="/perfil/trocas-pendentes">
+            <Card type="menu">
+              <Icon.Swap
+                className="text-primary-500 mb-3"
+                weight="bold"
+                size={26}
+              />
+              <p className="text-base text-gray-600 font-medium mb-2">Trocas</p>
+              <p className="text-xs text-gray-400 break-keep">3 pendentes</p>
+            </Card>
+          </Link>
+          <Link href="/perfil/meus-livros">
+            <Card type="menu">
+              <Icon.Books
+                className="text-primary-500 mb-3"
+                weight="bold"
+                size={26}
+              />
+              <p className="text-base text-gray-600 font-medium mb-2">
+                Meus Livros
+              </p>
+              <p className="text-xs text-gray-400 break-keep">13 livros</p>
+            </Card>
+          </Link>
+          <Link href="/perfil/lista-desejos">
+            <Card type="menu">
+              <Icon.Heart
+                className="text-primary-500 mb-3"
+                weight="bold"
+                size={26}
+              />
+              <p className="text-base text-gray-600 font-medium mb-2">
+                Lista de Desejos
+              </p>
+              <p className="text-xs text-gray-400 break-keep">12 livros</p>
+            </Card>
+          </Link>
+          <Link href="/perfil/historico">
+            <Card type="menu">
+              <Icon.ListMagnifyingGlass
+                className="text-primary-500 mb-3"
+                weight="bold"
+                size={26}
+              />
+              <p className="text-base text-gray-600 font-medium mb-2">
+                Histórico
+              </p>
+              <p className="text-xs text-gray-400 break-keep">4 trocas</p>
+            </Card>
+          </Link>
+        </div>
+      </section>
     </nav>
   )
 }

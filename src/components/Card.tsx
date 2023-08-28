@@ -1,15 +1,29 @@
-import { ReactNode } from 'react'
-import { twMerge } from 'tailwind-merge'
+import { ComponentProps } from 'react'
+import { VariantProps, tv } from 'tailwind-variants'
 
-type CardProps = {
-  children: ReactNode
-  className?: string
-}
+const card = tv({
+  base: 'bg-white shadow-container font-primary rounded-lg transition-shadow transition-transform hover:shadow-container-lg hover:scale-105',
+  variants: {
+    type: {
+      menu: 'pt-4 pb-6 px-3 w-32 min-[650px]:w-full',
+      common: 'p-6',
+    },
+  },
+})
 
-export function Card({ children, className }: CardProps) {
-  return (
-    <div className={twMerge('bg-white shadow-container rounded-lg', className)}>
-      {children}
-    </div>
-  )
+export const status = tv({
+  base: 'rounded-full w-2 h-2',
+  variants: {
+    color: {
+      Pendente: 'text-orange-500',
+      Cancelado: 'text-red-500',
+      Concluído: 'text-green-500',
+    },
+  },
+})
+
+type CardProps = ComponentProps<'div'> & VariantProps<typeof card>
+
+export function Card({ children, type, className }: CardProps) {
+  return <div className={card({ type, className })}>{children}</div>
 }

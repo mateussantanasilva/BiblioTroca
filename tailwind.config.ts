@@ -13,16 +13,25 @@ const config: Config = {
         secondary: ['var(--font-secondary)'],
       },
       fontSize: {
-        'title-xl': ['48px', { fontWeight: '800', lineHeight: '1.25' }],
-        'title-lg': ['32px', { fontWeight: '700', lineHeight: '1.25' }],
-        'title-base': ['24px', { fontWeight: '700', lineHeight: '1.25' }],
-        'title-sm': ['20px', { fontWeight: '700', lineHeight: '1.25' }],
-        'title-xs': ['18px', { fontWeight: '700', lineHeight: '1.25' }],
+        // Titles
+        'title-xl': ['3rem', { fontWeight: 800, lineHeight: '1.25' }],
+        'title-lg': ['2rem', { fontWeight: 700, lineHeight: '1.25' }],
+        'title-base': ['1.5rem', { fontWeight: 700, lineHeight: '1.25' }],
+        'title-sm': ['1.25rem', { fontWeight: 700, lineHeight: '1.25' }],
+        'title-xs': ['1.125rem', { fontWeight: 700, lineHeight: '1.4' }],
 
-        lg: ['1.25rem', { fontWeight: '500', lineHeight: '1.4' }],
-        base: ['1rem', { fontWeight: '400', lineHeight: '1.6' }],
-        sm: ['0.875rem', { fontWeight: '400', lineHeight: '1.6' }],
-        xs: ['0.75rem', { fontWeight: '400', lineHeight: '1.6' }],
+        'btn-base': ['1rem', { fontWeight: 700, lineHeight: '1.6' }],
+
+        // Text
+        'xl-140': ['1.25rem', { fontWeight: 500, lineHeight: '1.4' }],
+        'lg-125': ['1rem', { fontWeight: 500, lineHeight: '1.25' }],
+        'base-160': ['1rem', { fontWeight: 400, lineHeight: '1.6' }],
+        'base-140': ['1rem', { fontWeight: 400, lineHeight: '1.4' }],
+        'base-140-md': ['1rem', { fontWeight: 500, lineHeight: '1.4' }],
+        'sm-140': ['0.875rem', { fontWeight: 400, lineHeight: '1.4' }],
+        'sm-140-md': ['0.875rem', { fontWeight: 500, lineHeight: '1.4' }],
+        'sm-160': ['0.875rem', { fontWeight: 400, lineHeight: '1.6' }],
+        'xs-140': ['0.75rem', { fontWeight: 400, lineHeight: '1.4' }],
       },
       colors: {
         'primary-500': '#7A2F73',
@@ -30,6 +39,7 @@ const config: Config = {
         'primary-100': '#FFEEFD',
 
         'red-500': '#AF1111',
+        'red-100': '#FFEEEE',
 
         'orange-500': '#FBA94C',
 
@@ -52,6 +62,7 @@ const config: Config = {
       },
       boxShadow: {
         container: '0px 2px 6px 0px rgba(0, 0, 0, 0.20)',
+        'container-lg': '0px 4px 12px 0px rgba(0, 0, 0, 0.40)',
       },
     },
   },

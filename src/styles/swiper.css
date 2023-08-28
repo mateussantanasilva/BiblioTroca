@@ -1,0 +1,16 @@
+.swiper {
+  @apply
+    min-[650px]:hidden
+    -mb-80
+    absolute
+    top-0
+  ;
+}
+
+.swiper-slide {
+  @apply
+    !w-max
+    p-1
+    pl-0
+  ;
+}

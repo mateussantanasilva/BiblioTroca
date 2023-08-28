@@ -16,12 +16,12 @@ export default function Login() {
       />
       <div className="px-9 pb-6 lg:pb-0 my-auto">
         <Logo className="w-[172px] mx-auto mb-5" />
-        <p className="text-center mb-16">
+        <p className="text-base-160 text-center mb-16">
           Comece sua jornada no mundo da troca de livros educacionais. Clique no
           botão para acessar sua conta.
         </p>
         <Button className="font-bold">
-          <Image src="/google.svg" alt="Google Logo" width={22} height={22} />
+          <Image src="/google.svg" alt="Google Logo" width={26} height={26} />
           Continue com o Google
         </Button>
       </div>
