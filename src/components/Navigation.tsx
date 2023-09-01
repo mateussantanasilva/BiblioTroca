@@ -13,7 +13,21 @@ import 'swiper/css'
 import 'swiper/css/pagination'
 import '@/styles/swiper.css'
 
-export function Navigation({ name, src }: AvatarProps) {
+type NavigationProps = AvatarProps & {
+  amountExchanges: number
+  amountBooks: number
+  wishlist: number
+  history: number
+}
+
+export function Navigation({
+  name,
+  src,
+  amountBooks,
+  amountExchanges,
+  history,
+  wishlist,
+}: NavigationProps) {
   return (
     <nav className="relative z-[2] max-w-5xl mx-auto font-primary">
       <section className="flex justify-between items-center mb-10">
@@ -31,7 +45,7 @@ export function Navigation({ name, src }: AvatarProps) {
           </DropdownMenu.Trigger>
 
           <DropdownMenu.Portal>
-            <DropdownMenu.Content className="bg-white rounded-lg">
+            <DropdownMenu.Content className="bg-white rounded-lg w-max h-max">
               <DropdownMenu.Item className="flex items-center gap-2">
                 <Icon.PencilSimple className="text-black" />
               </DropdownMenu.Item>
@@ -40,71 +54,8 @@ export function Navigation({ name, src }: AvatarProps) {
         </DropdownMenu.Root>
       </section>
 
-      <section className="relative">
-        <Swiper freeMode modules={[FreeMode]} spaceBetween={18}>
-          <SwiperSlide>
-            <Link href="/perfil/trocas-pendentes">
-              <Card type="menu">
-                <Icon.Swap
-                  className="text-primary-500 mb-3"
-                  weight="bold"
-                  size={26}
-                />
-                <p className="text-base mb-7 text-gray-600 font-medium h-10 md:h-max md:mb-0">
-                  Trocas
-                </p>
-                <p className="text-xs text-gray-400">3 pendentes</p>
-              </Card>
-            </Link>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Link href="/perfil/meus-livros">
-              <Card type="menu">
-                <Icon.Books
-                  className="text-primary-500 mb-3"
-                  weight="bold"
-                  size={26}
-                />
-                <p className="text-base mb-7 text-gray-600 font-medium h-10">
-                  Meus Livros
-                </p>
-                <p className="text-xs text-gray-400">13 livros</p>
-              </Card>
-            </Link>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Link href="/perfil/lista-desejos">
-              <Card type="menu">
-                <Icon.Heart
-                  className="text-primary-500 mb-3"
-                  weight="bold"
-                  size={26}
-                />
-                <p className="text-base mb-7 text-gray-600 font-medium h-10">
-                  Lista de Desejos
-                </p>
-                <p className="text-xs text-gray-400">12 livros</p>
-              </Card>
-            </Link>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Link href="/perfil/historico">
-              <Card type="menu">
-                <Icon.ListMagnifyingGlass
-                  className="text-primary-500 mb-3"
-                  weight="bold"
-                  size={26}
-                />
-                <p className="text-base mb-7 text-gray-600 font-medium h-10">
-                  Histórico
-                </p>
-                <p className="text-xs text-gray-400">4 trocas</p>
-              </Card>
-            </Link>
-          </SwiperSlide>
-        </Swiper>
-
-        <div className="hidden min-[650px]:grid grid-cols-4 absolute w-full gap-5">
+      <Swiper freeMode modules={[FreeMode]}>
+        <SwiperSlide>
           <Link href="/perfil/trocas-pendentes">
             <Card type="menu">
               <Icon.Swap
@@ -112,10 +63,16 @@ export function Navigation({ name, src }: AvatarProps) {
                 weight="bold"
                 size={26}
               />
-              <p className="text-base text-gray-600 font-medium mb-2">Trocas</p>
-              <p className="text-xs text-gray-400 break-keep">3 pendentes</p>
+              <p className="text-base mb-7 text-gray-600 font-medium h-10 md:h-max md:mb-0">
+                Trocas
+              </p>
+              <p className="text-xs text-gray-400">
+                {amountExchanges} pendentes
+              </p>
             </Card>
           </Link>
+        </SwiperSlide>
+        <SwiperSlide>
           <Link href="/perfil/meus-livros">
             <Card type="menu">
               <Icon.Books
@@ -123,12 +80,14 @@ export function Navigation({ name, src }: AvatarProps) {
                 weight="bold"
                 size={26}
               />
-              <p className="text-base text-gray-600 font-medium mb-2">
+              <p className="text-base mb-7 text-gray-600 font-medium h-10">
                 Meus Livros
               </p>
-              <p className="text-xs text-gray-400 break-keep">13 livros</p>
+              <p className="text-xs text-gray-400">{amountBooks} livros</p>
             </Card>
           </Link>
+        </SwiperSlide>
+        <SwiperSlide>
           <Link href="/perfil/lista-desejos">
             <Card type="menu">
               <Icon.Heart
@@ -136,12 +95,14 @@ export function Navigation({ name, src }: AvatarProps) {
                 weight="bold"
                 size={26}
               />
-              <p className="text-base text-gray-600 font-medium mb-2">
+              <p className="text-base mb-7 text-gray-600 font-medium h-10">
                 Lista de Desejos
               </p>
-              <p className="text-xs text-gray-400 break-keep">12 livros</p>
+              <p className="text-xs text-gray-400">{wishlist} livros</p>
             </Card>
           </Link>
+        </SwiperSlide>
+        <SwiperSlide>
           <Link href="/perfil/historico">
             <Card type="menu">
               <Icon.ListMagnifyingGlass
@@ -149,14 +110,73 @@ export function Navigation({ name, src }: AvatarProps) {
                 weight="bold"
                 size={26}
               />
-              <p className="text-base text-gray-600 font-medium mb-2">
+              <p className="text-base mb-7 text-gray-600 font-medium h-10">
                 Histórico
               </p>
-              <p className="text-xs text-gray-400 break-keep">4 trocas</p>
+              <p className="text-xs text-gray-400">{history} trocas</p>
             </Card>
           </Link>
-        </div>
-      </section>
+        </SwiperSlide>
+      </Swiper>
+
+      <div className="hidden min-[650px]:grid grid-cols-4 absolute w-full gap-5">
+        <Link href="/perfil/trocas-pendentes">
+          <Card type="menu">
+            <Icon.Swap
+              className="text-primary-500 mb-3"
+              weight="bold"
+              size={26}
+            />
+            <p className="text-base text-gray-600 font-medium mb-2">Trocas</p>
+            <p className="text-xs text-gray-400 break-keep">
+              {amountExchanges} pendentes
+            </p>
+          </Card>
+        </Link>
+        <Link href="/perfil/meus-livros">
+          <Card type="menu">
+            <Icon.Books
+              className="text-primary-500 mb-3"
+              weight="bold"
+              size={26}
+            />
+            <p className="text-base text-gray-600 font-medium mb-2">
+              Meus Livros
+            </p>
+            <p className="text-xs text-gray-400 break-keep">
+              {amountBooks} livros
+            </p>
+          </Card>
+        </Link>
+        <Link href="/perfil/lista-desejos">
+          <Card type="menu">
+            <Icon.Heart
+              className="text-primary-500 mb-3"
+              weight="bold"
+              size={26}
+            />
+            <p className="text-base text-gray-600 font-medium mb-2">
+              Lista de Desejos
+            </p>
+            <p className="text-xs text-gray-400 break-keep">
+              {wishlist} livros
+            </p>
+          </Card>
+        </Link>
+        <Link href="/perfil/historico">
+          <Card type="menu">
+            <Icon.ListMagnifyingGlass
+              className="text-primary-500 mb-3"
+              weight="bold"
+              size={26}
+            />
+            <p className="text-base text-gray-600 font-medium mb-2">
+              Histórico
+            </p>
+            <p className="text-xs text-gray-400 break-keep">{history} trocas</p>
+          </Card>
+        </Link>
+      </div>
     </nav>
   )
 }

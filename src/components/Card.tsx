@@ -2,11 +2,12 @@ import { ComponentProps } from 'react'
 import { VariantProps, tv } from 'tailwind-variants'
 
 const card = tv({
-  base: 'bg-white shadow-container font-primary rounded-lg transition-shadow transition-transform hover:shadow-container-lg hover:scale-105',
+  base: 'bg-white shadow-container font-primary rounded-lg transition-all hover:shadow-container-lg hover:scale-[1.01]',
   variants: {
     type: {
-      menu: 'pt-4 pb-6 px-3 w-32 min-[650px]:w-full',
+      menu: 'pt-4 pb-6 px-3 w-32 min-[650px]:w-full h-full',
       common: 'p-6',
+      content: 'px-4 py-5 hover:transform-none hover:shadow-container',
     },
   },
 })

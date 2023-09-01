@@ -16,10 +16,12 @@ export function TextField({
 }: TextFieldProps) {
   return (
     <div className="flex flex-col gap-1 w-full">
-      <label htmlFor={id}>{label}</label>
+      <label className="text-base-140-md w-max" htmlFor={id}>
+        {label}
+      </label>
       <input
         className={twMerge(
-          'w-full p-4 rounded-lg border-gray-300 border-[1px] disabled:text-gray-300 placeholder:opacity-50 disabled: hover:disabled:border-gray-300 outline-primary-500 hover:border-gray-400',
+          'w-full p-4 rounded-lg text-base-140 border-gray-300 border-[1px] disabled:text-gray-300 placeholder:opacity-50 disabled: hover:disabled:border-gray-300 outline-primary-500 hover:border-gray-400',
           className,
         )}
         type={type}

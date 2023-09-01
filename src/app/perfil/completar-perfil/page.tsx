@@ -8,14 +8,14 @@ export default function Perfil() {
     <>
       <Header className="h-[300px]">
         <div className="flex flex-col gap-1 items-center">
-          <h1 className="font-primary text-sm font-medium">Perfil</h1>
+          <h1 className="font-primary text-sm-140">Perfil</h1>
           <h2 className="font-secondary text-title-base text-center">
             Complete seu <br className="md:hidden" /> perfil
           </h2>
         </div>
       </Header>
       <main className="relative z-[2] font-primary px-6 pb-12">
-        <div className="shadow-container bg-white border-white-100 rounded-lg pb-8 px-6 max-w-5xl -mt-24 mx-auto">
+        <div className="shadow-container bg-white border-white-100 rounded-lg pb-8 px-6 max-w-5xl -mt-24 mx-auto md:-mt-28">
           <Avatar
             src="https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80"
             name="Ana Clara"
