@@ -3,19 +3,19 @@
 import { Card, status } from '@/components/Card'
 import { Header } from '@/components/Header'
 import { Navigation } from '@/components/Navigation'
-import { Exchange, exchangesDefault } from '@/docs/exchange'
+import { Transaction, transactionsDefault } from '@/model/transaction'
 import { useEffect, useState } from 'react'
 import * as Icon from '@phosphor-icons/react'
 import Link from 'next/link'
 import { formatDate } from '@/utils/format-date'
 
 export default function TrocasPendentes() {
-  const [exchanges, setExchanges] = useState<Exchange[]>([])
+  const [exchanges, setExchanges] = useState<Transaction[]>([])
 
   useEffect(() => {
     setExchanges(
-      exchangesDefault.filter((exchange) => {
-        return exchange.status === 'Pendente'
+      transactionsDefault.filter((transaction) => {
+        return transaction.status === 'Pendente'
       }),
     )
   }, [])
@@ -43,7 +43,7 @@ export default function TrocasPendentes() {
           <div className="flex flex-col gap-4">
             {exchanges.map((exchange) => (
               <Link
-                key={exchange.bookTitle}
+                key={exchange.book.id}
                 href={`/perfil/trocas-pendentes/${exchange.id}`}
               >
                 <Card
@@ -52,11 +52,11 @@ export default function TrocasPendentes() {
                 >
                   <div>
                     <strong className="text-base-140 text-gray-500">
-                      {exchange.bookTitle}
+                      {exchange.book.title}
                     </strong>
                     <p className="text-xs-140 text-gray-400">
                       {exchange.type === 'send' ? '+' : '-'}
-                      {exchange.amountPoints} pontos
+                      {exchange.book.amountPoints} pontos
                     </p>
                   </div>
                   <span className="flex gap-1 items-center text-gray-500 text-sm-140 justify-self-end md:justify-self-center">
@@ -72,12 +72,12 @@ export default function TrocasPendentes() {
                       {exchange.type === 'receive'
                         ? 'Recebendo de'
                         : 'Enviando para'}{' '}
-                      {exchange.sender}
+                      {exchange.sellerCustomerId}
                     </span>
                   </div>
                   <div className="flex gap-1 items-center text-gray-500 text-sm-140 justify-self-end">
                     <Icon.CalendarBlank size={10} />
-                    <span>{formatDate(exchange.date)}</span>
+                    <span>{formatDate(exchange.startDate)}</span>
                   </div>
                 </Card>
               </Link>

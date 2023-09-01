@@ -7,7 +7,7 @@ import { InputRadio } from '@/components/InputRadio'
 import { Root } from '@radix-ui/react-radio-group'
 import * as Icon from '@phosphor-icons/react'
 import Link from 'next/link'
-import { Exchange, exchangesDefault } from '@/docs/exchange'
+import { Exchange, exchangesDefault } from '@/model/exchange'
 import { useEffect, useState } from 'react'
 import { formatDate } from '@/utils/format-date'
 
