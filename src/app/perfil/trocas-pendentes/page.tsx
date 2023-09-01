@@ -56,7 +56,7 @@ export default function TrocasPendentes() {
                     </strong>
                     <p className="text-xs-140 text-gray-400">
                       {exchange.type === 'send' ? '+' : '-'}
-                      {exchange.book.amountPoints} pontos
+                      20 pontos
                     </p>
                   </div>
                   <span className="flex gap-1 items-center text-gray-500 text-sm-140 justify-self-end md:justify-self-center">
@@ -72,7 +72,7 @@ export default function TrocasPendentes() {
                       {exchange.type === 'receive'
                         ? 'Recebendo de'
                         : 'Enviando para'}{' '}
-                      {exchange.sellerCustomerId}
+                      {exchange.sellerCustomer.name}
                     </span>
                   </div>
                   <div className="flex gap-1 items-center text-gray-500 text-sm-140 justify-self-end">
