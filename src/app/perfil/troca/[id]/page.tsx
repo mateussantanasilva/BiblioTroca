@@ -7,9 +7,8 @@ import { InputRadio } from '@/components/InputRadio'
 import { Root } from '@radix-ui/react-radio-group'
 import * as Icon from '@phosphor-icons/react'
 import Link from 'next/link'
-import { Exchange, exchangesDefault } from '@/model/exchange'
+import { Transaction, transactionsDefault } from '@/model/transaction'
 import { useEffect, useState } from 'react'
-import { formatDate } from '@/utils/format-date'
 
 type PagePropos = {
   params: {
@@ -18,10 +17,10 @@ type PagePropos = {
 }
 
 export default function Troca({ params }: PagePropos) {
-  const [exchange, setExchange] = useState<Exchange | undefined>(undefined)
+  const [exchange, setExchange] = useState<Transaction | undefined>(undefined)
 
   useEffect(() => {
-    setExchange(exchangesDefault.find(({ id }) => id === params.id))
+    setExchange(transactionsDefault.find(({ id }) => id === params.id))
   }, [params.id])
 
   return (
@@ -50,14 +49,14 @@ export default function Troca({ params }: PagePropos) {
           >
             <div className="flex justify-between items-center md:grid grid-cols-2">
               <strong className="font-secondary text-title-xs md:text-title-sm">
-                {exchange?.bookTitle}
+                {exchange?.book.title}
               </strong>
               <div className="flex gap-1 items-center text-xs min-[375px]:text-sm-140">
                 <Icon.Circle
                   weight="fill"
-                  className={status({ color: 'Pendente' })}
+                  className={status({ color: exchange?.status })}
                 />
-                Solicitação Pendente
+                {exchange?.status}
               </div>
             </div>
             <p className="font-primary text-sm-140">+ 60 pontos (aguardando)</p>
@@ -100,7 +99,7 @@ export default function Troca({ params }: PagePropos) {
               <div className="flex md:items-center gap-3 flex-col mb-5 md:flex-row">
                 <p className="text-base-140-md">
                   {exchange?.type === 'send' ? 'Enviado' : 'Recebendo'} de{' '}
-                  {exchange?.sender}
+                  {exchange?.sellerCustomer.name}
                 </p>
                 <p className="flex gap-1 items-center">
                   <Icon.Star className="text-orange-500" weight="fill" />
@@ -112,7 +111,7 @@ export default function Troca({ params }: PagePropos) {
                 <Icon.WhatsappLogo />
                 Entrar em Contato
               </Button>
-              <p>Solicitada em {exchange?.date.toLocaleDateString()}</p>
+              <p>Solicitada em {exchange?.startDate.toLocaleDateString()}</p>
             </Card>
             <Card type="content">
               <strong> Escrito por Robert Cecil Martin</strong>

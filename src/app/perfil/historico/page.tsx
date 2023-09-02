@@ -9,23 +9,15 @@ import * as Icon from '@phosphor-icons/react'
 import Link from 'next/link'
 import { formatDate } from '@/utils/format-date'
 
-export default function TrocasPendentes() {
-  const [pendingTransactions, setPendingTransactions] = useState<Transaction[]>(
-    [],
-  )
-  const [transactionsLength, setTransactionsLenght] = useState(0)
+export default function Historico() {
+  const [exchanges, setExchanges] = useState<Transaction[]>([])
 
   useEffect(() => {
-    setPendingTransactions(
+    setExchanges(
       transactionsDefault.filter((transaction) => {
-        return transaction.status === 'Pendente'
+        return transaction.status !== 'Pendente'
       }),
     )
-
-    transactionsDefault.forEach((transaction) => {
-      if (transaction.status === 'Pendente')
-        setTransactionsLenght((prev) => prev + 1)
-    })
   }, [])
 
   return (
@@ -34,25 +26,25 @@ export default function TrocasPendentes() {
         <Navigation
           name="Ana Clara"
           src="https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80"
-          amountExchanges={pendingTransactions.length}
+          amountExchanges={exchanges.length}
           amountBooks={0}
           wishlist={0}
-          history={transactionsLength}
+          history={exchanges.length}
         />
       </Header>
       <main className="px-6 pb-10 mt-28 md:mt-32">
         <section className="max-w-5xl mx-auto">
           <h1 className="font-secondary flex gap-1 items-center text-gray-500 text-title-xs mb-5">
-            Trocas
+            Historico
             <span className="font-primary text-sm-140 text-gray-400">
-              | {pendingTransactions.length} troca(s)
+              | {exchanges.length} troca(s)
             </span>
           </h1>
           <div className="flex flex-col gap-4">
-            {pendingTransactions.map((pendingTransaction) => (
+            {exchanges.map((exchange) => (
               <Link
-                key={pendingTransaction.book.id}
-                href={`/perfil/troca/${pendingTransaction.id}`}
+                key={exchange.book.id}
+                href={`/perfil/troca/${exchange.id}`}
               >
                 <Card
                   type="common"
@@ -60,32 +52,32 @@ export default function TrocasPendentes() {
                 >
                   <div>
                     <strong className="text-base-140 text-gray-500">
-                      {pendingTransaction.book.title}
+                      {exchange.book.title}
                     </strong>
                     <p className="text-xs-140 text-gray-400">
-                      {pendingTransaction.type === 'send' ? '+' : '-'}
+                      {exchange.type === 'send' ? '+' : '-'}
                       20 pontos
                     </p>
                   </div>
                   <span className="flex gap-1 items-center text-gray-500 text-sm-140 justify-self-end md:justify-self-center">
                     <Icon.Circle
                       weight="fill"
-                      className={status({ color: pendingTransaction.status })}
+                      className={status({ color: exchange.status })}
                     />
-                    {pendingTransaction.status}
+                    {exchange.status}
                   </span>
                   <div className="flex gap-1 items-center text-gray-500 text-sm-140 md:justify-self-center">
                     <Icon.PaperPlaneTilt size={10} />
                     <span>
-                      {pendingTransaction.type === 'receive'
+                      {exchange.type === 'receive'
                         ? 'Recebendo de'
                         : 'Enviando para'}{' '}
-                      {pendingTransaction.sellerCustomer.name}
+                      {exchange.sellerCustomer.name}
                     </span>
                   </div>
                   <div className="flex gap-1 items-center text-gray-500 text-sm-140 justify-self-end">
                     <Icon.CalendarBlank size={10} />
-                    <span>{formatDate(pendingTransaction.startDate)}</span>
+                    <span>{formatDate(exchange.startDate)}</span>
                   </div>
                 </Card>
               </Link>
