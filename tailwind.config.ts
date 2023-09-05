@@ -14,7 +14,8 @@ const config: Config = {
       },
       fontSize: {
         // Titles
-        'title-xl': ['3rem', { fontWeight: 800, lineHeight: '1.25' }],
+        'title-2xl': ['3rem', { fontWeight: 800, lineHeight: '1.25' }],
+        'title-xl': ['2.25rem', { fontWeight: 800, lineHeight: '1.25' }],
         'title-lg': ['2rem', { fontWeight: 700, lineHeight: '1.25' }],
         'title-base': ['1.5rem', { fontWeight: 700, lineHeight: '1.25' }],
         'title-sm': ['1.25rem', { fontWeight: 700, lineHeight: '1.25' }],
@@ -57,12 +58,18 @@ const config: Config = {
         'white-500': '#F1F1F1',
         'white-400': '#F4F4F4',
         'white-200': '#F7F7F7',
-        'white-100': '#FAFAFA',
+        'white-100': '#FCFCFC',
         white: '#FFFFFF',
       },
       boxShadow: {
         container: '0px 2px 6px 0px rgba(0, 0, 0, 0.20)',
         'container-lg': '0px 4px 12px 0px rgba(0, 0, 0, 0.40)',
+      },
+      backgroundImage: {
+        'radial-gradient':
+          'radial-gradient(50% 50% at 50% 50%, #7A2F73 0%, #3B1838 100%)',
+        'gradient-title':
+          'linear-gradient(180deg, #FFF 80.21%, rgba(255, 255, 255, 0.00) 100%)',
       },
     },
   },
