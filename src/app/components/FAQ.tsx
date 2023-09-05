@@ -37,27 +37,44 @@ export function FAQ() {
   ]
 
   return (
-    <Card type="content" className="p-0">
-      <Accordion.Root type="multiple">
-        {questionsAndAnswers.map((item) => {
-          return (
-            <Accordion.Item
-              key={item.id}
-              value={item.id}
-              className="py-5 px-4 [&:has(+div)]:border-b-[1px] [&:has(+div)]:border-gray-300"
-            >
-              <Accordion.Trigger className="flex justify-between gap-3 text-start text-gray-500 font-secondary text-title-xs">
-                {item.title}
-                <CaretDown weight="bold" size={'2.15rem'} />
-              </Accordion.Trigger>
+    <section role="FAQ" className="py-9 px-6 text-gray-500">
+      <h2 className="text-center text-title-lg font-secondary mb-3">
+        Temos Respostas para Suas Perguntas
+      </h2>
+      <p className="text-center text-base-160 mb-10">
+        Dê uma olhada nas questões mais frequentes sobre a Bibliotroca. Se não
+        encontrar o que procura, não hesite em nos enviar sua dúvida.
+      </p>
 
-              <Accordion.Content className="mt-3 text-gray-500 text-base-160">
-                <p>{item.content}</p>
-              </Accordion.Content>
-            </Accordion.Item>
-          )
-        })}
-      </Accordion.Root>
-    </Card>
+      <a
+        href=""
+        className="block mx-auto max-w-[11.5rem] rounded-lg py-4 px-5 text-center font-secondary text-btn-base bg-primary-500 text-white mb-10"
+      >
+        Envie sua pergunta
+      </a>
+
+      <Card type="content" className="p-0">
+        <Accordion.Root type="multiple">
+          {questionsAndAnswers.map((item) => {
+            return (
+              <Accordion.Item
+                key={item.id}
+                value={item.id}
+                className="py-5 px-4 [&:has(+div)]:border-b-[1px] [&:has(+div)]:border-gray-300"
+              >
+                <Accordion.Trigger className="flex justify-between gap-3 text-start text-gray-500 font-secondary text-title-xs">
+                  <span className="max-w-[16.5rem]">{item.title}</span>
+                  <CaretDown weight="bold" />
+                </Accordion.Trigger>
+
+                <Accordion.Content className="mt-3 text-gray-500 text-base-160">
+                  <p>{item.content}</p>
+                </Accordion.Content>
+              </Accordion.Item>
+            )
+          })}
+        </Accordion.Root>
+      </Card>
+    </section>
   )
 }
