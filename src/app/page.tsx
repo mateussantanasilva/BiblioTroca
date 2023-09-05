@@ -6,6 +6,7 @@ import { ArrowDown } from '@phosphor-icons/react'
 
 import { Card } from '@/components/Card'
 import { FeatureCard } from './components/FeatureCard'
+import { FAQ } from './components/FAQ'
 
 import MobileHero from '../assets/mobile-hero.png'
 import MobilePresentation from '../assets/mobile-presentation.png'
@@ -195,6 +196,8 @@ export default function Home() {
           >
             Envie sua pergunta
           </a>
+
+          <FAQ />
         </section>
       </main>
     </div>
