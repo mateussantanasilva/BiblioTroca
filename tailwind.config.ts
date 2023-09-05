@@ -25,7 +25,7 @@ const config: Config = {
 
         // Text
         'xl-140': ['1.25rem', { fontWeight: 500, lineHeight: '1.4' }],
-        'lg-125': ['1rem', { fontWeight: 500, lineHeight: '1.25' }],
+        'lg-140': ['1.125rem', { fontWeight: 400, lineHeight: '1.4' }],
         'base-160': ['1rem', { fontWeight: 400, lineHeight: '1.6' }],
         'base-140': ['1rem', { fontWeight: 400, lineHeight: '1.4' }],
         'base-140-md': ['1rem', { fontWeight: 500, lineHeight: '1.4' }],

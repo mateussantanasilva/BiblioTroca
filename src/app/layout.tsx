@@ -41,7 +41,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body
-        className={`bg-white-500 antialiased ${inter.variable} ${barlow.variable}`}
+        className={`bg-white-200 antialiased ${inter.variable} ${barlow.variable}`}
       >
         {children}
       </body>
