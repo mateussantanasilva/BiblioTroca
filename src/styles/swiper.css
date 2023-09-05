@@ -1,0 +1,14 @@
+.swiper {
+  @apply
+    min-[650px]:hidden
+    overflow-hidden
+    -ml-2
+  ;
+}
+
+.swiper-slide {
+  @apply
+    !w-max
+    p-2
+  ;
+}
