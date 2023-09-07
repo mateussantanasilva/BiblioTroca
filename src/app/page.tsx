@@ -1,16 +1,15 @@
 'use client'
 
 import Image from 'next/image'
-import { Logo } from '@/components/Logo'
 import { PublicHeader } from '../components/PublicHeader'
 import { Presentation } from './components/Presentation'
 import { AboutUs } from './components/AboutUs'
 import { GetStarted } from './components/GetStarted'
 import { FAQ } from './components/FAQ'
+import { Footer } from '@/components/Footer'
 import { ArrowDown } from '@phosphor-icons/react'
 
 import MobileHero from '../assets/mobile-hero.png'
-import { Footer } from '@/components/Footer'
 
 export default function Home() {
   return (

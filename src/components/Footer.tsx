@@ -1,3 +1,5 @@
+import Link from 'next/link'
+import { Button } from './Button'
 import { Logo } from './Logo'
 
 export function Footer() {
@@ -11,29 +13,31 @@ export function Footer() {
       <nav className="pt-5 pb-10">
         <ul className="grid grid-cols-2 gap-y-3 gap-x-7 max-w-fit text-base-140-md">
           <li>
-            <a href="/">Home</a>
+            <Link href="/">Home</Link>
           </li>
 
           <li>
-            <a href="">Buscar Livros</a>
+            <Link href="/livros">Buscar Livros</Link>
           </li>
 
           <li>
-            <a href="">Entrar</a>
+            <Link href="/login">Entrar</Link>
           </li>
 
           <li>
-            <a href="">Cadastrar</a>
+            <Link href="/login">Cadastrar</Link>
           </li>
         </ul>
       </nav>
 
-      <a
-        href=""
-        className="block max-w-[11.125rem] rounded-lg py-4 px-5 text-center font-secondary text-btn-base bg-primary-500 text-white"
+      <Button
+        componentType={Link}
+        size="lg"
+        href="https://wa.me/11912345678"
+        target="_blank"
       >
         Fale conosco
-      </a>
+      </Button>
     </footer>
   )
 }

@@ -1,5 +1,8 @@
 import Image from 'next/image'
 
+import Link from 'next/link'
+import { Button } from '@/components/Button'
+
 import BookWatermarkImage from '../../assets/book-watermark.png'
 
 export function GetStarted() {
@@ -17,18 +20,12 @@ export function GetStarted() {
       </p>
 
       <div className="flex gap-1 relative z-10">
-        <a
-          href=""
-          className="rounded-lg py-4 text-center font-secondary text-btn-base bg-white text-primary-500 min-w-[10rem]"
-        >
+        <Button componentType={Link} href="/login" variant="white">
           Criar conta
-        </a>
-        <a
-          href=""
-          className="rounded-lg border-2 border-white py-4 text-center font-secondary text-btn-base bg-transparent text-white min-w-[10rem]"
-        >
+        </Button>
+        <Button componentType={Link} href="/livros" variant="ghostWhite">
           Explorar livros
-        </a>
+        </Button>
       </div>
 
       <Image

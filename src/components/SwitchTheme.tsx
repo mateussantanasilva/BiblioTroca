@@ -1,5 +1,5 @@
-import { CircleHalf, Sun } from '@phosphor-icons/react'
 import * as Switch from '@radix-ui/react-switch'
+import { CircleHalf, Sun } from '@phosphor-icons/react'
 
 export function SwitchTheme() {
   return (

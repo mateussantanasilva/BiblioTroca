@@ -1,6 +1,8 @@
-import { Card } from '@/components/Card'
-import { CaretDown } from '@phosphor-icons/react'
+import Link from 'next/link'
 import * as Accordion from '@radix-ui/react-accordion'
+import { Card } from '@/components/Card'
+import { Button } from '@/components/Button'
+import { CaretDown } from '@phosphor-icons/react'
 
 export function FAQ() {
   const questionsAndAnswers = [
@@ -46,12 +48,15 @@ export function FAQ() {
         encontrar o que procura, não hesite em nos enviar sua dúvida.
       </p>
 
-      <a
-        href=""
-        className="block mx-auto max-w-[11.5rem] rounded-lg py-4 px-5 text-center font-secondary text-btn-base bg-primary-500 text-white mb-10"
+      <Button
+        componentType={Link}
+        size="md"
+        href="https://wa.me/11912345678"
+        target="_blank"
+        className="mx-auto mb-10"
       >
         Envie sua pergunta
-      </a>
+      </Button>
 
       <Card type="content" className="p-0">
         <Accordion.Root type="multiple">

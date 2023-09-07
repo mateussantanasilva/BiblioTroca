@@ -4,6 +4,8 @@ import { Logo } from './Logo'
 import { X } from '@phosphor-icons/react'
 
 import { SwitchTheme } from './SwitchTheme'
+import { Button } from './Button'
+import Link from 'next/link'
 
 export function MobilePublicHeader() {
   return (
@@ -17,13 +19,13 @@ export function MobilePublicHeader() {
       </header>
 
       <nav className="bg-white pt-9 px-6 h-[calc(100vh-122px)]">
-        <ul className="flex flex-col gap-9 text-gray-600 text-xl-140 font-primary">
+        <ul className="flex flex-col gap-9 text-gray-600 text-xl-140-md font-primary">
           <li>
-            <a href="/">Home</a>
+            <Link href="/">Home</Link>
           </li>
 
           <li>
-            <a href="">Buscar Livros</a>
+            <Link href="/livros">Buscar Livros</Link>
           </li>
 
           <li className="flex justify-between items-center">
@@ -32,13 +34,10 @@ export function MobilePublicHeader() {
             <SwitchTheme />
           </li>
 
-          <li>
-            <a
-              href=""
-              className="block rounded-lg py-4 px-5 text-center font-secondary text-btn-base bg-primary-500 text-white"
-            >
+          <li className="text-btn-base">
+            <Button componentType={Link} href="/login">
               Entrar
-            </a>
+            </Button>
           </li>
         </ul>
       </nav>
