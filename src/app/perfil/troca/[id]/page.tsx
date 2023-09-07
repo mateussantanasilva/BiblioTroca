@@ -107,7 +107,7 @@ export default function Troca({ params }: PagePropos) {
                   <span className="text-gray-400 text-sm-140">(14)</span>
                 </p>
               </div>
-              <Button whatsapp className="mb-5 lg:max-w-full">
+              <Button className="mb-5 lg:max-w-full">
                 <Icon.WhatsappLogo />
                 Entrar em Contato
               </Button>

@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 import { ComponentProps, ElementType } from 'react'
 import { VariantProps, tv } from 'tailwind-variants'
