@@ -24,14 +24,14 @@ const config: Config = {
         'btn-base': ['1rem', { fontWeight: 700, lineHeight: '1.6' }],
 
         // Text
-        'xl-140': ['1.25rem', { fontWeight: 500, lineHeight: '1.4' }],
+        'xl-140-md': ['1.25rem', { fontWeight: 500, lineHeight: '1.4' }],
         'lg-140': ['1.125rem', { fontWeight: 400, lineHeight: '1.4' }],
         'base-160': ['1rem', { fontWeight: 400, lineHeight: '1.6' }],
         'base-140': ['1rem', { fontWeight: 400, lineHeight: '1.4' }],
         'base-140-md': ['1rem', { fontWeight: 500, lineHeight: '1.4' }],
+        'sm-160': ['0.875rem', { fontWeight: 400, lineHeight: '1.6' }],
         'sm-140': ['0.875rem', { fontWeight: 400, lineHeight: '1.4' }],
         'sm-140-md': ['0.875rem', { fontWeight: 500, lineHeight: '1.4' }],
-        'sm-160': ['0.875rem', { fontWeight: 400, lineHeight: '1.6' }],
         'xs-140': ['0.75rem', { fontWeight: 400, lineHeight: '1.4' }],
       },
       colors: {
@@ -44,16 +44,12 @@ const config: Config = {
 
         'orange-500': '#FBA94C',
 
-        'green-500': '#04D361',
+        'green-500': '#25D366',
 
-        'gray-800': '#121214',
-        'gray-700': '#202024',
         'gray-600': '#29292E',
         'gray-500': '#323238',
         'gray-400': '#7C7C8A',
         'gray-300': '#E6E5E5',
-        'gray-200': '#EDEDED',
-        'gray-100': '#F3F2F2',
 
         'white-500': '#F1F1F1',
         'white-400': '#F4F4F4',
