@@ -9,7 +9,7 @@ import { List } from '@phosphor-icons/react'
 import LogoImage from '../assets/white-logo.svg'
 
 const header = tv({
-  base: 'flex justify-between items-center py-10 mb-9 px-6',
+  base: 'py-10 mb-9',
   variants: {
     variant: {
       generic: 'bg-white border-b-[1px] border-gray-300',
@@ -29,25 +29,27 @@ export function PublicHeader({ variant }: PublicHeaderProps) {
 
   return (
     <header className={header({ variant })}>
-      {isHomeHeader ? (
-        <Image
-          src={LogoImage}
-          alt="Logo com 3 livros roxos do lado esquerdo e a escrita BIBLIOTROCA"
-          width={135}
-          height={42}
-          className="fill"
-        />
-      ) : (
-        <Logo className="w-[8.438rem]" />
-      )}
+      <div className="flex justify-between items-center px-6">
+        {isHomeHeader ? (
+          <Image
+            src={LogoImage}
+            alt="Logo com 3 livros roxos do lado esquerdo e a escrita BIBLIOTROCA"
+            width={135}
+            height={42}
+            className="fill"
+          />
+        ) : (
+          <Logo className="w-[8.438rem]" />
+        )}
 
-      <button>
-        <List
-          weight="bold"
-          size={'1.75rem'}
-          className={isHomeHeader ? 'text-white' : 'text-gray-500'}
-        />
-      </button>
+        <button>
+          <List
+            weight="bold"
+            size={'1.75rem'}
+            className={isHomeHeader ? 'text-white' : 'text-gray-500'}
+          />
+        </button>
+      </div>
     </header>
   )
 }
