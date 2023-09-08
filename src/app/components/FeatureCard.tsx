@@ -15,7 +15,7 @@ export function FeatureCard({ title, content, src, alt }: FeatureCardProps) {
         alt={alt}
         width={288}
         height={194}
-        className="w-screen bg-cover"
+        className="w-screen h-[6.063rem] bg-center bg-cover"
       />
       <div className="px-3 pb-3 pt-2">
         <h3 className="text-base-140-md mb-1">{title}</h3>

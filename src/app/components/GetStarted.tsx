@@ -7,10 +7,7 @@ import BookWatermarkImage from '../../assets/book-watermark.png'
 
 export function GetStarted() {
   return (
-    <section
-      role="get started"
-      className="bg-primary-500 text-white py-9 px-6 relative"
-    >
+    <section className="bg-primary-500 text-white py-9 px-6 relative">
       <h2 className="text-title-lg font-secondary mb-3">
         Pronto para Impulsionar Seu Aprendizado?
       </h2>

@@ -4,7 +4,7 @@ import AboutUsImage from '../../assets/about-us-image.jpg'
 
 export function AboutUs() {
   return (
-    <section role="about us" className="py-9 px-6 text-gray-500">
+    <section className="py-9 px-6 text-gray-500">
       <h2 className="text-title-lg  font-secondary mb-3">
         Bibliotroca: Revivendo Livros, Impulsionando Educação
       </h2>

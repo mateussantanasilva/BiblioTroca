@@ -2,16 +2,20 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ComponentProps } from 'react'
 
-type LogoProps = ComponentProps<'img'>
+import BlackLogo from '../assets/black-logo.svg'
+import WhiteLogo from '../assets/white-logo.svg'
 
-export function Logo({ className }: LogoProps) {
+type LogoProps = ComponentProps<'img'> & {
+  isWhiteLogo?: boolean
+}
+
+export function Logo({ isWhiteLogo = false, className }: LogoProps) {
   return (
     <Link href="/">
       <Image
-        src="/logo.png"
+        src={isWhiteLogo ? WhiteLogo : BlackLogo}
         alt="Logotipo Bibliotroca"
         width={1376}
-        height={413}
         className={className}
       />
     </Link>

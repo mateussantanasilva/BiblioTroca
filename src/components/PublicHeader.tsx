@@ -1,13 +1,9 @@
 'use client'
 
-import Image from 'next/image'
 import { ComponentProps } from 'react'
 import { VariantProps, tv } from 'tailwind-variants'
 import { Logo } from './Logo'
 import { List } from '@phosphor-icons/react'
-
-import LogoImage from '../assets/white-logo.svg'
-import Link from 'next/link'
 
 const header = tv({
   base: 'py-10 mb-9',
@@ -32,15 +28,7 @@ export function PublicHeader({ variant }: PublicHeaderProps) {
     <header className={header({ variant })}>
       <div className="flex justify-between items-center px-6">
         {isHomeHeader ? (
-          <Link href="/">
-            <Image
-              src={LogoImage}
-              alt="Logo com 3 livros roxos do lado esquerdo e a escrita BIBLIOTROCA"
-              width={135}
-              height={42}
-              className="fill"
-            />
-          </Link>
+          <Logo isWhiteLogo className="w-[8.438rem]" />
         ) : (
           <Logo className="w-[8.438rem]" />
         )}

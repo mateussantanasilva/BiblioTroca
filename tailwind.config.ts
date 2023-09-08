@@ -59,7 +59,7 @@ const config: Config = {
       },
       boxShadow: {
         container: '0px 2px 6px 0px rgba(0, 0, 0, 0.20)',
-        'container-lg': '0px 4px 12px 0px rgba(0, 0, 0, 0.40)',
+        'container-lg': '0px 3px 8px rgba(0, 0, 0, 0.24)',
       },
       backgroundImage: {
         'radial-gradient':

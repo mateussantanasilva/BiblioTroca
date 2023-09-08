@@ -1,19 +1,22 @@
-import { ComponentProps } from 'react'
+import Link from 'next/link'
+import { ComponentProps, ElementType } from 'react'
 import { VariantProps, tv } from 'tailwind-variants'
 
 const card = tv({
-  base: 'bg-white shadow-container font-primary rounded-lg transition-all hover:shadow-container-lg hover:scale-[1.01]',
+  base: 'bg-white shadow-container font-primary rounded-lg transition-all',
   variants: {
     type: {
-      menu: 'pt-4 pb-6 px-3 w-32 min-[650px]:w-full h-full',
-      common: 'p-6',
-      content: 'px-4 py-5 hover:transform-none hover:shadow-container',
+      menu: 'pt-5 pb-6 px-3 w-[7.75rem] min-[650px]:w-full h-full hover:shadow-container-lg hover:scale-[1.005]',
+      common: 'p-4 hover:shadow-container-lg hover:scale-[1.005]',
+      content: 'px-4 py-5',
+      form: 'px-3 py-8',
+      dropdown: 'p-3',
     },
   },
 })
 
 export const status = tv({
-  base: 'rounded-full w-2 h-2',
+  base: 'rounded-fu ll w-[0.625rem] h-[0.625rem]',
   variants: {
     color: {
       Pendente: 'text-orange-500',
@@ -23,8 +26,24 @@ export const status = tv({
   },
 })
 
-type CardProps = ComponentProps<'div'> & VariantProps<typeof card>
+type CardProps<T extends ElementType> = ComponentProps<T> &
+  VariantProps<typeof card> & {
+    componentType?: T // changes components type based on choice
+  }
 
-export function Card({ children, type, className }: CardProps) {
-  return <div className={card({ type, className })}>{children}</div>
+// options: div, article, section or Link
+export function Card<
+  T extends ElementType = 'div' | 'article' | 'section' | typeof Link,
+>({
+  componentType: ComponentType = 'div',
+  children,
+  type,
+  className,
+  ...props
+}: CardProps<T>) {
+  return (
+    <ComponentType className={card({ type, className })} {...props}>
+      {children}
+    </ComponentType>
+  )
 }

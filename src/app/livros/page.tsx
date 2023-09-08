@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import { PublicHeader } from '@/components/PublicHeader'
 import { Card } from '@/components/Card'
 import { Button } from '@/components/Button'
@@ -13,7 +12,7 @@ export default function Books() {
     <div className="flex flex-col mx-auto max-w-[375px]">
       <PublicHeader />
 
-      <Card type="content" className="text-gray-500">
+      <Card componentType="section" type="content" className="text-gray-500">
         <h2 className="text-title-lg font-secondary mb-3">
           Explore Livros Disponíveis
         </h2>

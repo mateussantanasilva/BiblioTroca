@@ -4,7 +4,7 @@ import { ArrowRight, PaperPlaneTilt, MapPin, Star } from '@phosphor-icons/react'
 
 export function BookCard() {
   return (
-    <Card type="content" className="text-gray-500 px-0">
+    <Card componentType="article" type="content" className="text-gray-500 px-0">
       <header className="flex justify-between items-start gap-2 mb-3 px-4">
         <div className="flex flex-col">
           <strong className="font-secondary text-title-sm">Clean code</strong>

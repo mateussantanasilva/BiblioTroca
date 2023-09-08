@@ -17,7 +17,7 @@ export default function Home() {
       <div className="bg-radial-gradient pb-4">
         <PublicHeader variant="home" />
 
-        <section role="banner">
+        <section>
           <h1 className="text-center font-secondary text-title-xl bg-gradient-title bg-clip-text text-transparent px-6">
             Cada Livro, uma Nova Jornada ao Conhecimento
           </h1>

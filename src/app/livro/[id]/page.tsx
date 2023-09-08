@@ -13,7 +13,7 @@ export default function Livro() {
       <PublicHeader />
 
       <main className="flex flex-col gap-4 mb-9">
-        <Card type="content" className="text-gray-500">
+        <Card componentType="section" type="content" className="text-gray-500">
           <header className="mb-3">
             <h2 className="font-secondary text-title-lg">Clean code</h2>
             <p className="text-gray-400 text-base-140">por Richard Helm</p>
@@ -69,7 +69,7 @@ export default function Livro() {
           </ul>
         </Card>
 
-        <Card type="content" className="text-gray-500">
+        <Card componentType="section" type="content" className="text-gray-500">
           <h2 className="font-secondary text-title-base text-primary-500 mb-3">
             Custo de 60 pontos
           </h2>

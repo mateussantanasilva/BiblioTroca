@@ -10,11 +10,8 @@ import AvaliationImage from '../../assets/featureCard/avaliation.png'
 
 export function Presentation() {
   return (
-    <section
-      role="presentation"
-      className="flex flex-col gap-4 py-9 px-6 text-gray-500"
-    >
-      <Card type="content" className="pb-0">
+    <section className="flex flex-col gap-4 py-9 px-6 text-gray-500">
+      <Card componentType="article" type="content" className="pb-0">
         <h2 className="text-title-lg font-secondary mb-3">
           Reviva Cada Página
         </h2>
@@ -31,7 +28,7 @@ export function Presentation() {
         />
       </Card>
 
-      <Card type="content">
+      <Card componentType="article" type="content">
         <h2 className="text-title-lg font-secondary mb-3">
           Excelência em Cada Ferramenta
         </h2>

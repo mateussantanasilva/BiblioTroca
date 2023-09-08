@@ -39,7 +39,7 @@ export function FAQ() {
   ]
 
   return (
-    <section role="FAQ" className="py-9 px-6 text-gray-500">
+    <section className="py-9 px-6 text-gray-500">
       <h2 className="text-center text-title-lg font-secondary mb-3">
         Temos Respostas para Suas Perguntas
       </h2>
