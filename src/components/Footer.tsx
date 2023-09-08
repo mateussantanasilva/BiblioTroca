@@ -13,19 +13,39 @@ export function Footer() {
       <nav className="pt-5 pb-10">
         <ul className="grid grid-cols-2 gap-y-3 gap-x-7 max-w-fit text-base-140-md">
           <li>
-            <Link href="/">Home</Link>
+            <Link
+              href="/"
+              className="hover:text-primary-500 transition-colors duration-200"
+            >
+              Home
+            </Link>
           </li>
 
           <li>
-            <Link href="/livros">Buscar Livros</Link>
+            <Link
+              href="/livros"
+              className="hover:text-primary-500 transition-colors duration-200"
+            >
+              Buscar Livros
+            </Link>
           </li>
 
           <li>
-            <Link href="/login">Entrar</Link>
+            <Link
+              href="/login"
+              className="hover:text-primary-500 transition-colors duration-200"
+            >
+              Entrar
+            </Link>
           </li>
 
           <li>
-            <Link href="/login">Cadastrar</Link>
+            <Link
+              href="/login"
+              className="hover:text-primary-500 transition-colors duration-200"
+            >
+              Cadastrar
+            </Link>
           </li>
         </ul>
       </nav>

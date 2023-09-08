@@ -6,6 +6,8 @@ import { Button } from '@/components/Button'
 import { Footer } from '@/components/Footer'
 import { PublicHeader } from '@/components/PublicHeader'
 import { MapPin, Star } from '@phosphor-icons/react'
+import { Modal } from '@/components/Modal'
+import * as Dialog from '@radix-ui/react-dialog'
 
 export default function Livro() {
   return (
@@ -111,7 +113,13 @@ export default function Livro() {
             clicando abaixo.
           </p>
 
-          <Button>Solicitar troca</Button>
+          <Dialog.Root>
+            <Dialog.Trigger asChild>
+              <Button>Solicitar troca</Button>
+            </Dialog.Trigger>
+
+            <Modal variant="requestExchange" />
+          </Dialog.Root>
         </Card>
       </main>
 
