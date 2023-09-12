@@ -1,13 +1,16 @@
 'use client'
 
+import { useBooks } from '@/hooks/useBooks'
 import { PublicHeader } from '@/components/PublicHeader'
 import { Card } from '@/components/Card'
+import { BookCard } from './components/BookCard'
 import { Button } from '@/components/Button'
 import { Footer } from '@/components/Footer'
-import { BookCard } from './components/BookCard'
 import { MagnifyingGlass } from '@phosphor-icons/react'
 
 export default function Books() {
+  const { data: books, isLoading } = useBooks()
+
   return (
     <div className="flex flex-col mx-auto max-w-[375px]">
       <PublicHeader />
@@ -35,9 +38,12 @@ export default function Books() {
       </Card>
 
       <main className="flex flex-wrap gap-4 mt-8 mb-9">
-        <BookCard />
-        <BookCard />
-        <BookCard />
+        {isLoading && <p>Carregando...</p>}
+
+        {books &&
+          books.map((book) => {
+            return <BookCard key={book.id} book={book} />
+          })}
       </main>
 
       <Footer />

@@ -1,5 +1,6 @@
 import { barlow, inter } from './fonts'
 import type { Metadata } from 'next'
+import { QueryProvider } from '@/lib/ReactQuery'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -43,7 +44,7 @@ export default function RootLayout({
       <body
         className={`bg-white-200 antialiased ${inter.variable} ${barlow.variable}`}
       >
-        {children}
+        <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
   )

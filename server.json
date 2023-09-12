@@ -1,0 +1,99 @@
+{
+  "books": [
+    {
+      "id": 1,
+      "name": "Clean code",
+      "author": "Richard Helm",
+      "shortDescription": "O livro destaca a importância de manter o código limpo, não apenas para a eficácia imediata, mas",
+      "category": "Tecnologia",
+      "seller": {
+        "name": "Pedro",
+        "location": "Itaim Bibi, São Paulo",
+        "averageRating": 4.7,
+        "avaliationsNumber": 14
+      }
+    },
+    {
+      "id": 2,
+      "name": "Design Patterns",
+      "author": "Richard Helm",
+      "shortDescription": "O livro destaca a importância de manter o código limpo, não apenas para a eficácia imediata, mas",
+      "category": "Tecnologia",
+      "seller": {
+        "name": "Pedro",
+        "location": "Itaim Bibi, São Paulo",
+        "averageRating": 4.7,
+        "avaliationsNumber": 14
+      }
+    },
+    {
+      "id": 3,
+      "name": "Lógica de Programação",
+      "author": "Richard Helm",
+      "shortDescription": "O livro destaca a importância de manter o código limpo, não apenas para a eficácia imediata, mas",
+      "category": "Tecnologia",
+      "seller": {
+        "name": "Pedro",
+        "location": "Itaim Bibi, São Paulo",
+        "averageRating": 4.7,
+        "avaliationsNumber": 14
+      }
+    }
+  ],
+  "books-details": [
+    {
+      "id": 1,
+      "name": "Clean code",
+      "author": "Richard Helm",
+      "category": "Tecnologia",
+      "language": "Português",
+      "year": "2009",
+      "publishingCompany": "Alta Books",
+      "state": "Pode ter algumas marcas leves de manuseio, sem rasuras.",
+      "description": "O livro destaca a importância de manter o código limpo, não apenas para a eficácia imediata, mas para garantir que o software permaneça sustentável e fácil de manter a longo prazo. Utilizando exemplos práticos e diretrizes claras, Martin delineia os princípios do desenvolvimento de software ágil, focando em técnicas e práticas que levam a um código mais limpo e eficiente.",
+      "seller": {
+        "name": "Pedro",
+        "location": "Itaim Bibi, São Paulo",
+        "averageRating": 4.7,
+        "avaliationsNumber": 14,
+        "phoneNumber": "11912345678"
+      }
+    },
+    {
+      "id": 2,
+      "name": "Design Patterns",
+      "author": "Richard Helm",
+      "category": "Tecnologia",
+      "language": "Português",
+      "year": "2009",
+      "publishingCompany": "Alta Books",
+      "state": "Pode ter algumas marcas leves de manuseio, sem rasuras.",
+      "description": "O livro destaca a importância de manter o código limpo, não apenas para a eficácia imediata, mas para garantir que o software permaneça sustentável e fácil de manter a longo prazo. Utilizando exemplos práticos e diretrizes claras, Martin delineia os princípios do desenvolvimento de software ágil, focando em técnicas e práticas que levam a um código mais limpo e eficiente.",
+      "seller": {
+        "name": "Pedro",
+        "location": "Itaim Bibi, São Paulo",
+        "averageRating": 4.7,
+        "avaliationsNumber": 14,
+        "phoneNumber": "11912345678"
+      }
+    },
+    {
+      "id": 3,
+      "name": "Lógica de Programação",
+      "author": "Richard Helm",
+      "category": "Tecnologia",
+      "language": "Português",
+      "year": "2009",
+      "publishingCompany": "Alta Books",
+      "state": "Pode ter algumas marcas leves de manuseio, sem rasuras.",
+      "description": "O livro destaca a importância de manter o código limpo, não apenas para a eficácia imediata, mas para garantir que o software permaneça sustentável e fácil de manter a longo prazo. Utilizando exemplos práticos e diretrizes claras, Martin delineia os princípios do desenvolvimento de software ágil, focando em técnicas e práticas que levam a um código mais limpo e eficiente.",
+      "seller": {
+        "name": "Pedro",
+        "location": "Itaim Bibi, São Paulo",
+        "averageRating": 4.7,
+        "avaliationsNumber": 14,
+        "phoneNumber": "11912345678"
+      }
+    }
+  ]
+}
