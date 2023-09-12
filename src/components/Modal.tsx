@@ -19,6 +19,7 @@ interface ModalProps {
   | 'refuseExchange'
   | 'evaluate'
   | 'deleteBook'
+  namePersonEvaluated?: string 
 }
 
 export function Modal({ variant }: ModalProps) {

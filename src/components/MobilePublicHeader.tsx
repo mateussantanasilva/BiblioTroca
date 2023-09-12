@@ -7,16 +7,28 @@ import { SwitchTheme } from './SwitchTheme'
 import { Button } from './Button'
 import Link from 'next/link'
 
-export function MobilePublicHeader() {
+interface MobileHeaderProps {
+  openMenu: boolean
+  openMobileMenu: () => void
+}
+
+export function MobilePublicHeader({
+  openMenu,
+  openMobileMenu,
+}: MobileHeaderProps) {
+  const menuVisibility = openMenu && 'translate-y-full'
+
   return (
-    <>
-      <header className="flex justify-between items-center py-10 bg-white border-b-[1px] border-gray-300 px-6">
+    <header
+      className={`${menuVisibility} fixed z-20 -top-full left-0 right-0 w-screen max-w-sm mx-auto`}
+    >
+      <div className="flex justify-between items-center py-10 bg-white border-b-[1px] border-gray-300 px-6">
         <Logo className="w-[8.438rem]" />
 
-        <button>
+        <button onClick={openMobileMenu}>
           <X weight="bold" size={'1.75rem'} className="text-gray-500" />
         </button>
-      </header>
+      </div>
 
       <nav className="bg-white pt-9 px-6 h-[calc(100vh-122px)]">
         <ul className="flex flex-col gap-9 text-gray-600 text-xl-140-md font-primary">
@@ -41,6 +53,6 @@ export function MobilePublicHeader() {
           </li>
         </ul>
       </nav>
-    </>
+    </header>
   )
 }
