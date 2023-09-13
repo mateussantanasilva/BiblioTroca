@@ -7,22 +7,9 @@ import { InputRadio } from '@/components/InputRadio'
 import { Root } from '@radix-ui/react-radio-group'
 import * as Icon from '@phosphor-icons/react'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import { Book, booksDefault } from '@/model/book'
+import { TextField } from '@/components/TextField'
 
-type PagePropos = {
-  params: {
-    id: string
-  }
-}
-
-export default function Livro({ params }: PagePropos) {
-  const [, setmybooks] = useState<Book | undefined>(undefined)
-
-  useEffect(() => {
-    setmybooks(booksDefault.find(({ id }) => id === params.id))
-  }, [params.id])
-
+export default function CreateBook() {
   return (
     <>
       <Header className="text-center pt-16">
@@ -40,66 +27,54 @@ export default function Livro({ params }: PagePropos) {
       </Header>
       <main className="relative z-[2] px-6 pb-10">
         <section className="-mt-12 max-w-5xl mx-auto">
-          <Card
-            type="content"
-            className="flex flex-col gap-4 py-9 px-6 text-gray-500"
-          >
-            <form>
-              <label htmlFor="titulo">Titulo</label>
-              <input type="text" />
-              <label htmlFor="autor">Autor</label>
-              <input type="text" />
-              <label htmlFor="categoria">Categoria</label>
-              <select id="studyArea" name="Area" form="studyAreaform">
-                <option value="C.Bio">Ciências Biológicas</option>
-                <option value="Eng">Engenharias</option>
-                <option value="C.Sau">Ciências da Saúde</option>
-                <option value="C.Agra">Ciências Agrárias</option>
-                <option value="Ling.L.A">Linguística, Letras e Artes</option>
-                <option value="C.Soci">Ciências Sociais Aplicadas</option>
-                <option value="C.Human">Ciências Humanas</option>
-                <option value="C.Exat">Ciências Exatas e da Terra</option>
-              </select>
-              <label htmlFor="Editoria">Editora</label>
-              <input type="text" />
-              <label htmlFor="Ano">Ano de Lançamento</label>
-              <input type="text" />
-            </form>
-            <strong className="text-base-140-md mb-3">Condição do livro</strong>
-            <form className="flex flex-col gap-11">
-              <Root
-                className="flex flex-col md:flex-row gap-2"
-                defaultValue="accept"
-              >
-                <InputRadio
-                  title="Novo"
-                  value="new"
-                  text="Lido apenas uma vez ou poucas vezes,sem marcas"
-                  id="accept"
-                />
-                <InputRadio
-                  title="Bom"
-                  value="good"
-                  text="Pode ter algumas marcas leves de manuseio, sem rasuras."
-                  id="good"
-                />
-                <InputRadio
-                  title="Desgastado"
-                  value="worn-out"
-                  text="Bastante usado,com várias marcas de uso e anotações."
-                  id="worn-out"
-                />
-              </Root>
-              <form>
-                <label>Idioma</label>
-                <input type="text" />
-                <label>Descrição</label>
-                <input type="text" />
-              </form>
-
-              <Button> Cadastrar</Button>
-            </form>
-          </Card>
+          <form className="flex flex-col gap-11 max-w-[520px] mx-auto">
+            <Card type="content" className="flex flex-col gap-4 py-8">
+              <TextField label="Título" id="title" name="title" />
+              <TextField label="Autor" id="author" name="author" />
+              <TextField label="Categoria" id="studyArea" name="studyArea" />
+              <TextField
+                label="Editora"
+                id="publishingCompany"
+                name="publishingCompany"
+              />
+              <TextField label="Ano de Lançamento" id="year" name="year" />
+              <div>
+                <label className="text-base-140-md mb-1">
+                  Condição do livro
+                </label>
+                <Root
+                  className="flex flex-col md:flex-row gap-2"
+                  defaultValue="good"
+                >
+                  <InputRadio
+                    title="Novo"
+                    value="new"
+                    text="Lido apenas uma vez ou poucas vezes,sem marcas"
+                    id="new"
+                  />
+                  <InputRadio
+                    title="Bom"
+                    value="good"
+                    text="Pode ter algumas marcas leves de manuseio, sem rasuras."
+                    id="good"
+                  />
+                  <InputRadio
+                    title="Desgastado"
+                    value="worn-out"
+                    text="Bastante usado,com várias marcas de uso e anotações."
+                    id="worn-out"
+                  />
+                </Root>
+              </div>
+              <TextField label="Idioma" id="language" name="language" />
+              <TextField
+                label="Descrição"
+                id="description"
+                name="description"
+              />
+            </Card>
+            <Button disabled>Atualizar</Button>
+          </form>
         </section>
       </main>
     </>

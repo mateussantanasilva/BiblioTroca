@@ -8,12 +8,16 @@ import { useEffect, useState } from 'react'
 import * as Icon from '@phosphor-icons/react'
 import Link from 'next/link'
 import { formatDate } from '@/utils/format-date'
+import {
+  historySize,
+  myBooksSize,
+  pendingTransactionsSize,
+} from '@/docs/navigationInfo'
 
 export default function TrocasPendentes() {
   const [pendingTransactions, setPendingTransactions] = useState<Transaction[]>(
     [],
   )
-  const [transactionsLength, setTransactionsLenght] = useState(0)
 
   useEffect(() => {
     setPendingTransactions(
@@ -21,11 +25,6 @@ export default function TrocasPendentes() {
         return transaction.status === 'Pendente'
       }),
     )
-
-    transactionsDefault.forEach((transaction) => {
-      if (transaction.status === 'Pendente')
-        setTransactionsLenght((prev) => prev + 1)
-    })
   }, [])
 
   return (
@@ -34,10 +33,10 @@ export default function TrocasPendentes() {
         <Navigation
           name="Ana Clara"
           src="https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80"
-          amountExchanges={pendingTransactions.length}
-          amountBooks={0}
+          pendingExchanges={pendingTransactionsSize}
+          amountBooks={myBooksSize}
           wishlist={0}
-          history={transactionsLength}
+          history={historySize}
         />
       </Header>
       <main className="px-6 pb-10 mt-28 md:mt-32">
@@ -78,8 +77,8 @@ export default function TrocasPendentes() {
                     <Icon.PaperPlaneTilt size={10} />
                     <span>
                       {pendingTransaction.type === 'receive'
-                        ? 'Recebendo de'
-                        : 'Enviando para'}{' '}
+                        ? 'Recebendo de '
+                        : 'Enviando para '}
                       {pendingTransaction.sellerCustomer.name}
                     </span>
                   </div>

@@ -14,10 +14,10 @@ type PagePropos = {
 }
 
 export default function Book({ params }: PagePropos) {
-  const [books, setmybooks] = useState<Book | undefined>(undefined)
+  const [book, setBook] = useState<Book | undefined>(undefined)
 
   useEffect(() => {
-    setmybooks(booksDefault.find(({ id }) => id === params.id))
+    setBook(booksDefault.find(({ id }) => id === params.id))
   }, [params.id])
 
   return (
@@ -38,46 +38,35 @@ export default function Book({ params }: PagePropos) {
       <main className="relative z-[2] px-6 pb-10">
         <section className="-mt-12 max-w-5xl mx-auto">
           <Card type="content">
-            <h2 className="font-secondary text-title-lg">{books?.title}</h2>
-            <p className="text-gray-400 text-base-140">{books?.author}</p>
-            <ul className="flex flex-col gap-5">
-              <li className="flex flex-col gap-1">
-                <strong className="text-base-140">Categoria</strong>
-                <span
-                  aria-label="categoria"
-                  className="rounded-xl border-[1px] border-primary-500 py-1 px-3 text-primary-500 text-xs-140 w-fit"
-                >
-                  {books?.studyArea}
-                </span>
-              </li>
-
-              <div className="flex gap-20">
-                <li className="flex flex-col gap-1">
-                  <strong className="text-base-140">Idioma</strong>
-                  <p className="text-base-140">{books?.language}</p>
-                </li>
-
-                <li className="flex flex-col gap-1">
-                  <strong className="text-base-140">Ano</strong>
-                  <p className="text-base-140">{books?.year}</p>
-                </li>
+            <p className="mb-3 text-base-140-md">Escrito por {book?.author}</p>
+            <div className="mb-4">
+              <p className="text-base-140-md mb-1">Categoria</p>
+              <span className="border-[1px] border-primary-500 text-xs-140 rounded-lg px-2 py-1 text-primary-500">
+                {book?.studyArea}
+              </span>
+            </div>
+            <div className="grid grid-cols-2 mb-4">
+              <div>
+                <p className="text-base-140-md">Idioma</p>
+                <p>{book?.language}</p>
               </div>
-
-              <li className="flex flex-col gap-1">
-                <strong className="text-base-140">Editora</strong>
-                <p className="text-base-140">{books?.publishingCompany}</p>
-              </li>
-
-              <li className="flex flex-col gap-1">
-                <strong className="text-base-140">Condição do livro</strong>
-                <p className="text-base-160"> {books?.bookCondition}</p>
-              </li>
-              <li className="flex flex-col gap-1">
-                <strong className="text-base-140">Descrição</strong>
-                <p className="text-base-160"> {books?.description}</p>
-              </li>
-            </ul>
-            <div className="flex gap-1 items-center text-xs min-[375px]:text-sm-140"></div>
+              <div>
+                <p className="text-base-140-md">Ano</p>
+                <p>{book?.year}</p>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 mb-4">
+              <div>
+                <p className="text-base-140-md">Editora</p>
+                <p>{book?.publishingCompany}</p>
+              </div>
+              <div>
+                <p className="text-base-140-md">Condição do livro</p>
+                <p>{book?.bookCondition}</p>
+              </div>
+            </div>
+            <p className="text-base-140-md">Descrição</p>
+            <p>{book?.description}</p>
           </Card>
         </section>
       </main>

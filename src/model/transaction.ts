@@ -33,4 +33,14 @@ export const transactionsDefault: Transaction[] = [
     startDate: new Date(2014, 10, 14),
     endDate: new Date(2023, 10, 17),
   },
+  {
+    id: '3',
+    book: booksDefault[2],
+    sellerCustomer: clientsDefault[1],
+    buyerCustomer: clientsDefault[2],
+    status: 'Pendente',
+    type: 'send',
+    startDate: new Date(),
+    endDate: new Date(),
+  },
 ]

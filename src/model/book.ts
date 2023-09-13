@@ -38,4 +38,17 @@ export const booksDefault: Book[] = [
     bookCondition: 'Novo',
     createdAt: new Date(),
   },
+  {
+    id: '3',
+    title: 'Use a Cabeça: Python',
+    author: 'Paul Barry',
+    studyArea: 'Tecnologia',
+    language: 'Português (Brasil)',
+    year: 2018,
+    description:
+      'Com o Use a Cabeça! Python, você entenderá rapidamente os fundamentos do Python trabalhando com estruturas de dados e funções predefinidas. Então poderá construir seu próprio aplicativo web explorando o gerenciamento do banco de dados, tratamento de exceções e administração dos dados',
+    publishingCompany: 'Alta Books',
+    bookCondition: 'Novo',
+    createdAt: new Date(2023, 4, 15),
+  },
 ]
