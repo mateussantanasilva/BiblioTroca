@@ -77,10 +77,7 @@ export default function Book({ params }: PagePropos) {
                 <label className="text-base-140-md mb-1">
                   Condição do livro
                 </label>
-                <Root
-                  className="flex flex-col md:flex-row gap-2"
-                  defaultValue="good"
-                >
+                <Root className="grid gap-2" defaultValue="good">
                   <InputRadio
                     title="Novo"
                     value="new"
@@ -112,9 +109,13 @@ export default function Book({ params }: PagePropos) {
                 id="description"
                 name="description"
                 value={book?.description}
+                componentType="textarea"
+                className="resize-none h-28 overflow-auto"
               />
             </Card>
-            <Button disabled>Atualizar</Button>
+            <Button className="lg:max-w-full" disabled>
+              Atualizar
+            </Button>
           </form>
         </section>
       </main>

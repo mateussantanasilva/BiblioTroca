@@ -6,11 +6,11 @@ export type Wishlist = {
   createdAt: Date
 }
 
-export const listDefault: Wishlist[] = [
+export const wishlistDefault: Wishlist[] = [
   {
     id: '1',
-    title: 'Use a Cabeça: Java',
-    author: 'Carlos',
+    title: 'Clean Code',
+    author: 'Robert Cecil Martin',
     studyArea: 'Tecnologia',
     createdAt: new Date(),
   },
