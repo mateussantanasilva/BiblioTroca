@@ -1,7 +1,7 @@
 import Link from 'next/link'
+import { BookSimpleData } from '@/hooks/useBooks'
 import { Card } from '@/components/Card'
 import { ArrowRight, PaperPlaneTilt, MapPin, Star } from '@phosphor-icons/react'
-import { BookSimpleData } from '@/hooks/useBooks'
 
 interface BookCardProps {
   book: BookSimpleData
@@ -10,7 +10,7 @@ interface BookCardProps {
 export function BookCard({ book }: BookCardProps) {
   return (
     <Card componentType="article" type="content" className="text-gray-500 px-0">
-      <header className="flex justify-between items-start gap-2 mb-3 px-4">
+      <header className="flex justify-between items-start gap-3 mb-3 px-4">
         <div className="flex flex-col">
           <strong className="font-secondary text-title-sm">{book.name}</strong>
           <p className="text-gray-400 text-base-140">por {book.author}</p>
