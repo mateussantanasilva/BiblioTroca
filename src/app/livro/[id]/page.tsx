@@ -8,8 +8,8 @@ import { Button } from '@/components/Button'
 import { Footer } from '@/components/Footer'
 import { PublicHeader } from '@/components/PublicHeader'
 import { Modal } from '@/components/Modal'
-import { MapPin, Star } from '@phosphor-icons/react'
 import * as Dialog from '@radix-ui/react-dialog'
+import { MapPin, Star } from '@phosphor-icons/react'
 
 interface BookProps {
   params: {
@@ -19,8 +19,8 @@ interface BookProps {
 
 export default function Book({ params }: BookProps) {
   const { data: book, isError } = useSingleBook(params.id)
-  const router = useRouter()
 
+  const router = useRouter()
   isError && router.push('/livros')
 
   return (
@@ -28,7 +28,11 @@ export default function Book({ params }: BookProps) {
       <PublicHeader />
 
       <main className="flex flex-col gap-4 mb-9">
-        <Card componentType="section" type="content" className="text-gray-500">
+        <Card
+          componentType="section"
+          type="content"
+          className="text-gray-500 mx-6"
+        >
           <header className="mb-3">
             <h2 className="font-secondary text-title-lg">{book?.name}</h2>
             <p className="text-gray-400 text-base-140">por {book?.author}</p>
@@ -74,7 +78,11 @@ export default function Book({ params }: BookProps) {
           </ul>
         </Card>
 
-        <Card componentType="section" type="content" className="text-gray-500">
+        <Card
+          componentType="section"
+          type="content"
+          className="text-gray-500 mx-6"
+        >
           <h2 className="font-secondary text-title-base text-primary-500 mb-3">
             Custo de 60 pontos
           </h2>

@@ -9,7 +9,7 @@ interface Seller {
   phoneNumber: string
 }
 
-interface BookCompleteData {
+export interface BookCompleteData {
   id: string
   name: string
   author: string
@@ -30,8 +30,9 @@ async function fetchBookById(id: string) {
 
 export function useSingleBook(id: string) {
   const query = useQuery<BookCompleteData>({
-    queryKey: ['selectedBook'],
+    queryKey: ['selectedBook', id],
     queryFn: async () => await fetchBookById(id),
+    retry: false,
   })
 
   return query
