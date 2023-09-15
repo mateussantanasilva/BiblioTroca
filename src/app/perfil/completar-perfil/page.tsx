@@ -17,7 +17,10 @@ export default function Perfil() {
         </div>
       </Header>
       <main className="relative z-[2] font-primary pb-12 px-6">
-        <form className="flex flex-col gap-8 max-w-lg w-full mx-auto">
+        <form
+          className="flex flex-col gap-8 max-w-lg w-full mx-auto"
+          action="/perfil/trocas-pendentes"
+        >
           <div className="shadow-container bg-white w-full rounded-lg pb-8 px-6 -mt-24 mx-auto md:-mt-28">
             <Avatar
               src="https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80"

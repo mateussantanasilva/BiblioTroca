@@ -37,7 +37,7 @@ export const transactionsDefault: Transaction[] = [
     id: '3',
     book: booksDefault[2],
     sellerCustomer: clientsDefault[1],
-    buyerCustomer: clientsDefault[2],
+    buyerCustomer: clientsDefault[0],
     status: 'Pendente',
     type: 'send',
     startDate: new Date(),

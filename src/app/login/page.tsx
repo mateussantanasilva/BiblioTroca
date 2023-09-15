@@ -20,7 +20,11 @@ export default function Login() {
           Comece sua jornada no mundo da troca de livros educacionais. Clique no
           botão para acessar sua conta.
         </p>
-        <Button className="font-bold mx-auto">
+        <Button
+          className="font-bold mx-auto"
+          componentType="a"
+          href="/perfil/completar-perfil"
+        >
           <Image src="/google.svg" alt="Google Logo" width={26} height={26} />
           Continue com o Google
         </Button>

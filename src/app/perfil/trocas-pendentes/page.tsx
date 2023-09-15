@@ -52,7 +52,7 @@ export default function TrocasPendentes() {
             {pendingTransactions.map((pendingTransaction) => (
               <Link
                 key={pendingTransaction.book.id}
-                href={`/perfil/troca/${pendingTransaction.id}`}
+                href={`/perfil/trocas-pendentes/troca/${pendingTransaction.id}`}
               >
                 <Card
                   type="common"

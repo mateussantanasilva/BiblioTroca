@@ -46,7 +46,7 @@ export default function MeusLivros() {
             <span>
               <Button
                 componentType="a"
-                href="/perfil/meus-livros/cadastrar-livro"
+                href="/perfil/lista-desejos/novo-desejo"
                 className="p-2"
               >
                 <Icon.Plus fill="#fff" size={20} weight="bold" />

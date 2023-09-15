@@ -50,7 +50,7 @@ export default function Historico() {
             {exchanges.map((exchange) => (
               <Link
                 key={exchange.book.id}
-                href={`/perfil/troca/${exchange.id}`}
+                href={`/perfil/historico/troca/${exchange.id}`}
               >
                 <Card
                   type="common"

@@ -3,8 +3,6 @@
 import { Button } from '@/components/Button'
 import { Card } from '@/components/Card'
 import { Header } from '@/components/Header'
-import { InputRadio } from '@/components/InputRadio'
-import { Root } from '@radix-ui/react-radio-group'
 import * as Icon from '@phosphor-icons/react'
 import Link from 'next/link'
 import { TextField } from '@/components/TextField'
@@ -13,7 +11,7 @@ export default function CreateWish() {
   return (
     <>
       <Header className="text-center pt-16">
-        <Link href="/perfil/meus-livros" className="absolute left-6 top-10">
+        <Link href="/perfil/lista-desejos" className="absolute left-6 top-10">
           <Icon.ArrowLeft
             className="hover:scale-110 transition-transform duration-300"
             size={32}

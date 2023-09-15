@@ -1,7 +1,7 @@
-import { barlow, inter } from './fonts'
+import { barlow, inter } from '@/styles/fonts'
 import type { Metadata } from 'next'
 import { QueryProvider } from '@/lib/ReactQuery'
-import './globals.css'
+import '@/styles/globals.css'
 
 export const metadata: Metadata = {
   title: 'BiblioTroca',
