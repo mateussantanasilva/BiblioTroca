@@ -16,7 +16,7 @@ type PagePropos = {
   }
 }
 
-export default function Troca({ params }: PagePropos) {
+export default function TrocaPendente({ params }: PagePropos) {
   const [exchange, setExchange] = useState<Transaction | undefined>(undefined)
 
   useEffect(() => {
@@ -47,100 +47,98 @@ export default function Troca({ params }: PagePropos) {
             type="content"
             className="flex flex-col md:items-center gap-2 md:flex-row md:justify-between mb-4"
           >
-            <div className="flex justify-between items-center md:grid grid-cols-2">
-              <strong className="font-secondary text-title-xs md:text-title-sm">
+            <div className="flex justify-between md:hidden">
+              <strong className="font-secondary w-max text-title-xs md:text-title-sm">
                 {exchange?.book.title}
               </strong>
-              <div className="flex gap-1 items-center text-xs min-[375px]:text-sm-140 md:justify-self-end">
+              <span className="flex gap-1 items-center w-max text-xs min-[375px]:text-sm-140 md:justify-self-end">
                 <Icon.Circle
                   weight="fill"
                   className={status({ color: exchange?.status })}
                 />
                 {exchange?.status}
-              </div>
+              </span>
             </div>
+            <strong className="hidden md:block font-secondary w-max text-title-xs md:text-title-sm">
+              {exchange?.book.title}
+            </strong>
+            <span className="hidden md:flex gap-1 items-center w-max text-xs min-[375px]:text-sm-140 md:justify-self-end">
+              <Icon.Circle
+                weight="fill"
+                className={status({ color: exchange?.status })}
+              />
+              {exchange?.status}
+            </span>
             <p className="font-primary text-sm-140">
-              {exchange?.type === 'send' ? '+' : '-'} 20 pontos (aguardando)
+              {exchange?.type === 'send' ? '+' : '-'} 20 pontos
             </p>
             <div className="flex gap-1 items-center text-sm-140">
               <Icon.CalendarBlank className="w-3 h-3 md:w-4 md:h-4" />
               Solicitada há x dias
             </div>
           </Card>
-          <div
-            className={`flex flex-col lg:${
-              exchange?.status === 'Pendente' ? 'flex-row' : 'grid'
-            } gap-4 mb-4`}
-          >
-            {exchange?.status === 'Pendente' && (
-              <Card type="content" className="lg:w-[65%]">
-                <p className="text-base-140-md mb-3">
-                  {exchange?.type === 'send'
-                    ? 'Atualize os status'
-                    : 'Solicitação a ser confirmada'}
-                </p>
-                <p className="text-base-160 mb-1">
-                  {exchange?.type === 'send'
-                    ? 'Selecione o status certo para manter todos informados sobre o progresso da troca.'
-                    : 'Você enviou uma solicitação de troca. Aguarde a decisão do vendedor de confirmar ou recusar a solicitação. Se mudar de ideia, você tem a opção de cancelar a solicitação a qualquer momento antes da confirmação.'}
-                </p>
-                <form className="flex flex-col gap-11">
-                  {exchange?.type === 'send' ? (
-                    <>
-                      <Root
-                        className="flex flex-col md:flex-row gap-2"
-                        defaultValue="accept"
-                      >
-                        <InputRadio
-                          title="Aceitar Solicitação"
-                          value="accept"
-                          text="Ao selecionar essa opção, você está aceitando prosseguir com a troca"
-                          id="accept"
-                        />
-                        <InputRadio
-                          title="Recusar Solicitação"
-                          value="reject"
-                          text="Selecione esta opção caso não deseje seguir com esta troca atual."
-                          id="reject"
-                        />
-                      </Root>
-                      <Button className="mx-auto">Atualizar status</Button>
-                    </>
-                  ) : (
-                    <>
-                      <Root
-                        className="flex flex-col md:flex-row gap-2"
-                        defaultValue="cancel"
-                      >
-                        <InputRadio
-                          title="Cancelar Solicitação"
-                          value="cancel"
-                          text="Selecione esta opção se decidir interromper a solicitação de troca em andamento."
-                          id="reject"
-                          variant="danger"
-                        />
-                      </Root>
-                      <Button className="mx-auto" variant="ghostPurple">
-                        Cancelar solicitação
-                      </Button>
-                    </>
-                  )}
-                </form>
-              </Card>
-            )}
+          <div className="flex flex-col lg:flex-row gap-4 mb-4">
+            <Card type="content" className="lg:w-[65%]">
+              <p className="text-base-140-md mb-3">
+                {exchange?.type === 'send'
+                  ? 'Atualize os status'
+                  : 'Solicitação a ser confirmada'}
+              </p>
+              <p className="text-base-160 mb-1">
+                {exchange?.type === 'send'
+                  ? 'Selecione o status certo para manter todos informados sobre o progresso da troca.'
+                  : 'Você enviou uma solicitação de troca. Aguarde a decisão do vendedor de confirmar ou recusar a solicitação. Se mudar de ideia, você tem a opção de cancelar a solicitação a qualquer momento antes da confirmação.'}
+              </p>
+              <form className="flex flex-col gap-11">
+                {exchange?.type === 'send' ? (
+                  <>
+                    <Root
+                      className="flex flex-col md:flex-row gap-2"
+                      defaultValue="accept"
+                    >
+                      <InputRadio
+                        title="Aceitar Solicitação"
+                        value="accept"
+                        text="Ao selecionar essa opção, você está aceitando prosseguir com a troca"
+                        id="accept"
+                      />
+                      <InputRadio
+                        title="Recusar Solicitação"
+                        value="reject"
+                        text="Selecione esta opção caso não deseje seguir com esta troca atual."
+                        id="reject"
+                      />
+                    </Root>
+                    <Button className="mx-auto">Atualizar status</Button>
+                  </>
+                ) : (
+                  <>
+                    <Root
+                      className="flex flex-col md:flex-row gap-2"
+                      defaultValue="cancel"
+                    >
+                      <InputRadio
+                        title="Cancelar Solicitação"
+                        value="cancel"
+                        text="Selecione esta opção se decidir interromper a solicitação de troca em andamento."
+                        id="reject"
+                        variant="danger"
+                      />
+                    </Root>
+                    <Button className="mx-auto" variant="ghostPurple">
+                      Cancelar solicitação
+                    </Button>
+                  </>
+                )}
+              </form>
+            </Card>
             <Card
               type="content"
-              className={`flex flex-col justify-center lg:${
-                exchange?.status === 'Pendente' ? 'w-[35%]' : 'w-full'
-              }`}
+              className="flex flex-col justify-center lg:w-[35%]"
             >
               <p className="text-base-140-md mb-3">
                 {exchange?.type === 'send'
-                  ? exchange.status === 'Pendente'
-                    ? `Enviando para ${exchange?.buyerCustomer.name}`
-                    : `Enviado para ${exchange?.buyerCustomer.name}`
-                  : exchange?.status === 'Pendente'
-                  ? `Recebendo de ${exchange?.sellerCustomer.name}`
+                  ? `Enviando para ${exchange?.buyerCustomer.name}`
                   : `Recebendo de ${exchange?.sellerCustomer.name}`}
               </p>
               <p className="flex gap-1 items-center mb-4">
@@ -165,9 +163,6 @@ export default function Troca({ params }: PagePropos) {
                 </p>
               )}
               <p>Solicitada em {exchange?.startDate.toLocaleDateString()}</p>
-              {exchange?.status !== 'Pendente' && (
-                <p>Finalizado em {exchange?.endDate.toLocaleDateString()}</p>
-              )}
             </Card>
           </div>
           <Card type="content">

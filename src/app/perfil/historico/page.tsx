@@ -8,6 +8,12 @@ import { useEffect, useState } from 'react'
 import * as Icon from '@phosphor-icons/react'
 import Link from 'next/link'
 import { formatDate } from '@/utils/format-date'
+import {
+  historySize,
+  myBooksSize,
+  pendingTransactionsSize,
+  wishListSize,
+} from '@/docs/navigationInfo'
 
 export default function Historico() {
   const [exchanges, setExchanges] = useState<Transaction[]>([])
@@ -26,10 +32,10 @@ export default function Historico() {
         <Navigation
           name="Ana Clara"
           src="https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80"
-          amountExchanges={exchanges.length}
-          amountBooks={0}
-          wishlist={0}
-          history={exchanges.length}
+          pendingExchanges={pendingTransactionsSize}
+          amountBooks={myBooksSize}
+          wishlist={wishListSize}
+          history={historySize}
         />
       </Header>
       <main className="px-6 pb-10 mt-28 md:mt-32">
@@ -44,7 +50,7 @@ export default function Historico() {
             {exchanges.map((exchange) => (
               <Link
                 key={exchange.book.id}
-                href={`/perfil/troca/${exchange.id}`}
+                href={`/perfil/historico/troca/${exchange.id}`}
               >
                 <Card
                   type="common"

@@ -14,7 +14,7 @@ import 'swiper/css/pagination'
 import '@/styles/swiper.css'
 
 type NavigationProps = AvatarProps & {
-  amountExchanges: number
+  pendingExchanges: number
   amountBooks: number
   wishlist: number
   history: number
@@ -24,7 +24,7 @@ export function Navigation({
   name,
   src,
   amountBooks,
-  amountExchanges,
+  pendingExchanges,
   history,
   wishlist,
 }: NavigationProps) {
@@ -67,7 +67,7 @@ export function Navigation({
                 Trocas
               </p>
               <p className="text-xs text-gray-400">
-                {amountExchanges} pendentes
+                {pendingExchanges} pendentes
               </p>
             </Card>
           </Link>
@@ -129,7 +129,7 @@ export function Navigation({
             />
             <p className="text-base text-gray-600 font-medium mb-2">Trocas</p>
             <p className="text-xs text-gray-400 break-keep">
-              {amountExchanges} pendentes
+              {pendingExchanges} pendentes
             </p>
           </Card>
         </Link>

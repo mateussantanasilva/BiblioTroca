@@ -25,6 +25,6 @@ export const clientsDefault: Client[] = [
     email: 'teuszika2@gmail.com',
     cep: '08156-630',
     telephone: '(11) 94346-4488',
-    rating: 5,
+    rating: 4.7,
   },
 ]
