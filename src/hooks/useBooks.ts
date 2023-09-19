@@ -1,21 +1,6 @@
+import { BookSimpleData } from '@/@types/bookSimpleData'
 import { api } from '@/lib/axios'
 import { useQuery } from '@tanstack/react-query'
-
-interface Seller {
-  name: string
-  location: string
-  averageRating: number
-  avaliationsNumber: number
-}
-
-export interface BookSimpleData {
-  id: string
-  name: string
-  author: string
-  shortDescription: string
-  category: string
-  seller: Seller
-}
 
 interface ApiParams {
   _sort: string

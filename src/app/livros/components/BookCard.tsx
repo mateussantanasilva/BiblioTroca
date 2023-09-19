@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { BookSimpleData } from '@/hooks/useBooks'
+import { BookSimpleData } from '@/@types/bookSimpleData'
 import { Card } from '@/components/Card'
 import { ArrowRight, PaperPlaneTilt, MapPin, Star } from '@phosphor-icons/react'
 
