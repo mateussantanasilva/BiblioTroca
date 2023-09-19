@@ -1,16 +1,15 @@
 /* eslint-disable prettier/prettier */
 import Image from 'next/image'
 import { Card } from './Card'
-import { Button } from './Button'
 import * as Dialog from '@radix-ui/react-dialog'
-import { X } from '@phosphor-icons/react'
-
-import RequestExchangeImage from '../assets/variantsModal/requestExchange.png'
-import DeleteAccountImage from '../assets/variantsModal/deleteAccount.svg'
-import RefuseExchangeImage from '../assets/variantsModal/refuseExchange.svg'
-import EvaluateImage from '../assets/variantsModal/evaluate.svg'
-import DeleteBookImage from '../assets/variantsModal/deleteBook.svg'
+import { contentVariants } from '@/constants/modalVariants'
+import { RequestExchangeModal } from './modalVariants/RequestExchangeModal'
+import { DeleteAccountModal } from './modalVariants/DeleteAccountModal'
+import { RefuseExchangeModal } from './modalVariants/RefuseExchangeModal'
+import { EvaluateModal } from './modalVariants/EvaluateModal'
+import { DeleteBookModal } from './modalVariants/DeleteBookModal'
 import { StarRating } from './StarRating'
+import { X } from '@phosphor-icons/react'
 
 interface ModalProps {
   variant:
@@ -19,68 +18,24 @@ interface ModalProps {
   | 'refuseExchange'
   | 'evaluate'
   | 'deleteBook'
-  namePersonEvaluated?: string 
+  namePersonEvaluated?: string
 }
 
 export function Modal({ variant }: ModalProps) {
-  const contentVariants = {
-    requestExchange: {
-      imageUrl: RequestExchangeImage,
-      alt: 'Aperto de mão',
-      title: 'Confirme a Solicitação',
-      description:
-        'Ao confirmar, você estará solicitando a troca pelo livro Clean code. Deseja continuar?',
-    },
-    deleteAccount: {
-      imageUrl: DeleteAccountImage,
-      alt: 'Usuário triste que porque será apagado',
-      title: 'Confirmar Exclusão',
-      description:
-        'Excluindo sua conta, todos os seus dados e pontos serão permanentemente perdidos.',
-    },
-    refuseExchange: {
-      imageUrl: RefuseExchangeImage,
-      alt: 'Aperto de mão com um X vermelho',
-      title: 'Desfazer Acordo',
-      description:
-        'Você está prestes a interromper o processo de troca. Tem certeza de que quer continuar?',
-    },
-    evaluate: {
-      imageUrl: EvaluateImage,
-      alt: 'Estrelas acima de um perfil',
-      title: 'Avalie Pedro',
-      description:
-        'Como foi sua experiência com Pedro durante esta troca? Seu feedback é essencial para nossa comunidade.',
-    },
-    deleteBook: {
-      imageUrl: DeleteBookImage,
-      alt: 'Livro com um X vermelho',
-      title: 'Confirmar Exclusão',
-      description:
-        'Você está prestes a excluir este livro do seu perfil. Tem certeza de que deseja continuar?',
-    },
-  }
   const selectedVariant = contentVariants[variant]
 
   function selectButtonSchema() {
     switch (variant) {
       case 'requestExchange':
-        return (
-          <div className="flex flex-col gap-1">
-            <Button className="border-2 border-primary-500 [&:not(:disabled)]:hover:border-primary-400">
-              Confirmar solicitação
-            </Button>
-            <Button variant="ghostPurple">Retornar à negociação</Button>
-          </div>
-        )
+        return <RequestExchangeModal />
       case 'deleteAccount':
-        return <Button variant="delete">Confirmar exclusão</Button>
+        return <DeleteAccountModal />
       case 'refuseExchange':
-        return <Button variant="delete">Confirmar ação</Button>
+        return <RefuseExchangeModal />
       case 'evaluate':
-        return <Button variant="evaluate">Enviar avaliação</Button>
+        return <EvaluateModal />
       case 'deleteBook':
-        return <Button variant="delete">Sim, excluir</Button>
+        return <DeleteBookModal />
     }
   }
 
