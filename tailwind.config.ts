@@ -57,6 +57,10 @@ const config: Config = {
         'white-100': '#FCFCFC',
         white: '#FFFFFF',
       },
+      gridTemplateColumns: {
+        'book-cards': 'repeat(auto-fill, minmax(18.5rem, 1fr))',
+        book: '1fr 19.5rem',
+      },
       boxShadow: {
         container: '0px 2px 6px 0px rgba(0, 0, 0, 0.20)',
         'container-lg': '0px 3px 8px rgba(0, 0, 0, 0.24)',

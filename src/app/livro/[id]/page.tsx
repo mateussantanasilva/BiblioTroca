@@ -2,6 +2,8 @@
 
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { useContextSelector } from 'use-context-selector'
+import { ModalContext } from '@/contexts/ModalContext'
 import { useSingleBook } from '@/hooks/useSingleBook'
 import { Card } from '@/components/Card'
 import { Button } from '@/components/Button'
@@ -18,21 +20,26 @@ interface BookProps {
 }
 
 export default function Book({ params }: BookProps) {
+  const { modalIsOpen, changeModalVisibility } = useContextSelector(
+    ModalContext,
+    (context) => {
+      return {
+        ...context,
+      }
+    },
+  )
+
   const { data: book, isError } = useSingleBook(params.id)
 
   const router = useRouter()
   isError && router.push('/livros')
 
   return (
-    <div className="flex flex-col mx-auto max-w-[375px]">
+    <>
       <PublicHeader />
 
-      <main className="flex flex-col gap-4 mb-9">
-        <Card
-          componentType="section"
-          type="content"
-          className="text-gray-500 mx-6"
-        >
+      <main className="max-w-[73rem] mx-auto px-6 grid grid-cols-1 gap-4 mb-9 md:grid-cols-book">
+        <Card componentType="section" type="content" className="text-gray-500">
           <header className="mb-3">
             <h2 className="font-secondary text-title-lg">{book?.name}</h2>
             <p className="text-gray-400 text-base-140">por {book?.author}</p>
@@ -81,51 +88,53 @@ export default function Book({ params }: BookProps) {
         <Card
           componentType="section"
           type="content"
-          className="text-gray-500 mx-6"
+          className="flex flex-col justify-between text-gray-500"
         >
-          <h2 className="font-secondary text-title-base text-primary-500 mb-3">
-            Custo de 60 pontos
-          </h2>
+          <div>
+            <h2 className="font-secondary text-title-base text-primary-500 mb-3">
+              Custo de 60 pontos
+            </h2>
 
-          <section className="flex flex-col gap-1 mb-5">
-            <p className="text-base-140">Enviado por {book?.seller.name}</p>
+            <section className="flex flex-col gap-1 mb-5">
+              <p className="text-base-140">Enviado por {book?.seller.name}</p>
 
-            <div className="flex items-center gap-1">
+              <div className="flex items-center gap-1">
+                <p className="flex items-center gap-1 text-base-140">
+                  <Star weight="fill" className="text-orange-500" />
+                  {book?.seller.averageRating}
+                </p>
+                <span className="text-gray-400 text-sm-140">{`(${book?.seller.avaliationsNumber})`}</span>
+              </div>
+
               <p className="flex items-center gap-1 text-base-140">
-                <Star weight="fill" className="text-orange-500" />
-                {book?.seller.averageRating}
+                <MapPin size={'0.75rem'} />
+                {book?.seller.location}
               </p>
-              <span className="text-gray-400 text-sm-140">{`(${book?.seller.avaliationsNumber})`}</span>
-            </div>
+            </section>
 
-            <p className="flex items-center gap-1 text-base-140">
-              <MapPin size={'0.75rem'} />
-              {book?.seller.location}
+            <p className="text-base-160 mb-2">
+              Negocie diretamente com {book?.seller.name} e defina os detalhes
+              da troca antes de prosseguir com a solicitação. Toque abaixo para
+              iniciar a conversa.
             </p>
-          </section>
 
-          <p className="text-base-160 mb-2">
-            Negocie diretamente com {book?.seller.name} e defina os detalhes da
-            troca antes de prosseguir com a solicitação. Toque abaixo para
-            iniciar a conversa.
-          </p>
+            <Button
+              componentType={Link}
+              variant="whatsapp"
+              size="sm"
+              href={`https://wa.me/${book?.seller.phoneNumber}`}
+              target="_blank"
+            >
+              Entrar em contato
+            </Button>
 
-          <Button
-            componentType={Link}
-            variant="whatsapp"
-            size="sm"
-            href={`https://wa.me/${book?.seller.phoneNumber}`}
-            target="_blank"
-          >
-            Entrar em contato
-          </Button>
+            <p className="text-base-160 mt-5 mb-11">
+              Tudo combinado e pronto para avançar? Solicite a troca agora mesmo
+              clicando abaixo.
+            </p>
+          </div>
 
-          <p className="text-base-160 mt-5 mb-11">
-            Tudo combinado e pronto para avançar? Solicite a troca agora mesmo
-            clicando abaixo.
-          </p>
-
-          <Dialog.Root>
+          <Dialog.Root onOpenChange={changeModalVisibility} open={modalIsOpen}>
             <Dialog.Trigger asChild>
               <Button>Solicitar troca</Button>
             </Dialog.Trigger>
@@ -136,6 +145,6 @@ export default function Book({ params }: BookProps) {
       </main>
 
       <Footer />
-    </div>
+    </>
   )
 }
