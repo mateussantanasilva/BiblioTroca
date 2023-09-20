@@ -12,6 +12,7 @@ import { FreeMode } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import '@/styles/swiper.css'
+import { Dropdown } from './Dropdown'
 
 type NavigationProps = AvatarProps & {
   pendingExchanges: number
@@ -29,7 +30,7 @@ export function Navigation({
   wishlist,
 }: NavigationProps) {
   return (
-    <nav className="relative z-[2] max-w-5xl mx-auto font-primary">
+    <nav className="max-w-5xl mx-auto font-primary">
       <section className="flex justify-between items-center mb-10">
         <div>
           <span className="font-primary text-sm md:text-lg">Bem vindo(a),</span>
@@ -45,11 +46,39 @@ export function Navigation({
           </DropdownMenu.Trigger>
 
           <DropdownMenu.Portal>
-            <DropdownMenu.Content className="bg-white rounded-lg w-max h-max">
-              <DropdownMenu.Item className="flex items-center gap-2">
-                <Icon.PencilSimple className="text-black" />
-              </DropdownMenu.Item>
-            </DropdownMenu.Content>
+            <Dropdown.Content>
+              <Dropdown.Item>
+                <Link
+                  className="flex items-center justify-between px-3 w-full h-full"
+                  href="/perfil/editar-perfil"
+                >
+                  <span>Gerenciar Conta</span>
+                  <Icon.Gear size={18} color="#000" />
+                </Link>
+              </Dropdown.Item>
+              <Dropdown.Separator />
+              <Dropdown.Item>
+                <button className="flex items-center justify-between px-3 w-full h-full">
+                  <span>Alto Contraste</span>
+                  <Icon.CircleHalf size={18} weight="fill" color="#000" />
+                </button>
+              </Dropdown.Item>
+              <Dropdown.Item>
+                <button className="flex items-center justify-between px-3 w-full h-full">
+                  <span>Tema claro</span>
+                  <Icon.Sun size={18} color="#000" />
+                </button>
+              </Dropdown.Item>
+              <Dropdown.Item>
+                <Link
+                  className="flex items-center justify-between px-3 w-full h-full text-red-500"
+                  href="/login"
+                >
+                  <span>Encerrar sessão</span>
+                  <Icon.SignOut size={18} className="text-red-500" />
+                </Link>
+              </Dropdown.Item>
+            </Dropdown.Content>
           </DropdownMenu.Portal>
         </DropdownMenu.Root>
       </section>
@@ -119,7 +148,7 @@ export function Navigation({
         </SwiperSlide>
       </Swiper>
 
-      <div className="hidden min-[650px]:grid grid-cols-4 absolute w-full gap-5">
+      <div className="hidden min-[600px]:grid grid-cols-4 w-full gap-5">
         <Link href="/perfil/trocas-pendentes">
           <Card type="menu">
             <Icon.Swap

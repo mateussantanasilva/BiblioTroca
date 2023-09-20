@@ -70,6 +70,33 @@ const config: Config = {
       backgroundColor: {
         overlay: 'rgba(0, 0, 0, 0.75)',
       },
+      keyframes: {
+        slideDownAndFade: {
+          '0%': { transform: 'translateY(-2px)' },
+          '100%': { transform: 'translateY(0)' },
+        },
+        slideLeftAndFade: {
+          '0%': { transform: 'translateX(2px)' },
+          '100%': { transform: 'translateX(0)' },
+        },
+        slideUpAndFade: {
+          '0%': { transform: 'translateY(2px)' },
+          '100%': { transform: 'translateY(0)' },
+        },
+        slideRightAndFade: {
+          '0%': { transform: 'translateX(-2px)' },
+          '100%': { transform: 'translateX(0)' },
+        },
+      },
+      animation: {
+        slideDownAndFade:
+          'slideDownAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
+        slideLeftAndFade:
+          'slideLeftAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
+        slideUpAndFade: 'slideUpAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
+        slideRightAndFade:
+          'slideRightAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
+      },
     },
   },
   plugins: [],

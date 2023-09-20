@@ -4,4 +4,12 @@
 
 html {
   overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+body {
+  @apply
+    overflow-x-hidden
+    w-screen
+  ;
 }
