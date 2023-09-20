@@ -1,12 +1,15 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import { useBooks } from '@/hooks/useBooks'
 import { PublicHeader } from '@/components/PublicHeader'
 import { Card } from '@/components/Card'
 import { BookCard } from './components/BookCard'
 import { Footer } from '@/components/Footer'
 import { SearchForm } from './components/SearchForm'
+
+import SeachBooksImage from '../../assets/search-books.jpg'
 
 export default function Books() {
   const [query, setQuery] = useState<string | undefined>(undefined)
@@ -18,35 +21,47 @@ export default function Books() {
   }
 
   return (
-    <div className="flex flex-col mx-auto max-w-[375px]">
+    <>
       <PublicHeader />
 
-      <Card
-        componentType="section"
-        type="content"
-        className="text-gray-500 mx-6"
-      >
-        <h2 className="text-title-lg font-secondary mb-3">
-          Explore Livros Disponíveis
-        </h2>
-        <p className="text-lg-140 mb-10">
-          Encontre e inicie uma jornada de trocas para expandir sua biblioteca e
-          compartilhar conhecimento.
-        </p>
+      <main className="max-w-[73rem] mx-auto">
+        <Card
+          componentType="section"
+          type="content"
+          className="flex justify-between text-gray-500 mx-6 p-0 overflow-hidden"
+        >
+          <div className="px-4 py-5">
+            <h2 className="text-title-lg font-secondary mb-3">
+              Explore Livros Disponíveis
+            </h2>
+            <p className="text-lg-140 mb-10 max-w-[38.063rem]">
+              Encontre e inicie uma jornada de trocas para expandir sua
+              biblioteca e compartilhar conhecimento.
+            </p>
 
-        <SearchForm createQuery={createQuery} />
-      </Card>
+            <SearchForm createQuery={createQuery} />
+          </div>
 
-      <main className="flex flex-wrap gap-4 mt-8 mb-9 mx-6">
-        {isLoading && <p>Carregando...</p>}
+          <Image
+            src={SeachBooksImage}
+            alt="Livros empilhados"
+            width={342}
+            priority
+            className="hidden md:block"
+          />
+        </Card>
 
-        {books &&
-          books.map((book) => {
-            return <BookCard key={book.id} book={book} />
-          })}
+        <section className="grid grid-cols-book-cards gap-4 mt-8 mb-9 mx-6 max-[350px]:grid-cols-1">
+          {isLoading && <p>Carregando...</p>}
+
+          {books &&
+            books.map((book) => {
+              return <BookCard key={book.id} book={book} />
+            })}
+        </section>
       </main>
 
       <Footer />
-    </div>
+    </>
   )
 }
