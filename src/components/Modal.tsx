@@ -43,7 +43,7 @@ export function Modal({ variant }: ModalProps) {
     <Dialog.Portal>
       <Dialog.Overlay className="fixed inset-0 w-screen h-screen bg-overlay" />
 
-      <Dialog.Content asChild className="w-max">
+      <Dialog.Content className="w-max">
         <Card
           type="content"
           componentType="section"

@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { ComponentProps, ElementType } from 'react'
+import { ComponentProps, ElementType, forwardRef } from 'react'
 import { VariantProps, tv } from 'tailwind-variants'
 import { WhatsappLogo } from '@phosphor-icons/react'
 
@@ -38,22 +38,28 @@ const button = tv({
   },
 })
 
-type ButtonProps<T extends ElementType> = ComponentProps<T> &
-  VariantProps<typeof button> & {
-    componentType?: T // changes component type based on choice
-  }
+type BaseButtonProps<T extends ElementType> = {
+  componentType?: T
+} & ComponentProps<T> &
+  VariantProps<typeof button>
 
-// options: button or Link
-export function Button<T extends ElementType = 'button' | typeof Link>({
-  componentType: ComponentType = 'button',
-  variant,
-  size,
-  children,
-  className,
-  ...props
-}: ButtonProps<T>) {
-  return (
-    <ComponentType className={button({ variant, size, className })} {...props}>
+const ButtonComponent = forwardRef<any, BaseButtonProps<any>>(
+  (
+    {
+      componentType: Component = 'button',
+      variant,
+      size,
+      children,
+      className,
+      ...props
+    },
+    ref,
+  ) => (
+    <Component
+      ref={ref}
+      className={button({ variant, size, className })}
+      {...props}
+    >
       {variant === 'whatsapp' ? (
         <>
           <WhatsappLogo size={'1.54rem'} />
@@ -62,6 +68,12 @@ export function Button<T extends ElementType = 'button' | typeof Link>({
       ) : (
         children
       )}
-    </ComponentType>
-  )
+    </Component>
+  ),
+)
+
+ButtonComponent.displayName = 'ButtonComponent'
+
+export const Button = ButtonComponent as typeof ButtonComponent & {
+  defaultProps: Partial<BaseButtonProps<'button' | typeof Link>>
 }
