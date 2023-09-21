@@ -17,6 +17,8 @@ import { Wishlist, wishlistDefault } from '@/model/wishlist'
 import { Dropdown } from '@/components/Dropdown'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import Link from 'next/link'
+import * as Dialog from '@radix-ui/react-dialog'
+import { Modal } from '@/components/Modal'
 
 export default function MeusLivros() {
   const [myWishlist, setMyWishlist] = useState<Wishlist[]>([])
@@ -101,13 +103,20 @@ export default function MeusLivros() {
                         </Dropdown.Item>
                         <Dropdown.Separator />
                         <Dropdown.Item>
-                          <button className="flex items-center justify-between px-3 w-full h-full">
-                            <span className="text-red-500">Deletar item</span>
-                            <Icon.TrashSimple
-                              size={18}
-                              className="text-red-500"
-                            />
-                          </button>
+                          <Dialog.Root>
+                            <Dialog.Trigger asChild>
+                              <button className="flex items-center justify-between px-3 w-full h-full">
+                                <span className="text-red-500">
+                                  Deletar item
+                                </span>
+                                <Icon.TrashSimple
+                                  size={18}
+                                  className="text-red-500"
+                                />
+                              </button>
+                            </Dialog.Trigger>
+                            <Modal variant="deleteBook" />
+                          </Dialog.Root>
                         </Dropdown.Item>
                       </Dropdown.Content>
                     </DropdownMenu.Portal>
