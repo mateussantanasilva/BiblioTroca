@@ -13,3 +13,20 @@ body {
     w-screen
   ;
 }
+
+::-webkit-scrollbar {
+  width: 0.75rem;
+}
+
+::-webkit-scrollbar-track {
+  background: #E6E5E5;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #7C7C8A;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9c9caf;
+}

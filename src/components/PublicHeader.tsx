@@ -1,13 +1,13 @@
 'use client'
 
 import { ComponentProps, useState } from 'react'
+import Link from 'next/link'
 import { VariantProps, tv } from 'tailwind-variants'
 import { Logo } from './Logo'
-import { List } from '@phosphor-icons/react'
 import { MobilePublicHeader } from './MobilePublicHeader'
-import Link from 'next/link'
 import { SwitchTheme } from './SwitchTheme'
 import { Button } from './Button'
+import { List } from '@phosphor-icons/react'
 
 const header = tv({
   base: 'py-6 mb-9',
@@ -45,12 +45,21 @@ export function PublicHeader({ variant }: PublicHeaderProps) {
           )}
 
           <nav className="hidden sm:block">
-            <ul className="flex gap-5 text-gray-600 font-primary text-base-140-md">
-              <li className="hover:text-primary-500 transition-colors duration-200">
+            <ul
+              className={`flex gap-5 font-primary text-base-140-md text-gray-600
+              ${isHomeHeader && 'text-white'}`}
+            >
+              <li
+                className={`transition-colors duration-200 hover:text-primary-500 
+                ${isHomeHeader && 'hover:text-primary-400'}`}
+              >
                 <Link href="/">Home</Link>
               </li>
 
-              <li className="hover:text-primary-500 transition-colors duration-200">
+              <li
+                className={`transition-colors duration-200 hover:text-primary-500 
+                ${isHomeHeader && 'hover:text-primary-400'}`}
+              >
                 <Link href="/livros">Buscar Livros</Link>
               </li>
             </ul>
@@ -60,13 +69,13 @@ export function PublicHeader({ variant }: PublicHeaderProps) {
             <Button
               componentType="a"
               href="/login"
-              variant="ghostPurple"
+              variant={isHomeHeader ? 'ghostWhite' : 'ghostPurple'}
               size="sm"
             >
               Entrar
             </Button>
 
-            <SwitchTheme />
+            <SwitchTheme isHomeHeader={isHomeHeader} />
           </div>
 
           <button onClick={handleOpenMobileMenu} className="sm:hidden">
