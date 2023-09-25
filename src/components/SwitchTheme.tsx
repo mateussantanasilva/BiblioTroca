@@ -2,10 +2,10 @@ import * as Switch from '@radix-ui/react-switch'
 import { CircleHalf, Sun } from '@phosphor-icons/react'
 
 interface SwitchThemeProps {
-  isHomeHeader: boolean
+  isHomeHeader?: boolean
 }
 
-export function SwitchTheme({ isHomeHeader }: SwitchThemeProps) {
+export function SwitchTheme({ isHomeHeader = false }: SwitchThemeProps) {
   return (
     <Switch.Root
       id="change-theme"
