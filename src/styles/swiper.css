@@ -1,8 +1,10 @@
 .swiper {
   @apply
-    min-[650px]:hidden
+    min-[600px]:hidden
     overflow-hidden
     -ml-2
+    relative
+    z-[1]
   ;
 }
 

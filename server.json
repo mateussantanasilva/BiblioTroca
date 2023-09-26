@@ -41,6 +41,20 @@
         "averageRating": 4.7,
         "avaliationsNumber": 14
       }
+    },
+    {
+      "id": 4,
+      "name": "Rápido e devagar",
+      "author": "Richard Helm",
+      "shortDescription": "O livro destaca a importância de manter o código limpo, não apenas para a eficácia imediata, mas",
+      "category": "Tecnologia",
+      "createdAt": "2023-09-13T23:19:46.765Z",
+      "seller": {
+        "name": "Pedro",
+        "location": "Itaim Bibi, São Paulo",
+        "averageRating": 4.7,
+        "avaliationsNumber": 14
+      }
     }
   ],
   "books-details": [
@@ -100,11 +114,30 @@
         "avaliationsNumber": 14,
         "phoneNumber": "11912345678"
       }
+    },
+    {
+      "id": 4,
+      "name": "Rápido e devagar",
+      "author": "Richard Helm",
+      "category": "Tecnologia",
+      "language": "Português",
+      "year": "2009",
+      "publishingCompany": "Alta Books",
+      "state": "Pode ter algumas marcas leves de manuseio, sem rasuras.",
+      "description": "O livro destaca a importância de manter o código limpo, não apenas para a eficácia imediata, mas para garantir que o software permaneça sustentável e fácil de manter a longo prazo. Utilizando exemplos práticos e diretrizes claras, Martin delineia os princípios do desenvolvimento de software ágil, focando em técnicas e práticas que levam a um código mais limpo e eficiente.",
+      "createdAt": "2023-09-13T23:19:46.765Z",
+      "seller": {
+        "name": "Pedro",
+        "location": "Itaim Bibi, São Paulo",
+        "averageRating": 4.7,
+        "avaliationsNumber": 14,
+        "phoneNumber": "11912345678"
+      }
     }
   ],
   "transactions": [
     {
-      "id": 1,
+      "id": "2023-09-14T22:35:19.931Z",
       "status": "Solicitação pendente",
       "createdAt": "2023-09-14T22:35:19.931Z",
       "bookDetails": {

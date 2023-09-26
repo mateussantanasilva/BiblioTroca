@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { BookSimpleData } from '@/hooks/useBooks'
+import { BookSimpleData } from '@/@types/bookSimpleData'
 import { Card } from '@/components/Card'
 import { ArrowRight, PaperPlaneTilt, MapPin, Star } from '@phosphor-icons/react'
 
@@ -10,7 +10,7 @@ interface BookCardProps {
 export function BookCard({ book }: BookCardProps) {
   return (
     <Card componentType="article" type="content" className="text-gray-500 px-0">
-      <header className="flex justify-between items-start gap-3 mb-3 px-4">
+      <header className="flex justify-between items-start gap-3 mb-3 px-4 max-[350px]:flex-col">
         <div className="flex flex-col">
           <strong className="font-secondary text-title-sm">{book.name}</strong>
           <p className="text-gray-400 text-base-140">por {book.author}</p>
@@ -37,7 +37,7 @@ export function BookCard({ book }: BookCardProps) {
         {book.category}
       </span>
 
-      <footer className="pt-4 flex justify-between items-start border-t-[1px] border-gray-300">
+      <footer className="pt-4 flex justify-between items-start border-t-[1px] border-gray-300 max-[350px]:flex-col">
         <div className="flex flex-col gap-[0.125rem] px-4">
           <p className="flex items-center gap-1 text-base-140">
             <PaperPlaneTilt size={'0.75rem'} />
@@ -49,7 +49,7 @@ export function BookCard({ book }: BookCardProps) {
           </p>
         </div>
 
-        <div className="flex items-center gap-1 px-4">
+        <div className="flex items-center gap-1 px-4 max-[350px]:mt-[0.125rem]">
           <p className="flex items-center gap-1 text-base-140">
             <Star weight="fill" className="text-orange-500" />
             {book.seller.averageRating}
