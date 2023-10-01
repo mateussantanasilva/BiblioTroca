@@ -6,7 +6,7 @@ import { VariantProps, tv } from 'tailwind-variants'
 import { WhatsappLogo } from '@phosphor-icons/react'
 
 const button = tv({
-  base: 'flex items-center justify-center gap-1 rounded-lg py-4 px-5 text-center font-secondary text-btn-base transition-colors duration-200 focus:outline-1 lg:max-w-md cursor-pointer disabled:opacity-80 disabled:cursor-not-allowed',
+  base: 'flex items-center justify-center gap-1 rounded-lg py-4 px-5 text-center font-secondary text-btn-base transition-colors duration-200 focus:outline-1 lg:max-w-md cursor-pointer disabled:opacity-80 disabled:cursor-not-allowed dark:bg-black dark:[&:not(:disabled)]:hover:bg-black dark:border-2 dark:border-white dark:text-yellow-500 dark:[&:not(:disabled)]:hover:text-yellow-300',
 
   variants: {
     variant: {

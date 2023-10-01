@@ -4,22 +4,22 @@ import { Logo } from './Logo'
 
 export function Footer() {
   return (
-    <div className="border-t border-gray-300">
+    <div className="border-t border-gray-300 dark:bg-black">
       <footer className="max-w-[73rem] mx-auto flex flex-col gap-5 py-9 px-6 text-gray-600 sm:flex-row sm:justify-between md:gap-40">
-        <div>
+        <div className="dark:text-white">
           <Logo className="w-[8.438rem] mb-3" />
 
           <p className="text-base-140 mb-1">Copyright © 2023 Bibliotroca.</p>
           <p className="text-sm-140">Conhecimento. Compartilhado.</p>
         </div>
 
-        <div className="flex flex-col justify-between gap-10 md:flex-row md:flex-1">
+        <div className="flex flex-col justify-between gap-10 md:flex-row md:flex-1 dark:text-yellow-500">
           <nav>
             <ul className="grid grid-cols-2 gap-y-3 gap-x-7 max-w-fit text-base-140-md md:gap-x-14">
               <li>
                 <Link
                   href="/"
-                  className="hover:text-primary-500 transition-colors duration-200"
+                  className="hover:text-primary-500 transition-colors duration-200 dark:hover:text-yellow-300"
                 >
                   Home
                 </Link>
@@ -28,7 +28,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/livros"
-                  className="hover:text-primary-500 transition-colors duration-200"
+                  className="hover:text-primary-500 transition-colors duration-200 dark:hover:text-yellow-300"
                 >
                   Buscar Livros
                 </Link>
@@ -37,7 +37,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/login"
-                  className="hover:text-primary-500 transition-colors duration-200"
+                  className="hover:text-primary-500 transition-colors duration-200 dark:hover:text-yellow-300"
                 >
                   Entrar
                 </Link>
@@ -46,7 +46,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/login"
-                  className="hover:text-primary-500 transition-colors duration-200"
+                  className="hover:text-primary-500 transition-colors duration-200 dark:hover:text-yellow-300"
                 >
                   Cadastrar
                 </Link>

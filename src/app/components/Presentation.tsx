@@ -14,9 +14,9 @@ export function Presentation() {
       <Card
         componentType="section"
         type="content"
-        className="flex flex-col justify-between flex-1 pb-0"
+        className="flex flex-col justify-between flex-1 pb-0 dark:bg-black dark:border"
       >
-        <div>
+        <div className="dark:text-white">
           <h2 className="text-title-lg font-secondary mb-3">
             Reviva Cada Página
           </h2>
@@ -34,7 +34,11 @@ export function Presentation() {
         />
       </Card>
 
-      <Card componentType="section" type="content" className="flex-1">
+      <Card
+        componentType="section"
+        type="content"
+        className="flex-1 dark:bg-black dark:border dark:text-white"
+      >
         <h2 className="text-title-lg font-secondary mb-3">
           Excelência em Cada Ferramenta
         </h2>

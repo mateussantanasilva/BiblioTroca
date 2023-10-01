@@ -35,14 +35,20 @@ export default function Book({ params }: BookProps) {
   isError && router.push('/livros')
 
   return (
-    <>
+    <div className="dark:bg-black">
       <PublicHeader />
 
       <main className="max-w-[73rem] mx-auto px-6 grid grid-cols-1 gap-4 mb-9 md:grid-cols-book">
-        <Card componentType="section" type="content" className="text-gray-500">
+        <Card
+          componentType="section"
+          type="content"
+          className="text-gray-500 dark:bg-black dark:shadow-solid-white dark:text-white"
+        >
           <header className="mb-3">
             <h2 className="font-secondary text-title-lg">{book?.name}</h2>
-            <p className="text-gray-400 text-base-140">por {book?.author}</p>
+            <p className="text-gray-400 text-base-140 dark:text-white">
+              por {book?.author}
+            </p>
           </header>
 
           <ul className="flex flex-col gap-5">
@@ -50,7 +56,7 @@ export default function Book({ params }: BookProps) {
               <strong className="text-base-140">Categoria</strong>
               <span
                 aria-label="categoria"
-                className="rounded-xl border-[1px] border-primary-500 py-1 px-3 text-primary-500 text-xs-140 w-fit"
+                className="rounded-xl border-[1px] border-primary-500 py-1 px-3 text-primary-500 text-xs-140 w-fit dark:text-white dark:border-white"
               >
                 {book?.category}
               </span>
@@ -88,10 +94,10 @@ export default function Book({ params }: BookProps) {
         <Card
           componentType="section"
           type="content"
-          className="flex flex-col justify-between text-gray-500"
+          className="flex flex-col justify-between text-gray-500 dark:bg-black dark:shadow-solid-white dark:text-white"
         >
           <div>
-            <h2 className="font-secondary text-title-base text-primary-500 mb-3">
+            <h2 className="font-secondary text-title-base text-primary-500 mb-3 dark:text-white">
               Custo de 60 pontos
             </h2>
 
@@ -103,7 +109,7 @@ export default function Book({ params }: BookProps) {
                   <Star weight="fill" className="text-orange-500" />
                   {book?.seller.averageRating}
                 </p>
-                <span className="text-gray-400 text-sm-140">{`(${book?.seller.avaliationsNumber})`}</span>
+                <span className="text-gray-400 text-sm-140 dark:text-white">{`(${book?.seller.avaliationsNumber})`}</span>
               </div>
 
               <p className="flex items-center gap-1 text-base-140">
@@ -145,6 +151,6 @@ export default function Book({ params }: BookProps) {
       </main>
 
       <Footer />
-    </>
+    </div>
   )
 }

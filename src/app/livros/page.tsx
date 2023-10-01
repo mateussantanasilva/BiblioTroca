@@ -9,7 +9,7 @@ import { BookCard } from './components/BookCard'
 import { Footer } from '@/components/Footer'
 import { SearchForm } from './components/SearchForm'
 
-import SeachBooksImage from '../../assets/search-books.jpg'
+import SeachBooksImage from '../../assets/search-books.png'
 
 export default function Books() {
   const [query, setQuery] = useState<string | undefined>(undefined)
@@ -21,14 +21,14 @@ export default function Books() {
   }
 
   return (
-    <>
+    <div className="dark:bg-black">
       <PublicHeader />
 
       <main className="max-w-[73rem] mx-auto">
         <Card
           componentType="section"
           type="content"
-          className="flex justify-between text-gray-500 mx-6 p-0 overflow-hidden"
+          className="flex justify-between text-gray-500 mx-6 p-0 overflow-hidden dark:bg-black dark:shadow-solid-white dark:text-white"
         >
           <div className="px-4 py-5">
             <h2 className="text-title-lg font-secondary mb-3">
@@ -62,6 +62,6 @@ export default function Books() {
       </main>
 
       <Footer />
-    </>
+    </div>
   )
 }

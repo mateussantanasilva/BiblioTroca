@@ -9,17 +9,23 @@ interface BookCardProps {
 
 export function BookCard({ book }: BookCardProps) {
   return (
-    <Card componentType="article" type="content" className="text-gray-500 px-0">
+    <Card
+      componentType="article"
+      type="content"
+      className="text-gray-500 px-0 dark:bg-black dark:shadow-solid-white dark:text-white"
+    >
       <header className="flex justify-between items-start gap-3 mb-3 px-4 max-[350px]:flex-col">
         <div className="flex flex-col">
           <strong className="font-secondary text-title-sm">{book.name}</strong>
-          <p className="text-gray-400 text-base-140">por {book.author}</p>
+          <p className="text-gray-400 text-base-140 dark:text-white">
+            por {book.author}
+          </p>
         </div>
 
         <Link
           href={`/livro/${book.id}`}
           prefetch={false} // prefetch works only on hover
-          className="flex items-center gap-1 text-sm-140 hover:text-primary-500 transition-colors duration-200"
+          className="flex items-center gap-1 text-sm-140 hover:text-primary-500 transition-colors duration-200 dark:text-yellow-500 dark:hover:text-yellow-300"
         >
           Detalhes
           <ArrowRight size={'0.75rem'} />
@@ -32,7 +38,7 @@ export function BookCard({ book }: BookCardProps) {
 
       <span
         aria-label="categoria"
-        className="rounded-xl border-[1px] border-primary-500 py-1 px-3 text-primary-500 text-xs-140 mb-4 mx-4 inline-block"
+        className="rounded-xl border-[1px] border-primary-500 py-1 px-3 text-primary-500 text-xs-140 mb-4 mx-4 inline-block dark:text-white dark:border-white"
       >
         {book.category}
       </span>
@@ -43,7 +49,7 @@ export function BookCard({ book }: BookCardProps) {
             <PaperPlaneTilt size={'0.75rem'} />
             Enviado por {book.seller.name}
           </p>
-          <p className="flex items-center gap-1 text-sm-140 text-gray-400">
+          <p className="flex items-center gap-1 text-sm-140 text-gray-400 dark:text-white">
             <MapPin size={'0.75rem'} />
             {book.seller.location}
           </p>
@@ -54,7 +60,7 @@ export function BookCard({ book }: BookCardProps) {
             <Star weight="fill" className="text-orange-500" />
             {book.seller.averageRating}
           </p>
-          <span className="text-gray-400 text-sm-140">{`(${book.seller.avaliationsNumber})`}</span>
+          <span className="text-gray-400 text-sm-140 dark:text-white">{`(${book.seller.avaliationsNumber})`}</span>
         </div>
       </footer>
     </Card>

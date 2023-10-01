@@ -9,7 +9,7 @@ interface FeatureCardProps {
 
 export function FeatureCard({ title, content, src, alt }: FeatureCardProps) {
   return (
-    <li className="bg-white-100 overflow-hidden rounded-lg border-[1px] border-gray-300 min-w-[8.5rem] text-gray-500">
+    <li className="bg-white-100 overflow-hidden rounded-lg border-[1px] border-gray-300 min-w-[8.5rem] text-gray-500 dark:bg-black dark:text-white">
       <Image
         src={src}
         alt={alt}

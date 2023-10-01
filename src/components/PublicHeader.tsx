@@ -10,7 +10,7 @@ import { Button } from './Button'
 import { List } from '@phosphor-icons/react'
 
 const header = tv({
-  base: 'py-6 mb-9',
+  base: 'py-6 mb-9 dark:bg-black',
   variants: {
     variant: {
       generic: 'bg-white border-b-[1px] border-gray-300',
@@ -46,18 +46,18 @@ export function PublicHeader({ variant }: PublicHeaderProps) {
 
           <nav className="hidden sm:block">
             <ul
-              className={`flex gap-5 font-primary text-base-140-md text-gray-600
+              className={`flex gap-5 font-primary text-base-140-md text-gray-600 dark:text-yellow-500
               ${isHomeHeader && 'text-white'}`}
             >
               <li
-                className={`transition-colors duration-200 hover:text-primary-500 
+                className={`transition-colors duration-200 hover:text-primary-500 dark:hover:text-yellow-300 
                 ${isHomeHeader && 'hover:text-primary-400'}`}
               >
                 <Link href="/">Home</Link>
               </li>
 
               <li
-                className={`transition-colors duration-200 hover:text-primary-500 
+                className={`transition-colors duration-200 hover:text-primary-500 dark:hover:text-yellow-300 
                 ${isHomeHeader && 'hover:text-primary-400'}`}
               >
                 <Link href="/livros">Buscar Livros</Link>

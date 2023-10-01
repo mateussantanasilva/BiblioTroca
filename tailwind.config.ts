@@ -6,6 +6,7 @@ const config: Config = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       fontFamily: {
@@ -64,6 +65,7 @@ const config: Config = {
       boxShadow: {
         container: '0px 2px 6px 0px rgba(0, 0, 0, 0.20)',
         'container-lg': '0px 3px 8px rgba(0, 0, 0, 0.24)',
+        'solid-white': '0 0 0 1px white',
       },
       backgroundImage: {
         'radial-gradient':

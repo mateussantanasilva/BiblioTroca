@@ -1,5 +1,6 @@
 import { barlow, inter } from '@/styles/fonts'
 import type { Metadata } from 'next'
+import { ThemesProvider } from '@/lib/NextThemes'
 import { QueryProvider } from '@/lib/ReactQuery'
 import '@/styles/globals.css'
 
@@ -40,11 +41,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" suppressHydrationWarning>
       <body
         className={`bg-white-200 antialiased ${inter.variable} ${barlow.variable}`}
       >
-        <QueryProvider>{children}</QueryProvider>
+        <ThemesProvider>
+          <QueryProvider>{children}</QueryProvider>
+        </ThemesProvider>
       </body>
     </html>
   )
