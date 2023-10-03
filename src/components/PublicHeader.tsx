@@ -2,6 +2,7 @@
 
 import { ComponentProps, useState } from 'react'
 import Link from 'next/link'
+import { useThemes } from '@/hooks/useThemes'
 import { VariantProps, tv } from 'tailwind-variants'
 import { Logo } from './Logo'
 import { MobilePublicHeader } from './MobilePublicHeader'
@@ -26,9 +27,10 @@ const header = tv({
 type PublicHeaderProps = ComponentProps<'header'> & VariantProps<typeof header>
 
 export function PublicHeader({ variant }: PublicHeaderProps) {
-  const isHomeHeader = variant === 'home'
-
   const [openMenu, setOpenMenu] = useState(false)
+  const { isDarkTheme } = useThemes()
+
+  const isHomeHeader = variant === 'home'
 
   function handleOpenMobileMenu() {
     setOpenMenu(!openMenu)
@@ -38,7 +40,7 @@ export function PublicHeader({ variant }: PublicHeaderProps) {
     <>
       <header className={header({ variant })}>
         <div className="flex justify-between items-center px-6 max-w-[73rem] mx-auto">
-          {isHomeHeader ? (
+          {isHomeHeader || isDarkTheme ? (
             <Logo isWhiteLogo className="w-[8.438rem]" />
           ) : (
             <Logo className="w-[8.438rem]" />

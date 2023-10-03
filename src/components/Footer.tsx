@@ -1,13 +1,20 @@
 import Link from 'next/link'
+import { useThemes } from '@/hooks/useThemes'
 import { Button } from './Button'
 import { Logo } from './Logo'
 
 export function Footer() {
+  const { isDarkTheme } = useThemes()
+
   return (
     <div className="border-t border-gray-300 dark:bg-black">
       <footer className="max-w-[73rem] mx-auto flex flex-col gap-5 py-9 px-6 text-gray-600 sm:flex-row sm:justify-between md:gap-40">
         <div className="dark:text-white">
-          <Logo className="w-[8.438rem] mb-3" />
+          {isDarkTheme ? (
+            <Logo isWhiteLogo className="w-[8.438rem] mb-3" />
+          ) : (
+            <Logo className="w-[8.438rem] mb-3" />
+          )}
 
           <p className="text-base-140 mb-1">Copyright © 2023 Bibliotroca.</p>
           <p className="text-sm-140">Conhecimento. Compartilhado.</p>

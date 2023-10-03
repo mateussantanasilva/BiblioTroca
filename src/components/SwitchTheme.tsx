@@ -1,28 +1,25 @@
 'use client'
 
 import * as Switch from '@radix-ui/react-switch'
+import { useThemes } from '@/hooks/useThemes'
 import { CircleHalf, Sun } from '@phosphor-icons/react'
-import { useTheme } from 'next-themes'
 
 interface SwitchThemeProps {
   isHomeHeader?: boolean
 }
 
 export function SwitchTheme({ isHomeHeader = false }: SwitchThemeProps) {
-  const { theme, setTheme } = useTheme()
+  const { changeTheme, isDarkTheme } = useThemes()
 
   function handleChangeTheme() {
-    if (theme === 'dark') {
-      setTheme('light')
-    } else {
-      setTheme('dark')
-    }
+    changeTheme()
   }
 
   return (
     <Switch.Root
       id="change-theme"
       onCheckedChange={handleChangeTheme}
+      checked={isDarkTheme}
       className={`relative w-[3.5rem] h-[1.563rem] rounded-full bg-gray-600 dark:bg-black dark:shadow-solid-white
       ${isHomeHeader && 'bg-white'}`}
     >

@@ -43,7 +43,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <body
-        className={`bg-white-200 antialiased ${inter.variable} ${barlow.variable}`}
+        className={`antialiased ${inter.variable} ${barlow.variable} bg-white-200 dark:bg-black`}
       >
         <ThemesProvider>
           <QueryProvider>{children}</QueryProvider>
