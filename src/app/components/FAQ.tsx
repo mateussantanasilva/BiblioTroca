@@ -29,7 +29,7 @@ export function FAQ() {
       </div>
 
       <Card type="content" className="p-0 md:w-[40rem] dark:bg-black border">
-        <Accordion.Root type="multiple">
+        <Accordion.Root type="single" collapsible>
           {questionsAndAnswers.map((item) => {
             return (
               <Accordion.Item
@@ -43,7 +43,7 @@ export function FAQ() {
                   <CaretDown weight="bold" className="flex-shrink-0" />
                 </Accordion.Trigger>
 
-                <Accordion.Content className="mt-3 text-gray-500 text-base-160 dark:text-white">
+                <Accordion.Content className="mt-3 text-base-160 text-gray-500 dark:text-white data-[state=open]:animate-growDownAndFade data-[state=closed]:animate-shrinkUpAndFade">
                   <p>{item.content}</p>
                 </Accordion.Content>
               </Accordion.Item>
