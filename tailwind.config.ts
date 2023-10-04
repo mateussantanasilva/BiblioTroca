@@ -6,12 +6,16 @@ const config: Config = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+
+  darkMode: 'class',
+
   theme: {
     extend: {
       fontFamily: {
         primary: ['var(--font-primary)'],
         secondary: ['var(--font-secondary)'],
       },
+
       fontSize: {
         // Titles
         'title-2xl': ['3rem', { fontWeight: 800, lineHeight: '1.25' }],
@@ -34,6 +38,7 @@ const config: Config = {
         'sm-140-md': ['0.875rem', { fontWeight: 500, lineHeight: '1.4' }],
         'xs-140': ['0.75rem', { fontWeight: 400, lineHeight: '1.4' }],
       },
+
       colors: {
         'primary-500': '#7A2F73',
         'primary-400': '#BE59B4',
@@ -57,49 +62,71 @@ const config: Config = {
         'white-100': '#FCFCFC',
         white: '#FFFFFF',
       },
+
       gridTemplateColumns: {
         'book-cards': 'repeat(auto-fill, minmax(18.5rem, 1fr))',
         book: '1fr 19.5rem',
       },
+
       boxShadow: {
         container: '0px 2px 6px 0px rgba(0, 0, 0, 0.20)',
         'container-lg': '0px 3px 8px rgba(0, 0, 0, 0.24)',
+        'solid-white': '0 0 0 1px white',
       },
+
       backgroundImage: {
         'radial-gradient':
           'radial-gradient(50% 50% at 50% 50%, #7A2F73 0%, #3B1838 100%)',
         'gradient-title':
           'linear-gradient(180deg, #FFF 80.21%, rgba(255, 255, 255, 0.00) 100%)',
       },
+
       backgroundColor: {
         overlay: 'rgba(0, 0, 0, 0.75)',
       },
+
       keyframes: {
         slideDownAndFade: {
           '0%': { transform: 'translateY(-2px)' },
+          '100%': { transform: 'translateY(0)' },
+        },
+        slideUpAndFade: {
+          '0%': { transform: 'translateY(2px)' },
           '100%': { transform: 'translateY(0)' },
         },
         slideLeftAndFade: {
           '0%': { transform: 'translateX(2px)' },
           '100%': { transform: 'translateX(0)' },
         },
-        slideUpAndFade: {
-          '0%': { transform: 'translateY(2px)' },
-          '100%': { transform: 'translateY(0)' },
-        },
         slideRightAndFade: {
           '0%': { transform: 'translateX(-2px)' },
           '100%': { transform: 'translateX(0)' },
         },
+
+        growDownAndFade: {
+          from: { height: '0', opacity: '0' },
+          to: { height: 'var(--radix-accordion-content-height)', opacity: '1' },
+        },
+        shrinkUpAndFade: {
+          from: {
+            height: 'var(--radix-accordion-content-height)',
+            opacity: '1',
+          },
+          to: { height: '0', opacity: '0' },
+        },
       },
+
       animation: {
         slideDownAndFade:
           'slideDownAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
+        slideUpAndFade: 'slideUpAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
         slideLeftAndFade:
           'slideLeftAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
-        slideUpAndFade: 'slideUpAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
         slideRightAndFade:
           'slideRightAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
+
+        growDownAndFade: 'growDownAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
+        shrinkUpAndFade: 'shrinkUpAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
       },
     },
   },

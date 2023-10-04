@@ -8,7 +8,7 @@ import { questionsAndAnswers } from '@/constants/questionsAndAnswers'
 export function FAQ() {
   return (
     <section className="max-w-[73rem] mx-auto px-6 py-9 text-gray-500 flex flex-col md:flex-row md:gap-5 md:justify-between">
-      <div>
+      <div className="dark:text-white">
         <h2 className="text-title-lg font-secondary mb-3 text-center mx-auto md:text-left md:mx-0">
           Temos Respostas para Suas Perguntas
         </h2>
@@ -28,8 +28,8 @@ export function FAQ() {
         </Button>
       </div>
 
-      <Card type="content" className="p-0 md:w-[40rem]">
-        <Accordion.Root type="multiple">
+      <Card type="content" className="p-0 md:w-[40rem] dark:bg-black border">
+        <Accordion.Root type="single" collapsible>
           {questionsAndAnswers.map((item) => {
             return (
               <Accordion.Item
@@ -37,13 +37,13 @@ export function FAQ() {
                 value={item.id}
                 className="py-5 px-4 [&:has(+div)]:border-b-[1px] [&:has(+div)]:border-gray-300"
               >
-                <Accordion.Trigger className="flex justify-between gap-3 text-start text-gray-500 font-secondary w-full">
+                <Accordion.Trigger className="flex justify-between gap-3 text-start text-gray-500 font-secondary w-full dark:text-white">
                   <span className="text-title-xs">{item.title}</span>
 
                   <CaretDown weight="bold" className="flex-shrink-0" />
                 </Accordion.Trigger>
 
-                <Accordion.Content className="mt-3 text-gray-500 text-base-160">
+                <Accordion.Content className="mt-3 text-base-160 text-gray-500 dark:text-white data-[state=open]:animate-growDownAndFade data-[state=closed]:animate-shrinkUpAndFade">
                   <p>{item.content}</p>
                 </Accordion.Content>
               </Accordion.Item>

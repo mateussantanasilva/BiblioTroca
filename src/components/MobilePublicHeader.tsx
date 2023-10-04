@@ -1,11 +1,11 @@
 'use client'
 
-import { Logo } from './Logo'
-import { X } from '@phosphor-icons/react'
-
+import Link from 'next/link'
+import { useThemes } from '@/hooks/useThemes'
 import { SwitchTheme } from './SwitchTheme'
 import { Button } from './Button'
-import Link from 'next/link'
+import { Logo } from './Logo'
+import { X } from '@phosphor-icons/react'
 
 interface MobileHeaderProps {
   openMenu: boolean
@@ -16,27 +16,35 @@ export function MobilePublicHeader({
   openMenu,
   openMobileMenu,
 }: MobileHeaderProps) {
-  const menuVisibility = openMenu && 'translate-y-full'
+  const { isDarkTheme } = useThemes()
+
+  const menuVisibility = openMenu ? 'translate-y-full block' : 'hidden'
 
   return (
-    <header
-      className={`${menuVisibility} fixed z-20 -top-full left-0 right-0 w-screen max-w-sm mx-auto`}
-    >
-      <div className="flex justify-between items-center py-10 bg-white border-b-[1px] border-gray-300 px-6">
-        <Logo className="w-[8.438rem]" />
+    <header className={`${menuVisibility} fixed z-20 -top-full w-screen`}>
+      <div className="flex justify-between items-center py-6 border-b-[1px] border-gray-300 px-6 bg-white dark:bg-black">
+        {isDarkTheme ? (
+          <Logo isWhiteLogo className="w-[8.438rem]" />
+        ) : (
+          <Logo className="w-[8.438rem]" />
+        )}
 
         <button onClick={openMobileMenu}>
-          <X weight="bold" size={'1.75rem'} className="text-gray-500" />
+          <X
+            weight="bold"
+            size={'1.75rem'}
+            className="text-gray-500 dark:text-white"
+          />
         </button>
       </div>
 
-      <nav className="bg-white pt-9 px-6 h-[calc(100vh-122px)]">
-        <ul className="flex flex-col gap-9 text-gray-600 text-xl-140-md font-primary">
-          <li>
+      <nav className="pt-9 px-6 h-[calc(100vh-89.61px)] bg-white dark:bg-black">
+        <ul className="flex flex-col gap-9 text-xl-140-md font-primary text-gray-600 dark:text-white">
+          <li className="dark:text-yellow-500 dark:hover:text-yellow-300">
             <Link href="/">Home</Link>
           </li>
 
-          <li>
+          <li className="dark:text-yellow-500 dark:hover:text-yellow-300">
             <Link href="/livros">Buscar Livros</Link>
           </li>
 

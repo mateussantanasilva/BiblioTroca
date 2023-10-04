@@ -7,7 +7,7 @@ import BookWatermarkImage from '../../assets/book-watermark.png'
 
 export function GetStarted() {
   return (
-    <section className="bg-primary-500 text-white py-9 relative">
+    <section className="bg-primary-500 text-white py-9 relative dark:bg-black">
       <div className="max-w-[73rem] mx-auto px-6 flex flex-col md:flex-row md:justify-between md:items-center md:gap-x-9">
         <div className="flex-1">
           <h2 className="text-title-lg font-secondary mb-3">

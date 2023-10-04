@@ -25,10 +25,10 @@ export default function Home() {
           <Image
             src={MobileHero}
             alt="Dois celulares exibindo as versões do sistema mobile"
-            width={471}
+            width={550}
             quality={100}
             priority
-            className="px-6 relative z-0 lg:-my-[1.45rem] lg:w-[32.438rem] min-[2000px]:w-[42rem]"
+            className="px-6 relative z-0 lg:-my-[1.45rem] lg:w-[34.375rem] min-[2000px]:w-[42rem]"
           />
 
           {/* <button className="flex items-center justify-center bg-primary-500 w-11 h-11 mx-auto rounded-full absolute z-10 translate-y-[26rem] lg:translate-y-[32rem]">
@@ -44,7 +44,7 @@ export default function Home() {
         />
       </div>
 
-      <main>
+      <main className="dark:bg-black">
         <Presentation />
 
         <AboutUs />

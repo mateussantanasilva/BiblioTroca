@@ -53,7 +53,7 @@ export function RequestExchangeModal() {
       <Button
         onClick={handleCreateRequest}
         disabled={transactionCreated}
-        className="border-2 border-primary-500 [&:not(:disabled)]:hover:border-primary-400"
+        className="border-2 border-primary-500 [&:not(:disabled)]:hover:border-primary-400 dark:border-white dark:[&:not(:disabled)]:hover:border-white"
       >
         Confirmar solicitação
       </Button>
