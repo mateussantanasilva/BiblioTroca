@@ -8,6 +8,7 @@ import { Card } from '@/components/Card'
 import { BookCard } from './components/BookCard'
 import { Footer } from '@/components/Footer'
 import { SearchForm } from './components/SearchForm'
+import { SkeletonList } from './components/SkeletonList'
 
 import SeachBooksImage from '../../assets/search-books.png'
 
@@ -52,7 +53,7 @@ export default function Books() {
         </Card>
 
         <section className="grid grid-cols-book-cards gap-4 mt-8 mb-9 mx-6 max-[350px]:grid-cols-1">
-          {isLoading && <p>Carregando...</p>}
+          {isLoading && <SkeletonList />}
 
           {books &&
             books.map((book) => {
