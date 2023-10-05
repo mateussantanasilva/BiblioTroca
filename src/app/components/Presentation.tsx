@@ -10,17 +10,17 @@ import AvaliationImage from '../../assets/featureCard/avaliation.png'
 
 export function Presentation() {
   return (
-    <section className="max-w-[73rem] mx-auto px-6 py-9 text-gray-500 flex flex-col gap-4 min-[900px]:flex-row">
+    <section className="mx-auto flex max-w-[73rem] flex-col gap-4 px-6 py-9 text-gray-500 min-[900px]:flex-row">
       <Card
         componentType="section"
         type="content"
-        className="flex flex-col justify-between flex-1 pb-0 dark:bg-black dark:border"
+        className="flex flex-1 flex-col justify-between pb-0 dark:border dark:bg-black"
       >
         <div className="dark:text-white">
-          <h2 className="text-title-lg font-secondary mb-3">
+          <h2 className="mb-3 font-secondary text-title-lg">
             Reviva Cada Página
           </h2>
-          <p className=" text-base-160 mb-11">
+          <p className=" mb-11 text-base-160">
             Descubra o prazer de dar nova vida aos seus livros. Conecte-se,
             troque e aprofunde-se em novos temas de forma simples e direta.
           </p>
@@ -37,12 +37,12 @@ export function Presentation() {
       <Card
         componentType="section"
         type="content"
-        className="flex-1 dark:bg-black dark:border dark:text-white"
+        className="flex-1 dark:border dark:bg-black dark:text-white"
       >
-        <h2 className="text-title-lg font-secondary mb-3">
+        <h2 className="mb-3 font-secondary text-title-lg">
           Excelência em Cada Ferramenta
         </h2>
-        <p className="text-base-160 mb-5">
+        <p className="mb-5 text-base-160">
           Do início ao fim, facilitamos cada etapa do processo para que você
           possa focar no que realmente importa: a sua próxima grande leitura.
         </p>

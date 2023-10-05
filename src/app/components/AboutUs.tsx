@@ -4,11 +4,11 @@ import AboutUsImage from '../../assets/about-us-image.jpg'
 
 export function AboutUs() {
   return (
-    <section className="max-w-[73rem] mx-auto px-6 py-9 text-gray-500 md:text-center">
-      <h2 className="text-title-lg font-secondary mb-3 dark:text-white">
+    <section className="mx-auto max-w-[73rem] px-6 py-9 text-gray-500 md:text-center">
+      <h2 className="mb-3 font-secondary text-title-lg dark:text-white">
         Bibliotroca: Revivendo Livros, Impulsionando Educação
       </h2>
-      <p className="text-gray-500 text-base-160 mb-5 md:max-w-3xl md:mx-auto dark:text-white">
+      <p className="mb-5 text-base-160 text-gray-500 dark:text-white md:mx-auto md:max-w-3xl">
         A Bibliotroca é mais que uma plataforma de trocas. Aqui, seus livros
         didáticos encontram novos leitores e ampliam seu impacto educacional. Em
         vez de deixá-los esquecidos, permita que influenciem novas jornadas de
@@ -16,21 +16,21 @@ export function AboutUs() {
         compartilhamento e o saber.
       </p>
 
-      <dl className="flex gap-8 mb-5 w-fit md:mx-auto">
+      <dl className="mb-5 flex w-fit gap-8 md:mx-auto">
         <div>
-          <dt className="text-primary-500 font-secondary text-title-base mb-1 dark:text-white">
+          <dt className="mb-1 font-secondary text-title-base text-primary-500 dark:text-white">
             + 70
           </dt>
-          <dd className="text-gray-500 text-base-140 dark:text-white">
+          <dd className="text-base-140 text-gray-500 dark:text-white">
             Livros cadastrados
           </dd>
         </div>
 
         <div>
-          <dt className="text-primary-500 font-secondary text-title-base mb-1 dark:text-white">
+          <dt className="mb-1 font-secondary text-title-base text-primary-500 dark:text-white">
             + 50
           </dt>
-          <dd className="text-gray-500 text-base-140 dark:text-white">
+          <dd className="text-base-140 text-gray-500 dark:text-white">
             Trocas realizadas
           </dd>
         </div>
@@ -40,7 +40,7 @@ export function AboutUs() {
         src={AboutUsImage}
         alt="Estante com várias prateleiras cheia de livros"
         width={1000}
-        className="mx-auto max-h-[25rem] object-cover rounded-lg"
+        className="mx-auto max-h-[25rem] rounded-lg object-cover"
       />
     </section>
   )

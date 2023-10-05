@@ -8,25 +8,25 @@ export function Footer() {
 
   return (
     <div className="border-t border-gray-300 dark:bg-black">
-      <footer className="max-w-[73rem] mx-auto flex flex-col gap-5 py-9 px-6 text-gray-600 sm:flex-row sm:justify-between md:gap-40">
+      <footer className="mx-auto flex max-w-[73rem] flex-col gap-5 px-6 py-9 text-gray-600 sm:flex-row sm:justify-between md:gap-40">
         <div className="dark:text-white">
           {isDarkTheme ? (
-            <Logo isWhiteLogo className="w-[8.438rem] mb-3" />
+            <Logo isWhiteLogo className="mb-3 w-[8.438rem]" />
           ) : (
-            <Logo className="w-[8.438rem] mb-3" />
+            <Logo className="mb-3 w-[8.438rem]" />
           )}
 
-          <p className="text-base-140 mb-1">Copyright © 2023 Bibliotroca.</p>
+          <p className="mb-1 text-base-140">Copyright © 2023 Bibliotroca.</p>
           <p className="text-sm-140">Conhecimento. Compartilhado.</p>
         </div>
 
-        <div className="flex flex-col justify-between gap-10 md:flex-row md:flex-1 dark:text-yellow-500">
+        <div className="flex flex-col justify-between gap-10 dark:text-yellow-500 md:flex-1 md:flex-row">
           <nav>
-            <ul className="grid grid-cols-2 gap-y-3 gap-x-7 max-w-fit text-base-140-md md:gap-x-14">
+            <ul className="grid max-w-fit grid-cols-2 gap-x-7 gap-y-3 text-base-140-md md:gap-x-14">
               <li>
                 <Link
                   href="/"
-                  className="hover:text-primary-500 transition-colors duration-200 dark:hover:text-yellow-300"
+                  className="transition-colors duration-200 hover:text-primary-500 dark:hover:text-yellow-300"
                 >
                   Home
                 </Link>
@@ -35,7 +35,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/livros"
-                  className="hover:text-primary-500 transition-colors duration-200 dark:hover:text-yellow-300"
+                  className="transition-colors duration-200 hover:text-primary-500 dark:hover:text-yellow-300"
                 >
                   Buscar Livros
                 </Link>
@@ -44,7 +44,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/login"
-                  className="hover:text-primary-500 transition-colors duration-200 dark:hover:text-yellow-300"
+                  className="transition-colors duration-200 hover:text-primary-500 dark:hover:text-yellow-300"
                 >
                   Entrar
                 </Link>
@@ -53,7 +53,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/login"
-                  className="hover:text-primary-500 transition-colors duration-200 dark:hover:text-yellow-300"
+                  className="transition-colors duration-200 hover:text-primary-500 dark:hover:text-yellow-300"
                 >
                   Cadastrar
                 </Link>

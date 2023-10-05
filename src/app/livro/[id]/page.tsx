@@ -38,15 +38,15 @@ export default function Book({ params }: BookProps) {
     <div className="dark:bg-black">
       <PublicHeader />
 
-      <main className="max-w-[73rem] mx-auto px-6 grid grid-cols-1 gap-4 mb-9 md:grid-cols-book">
+      <main className="mx-auto mb-9 grid max-w-[73rem] grid-cols-1 gap-4 px-6 md:grid-cols-book">
         <Card
           componentType="section"
           type="content"
-          className="text-gray-500 dark:bg-black dark:shadow-solid-white dark:text-white"
+          className="text-gray-500 dark:bg-black dark:text-white dark:shadow-solid-white"
         >
           <header className="mb-3">
             <h2 className="font-secondary text-title-lg">{book?.name}</h2>
-            <p className="text-gray-400 text-base-140 dark:text-white">
+            <p className="text-base-140 text-gray-400 dark:text-white">
               por {book?.author}
             </p>
           </header>
@@ -56,7 +56,7 @@ export default function Book({ params }: BookProps) {
               <strong className="text-base-140">Categoria</strong>
               <span
                 aria-label="categoria"
-                className="rounded-xl border-[1px] border-primary-500 py-1 px-3 text-primary-500 text-xs-140 w-fit dark:text-white dark:border-white"
+                className="w-fit rounded-xl border-[1px] border-primary-500 px-3 py-1 text-xs-140 text-primary-500 dark:border-white dark:text-white"
               >
                 {book?.category}
               </span>
@@ -94,14 +94,14 @@ export default function Book({ params }: BookProps) {
         <Card
           componentType="section"
           type="content"
-          className="flex flex-col justify-between text-gray-500 dark:bg-black dark:shadow-solid-white dark:text-white"
+          className="flex flex-col justify-between text-gray-500 dark:bg-black dark:text-white dark:shadow-solid-white"
         >
           <div>
-            <h2 className="font-secondary text-title-base text-primary-500 mb-3 dark:text-white">
+            <h2 className="mb-3 font-secondary text-title-base text-primary-500 dark:text-white">
               Custo de 60 pontos
             </h2>
 
-            <section className="flex flex-col gap-1 mb-5">
+            <section className="mb-5 flex flex-col gap-1">
               <p className="text-base-140">Enviado por {book?.seller.name}</p>
 
               <div className="flex items-center gap-1">
@@ -109,7 +109,7 @@ export default function Book({ params }: BookProps) {
                   <Star weight="fill" className="text-orange-500" />
                   {book?.seller.averageRating}
                 </p>
-                <span className="text-gray-400 text-sm-140 dark:text-white">{`(${book?.seller.avaliationsNumber})`}</span>
+                <span className="text-sm-140 text-gray-400 dark:text-white">{`(${book?.seller.avaliationsNumber})`}</span>
               </div>
 
               <p className="flex items-center gap-1 text-base-140">
@@ -118,7 +118,7 @@ export default function Book({ params }: BookProps) {
               </p>
             </section>
 
-            <p className="text-base-160 mb-2">
+            <p className="mb-2 text-base-160">
               Negocie diretamente com {book?.seller.name} e defina os detalhes
               da troca antes de prosseguir com a solicitação. Toque abaixo para
               iniciar a conversa.
@@ -134,7 +134,7 @@ export default function Book({ params }: BookProps) {
               Entrar em contato
             </Button>
 
-            <p className="text-base-160 mt-5 mb-11">
+            <p className="mb-11 mt-5 text-base-160">
               Tudo combinado e pronto para avançar? Solicite a troca agora mesmo
               clicando abaixo.
             </p>
