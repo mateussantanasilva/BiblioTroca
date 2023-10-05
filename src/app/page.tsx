@@ -14,7 +14,7 @@ import ShadowHero from '../assets/shadow-hero.png'
 export default function Home() {
   return (
     <>
-      <div className="relative bg-radial-gradient h-screen overflow-hidden">
+      <div className="relative h-screen overflow-hidden bg-radial-gradient dark:bg-dark-mode">
         <PublicHeader variant="home" />
 
         <section className="max-w-[73rem] mx-auto flex flex-col items-center relative">
@@ -40,7 +40,7 @@ export default function Home() {
           src={ShadowHero}
           alt=""
           width={1440}
-          className="absolute h-44 bottom-0"
+          className="absolute h-44 w-screen bottom-0"
         />
       </div>
 

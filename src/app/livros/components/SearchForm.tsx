@@ -37,7 +37,7 @@ export function SearchForm({ createQuery }: SearchFormProps) {
         type="text"
         placeholder="Busque por um livro, autor ou categoria."
         {...register('query')}
-        className="w-[100%] max-w-md bg-white-100 rounded-lg border-[1px] border-gray-300 p-4 font-primary placeholder:text-gray-400 placeholder:text-base-140 placeholder:font-primary dark:bg-black"
+        className="w-[100%] max-w-md rounded-lg border-[1px] border-gray-300 p-4 font-primary placeholder:text-gray-400 placeholder:text-base-140 placeholder:font-primary outline-none focus:ring-2 focus:ring-primary-500 bg-white-100 dark:focus:ring-white dark:bg-black"
       />
 
       <Button

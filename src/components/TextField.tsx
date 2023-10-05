@@ -23,7 +23,7 @@ export function TextField<T extends ElementType = 'input'>({
       </label>
       <ComponentType
         className={twMerge(
-          'w-full p-4 rounded-lg text-base-140 border-gray-300 border-[1px] disabled:text-gray-300 placeholder:opacity-50 disabled: hover:disabled:border-gray-300 outline-primary-500 hover:border-gray-400',
+          'w-full p-4 rounded-lg font-primary text-base-140 bg-white-100 border-gray-300 border-[1px] disabled:text-gray-300 placeholder:text-gray-400 placeholder:text-base-140 placeholder:font-primary disabled: hover:disabled:border-gray-300 outline-primary-500 hover:border-gray-400 dark:bg-black',
           className,
         )}
         type={type}
