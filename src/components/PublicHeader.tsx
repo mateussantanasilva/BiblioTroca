@@ -91,7 +91,7 @@ export function PublicHeader({ variant }: PublicHeaderProps) {
             <List
               weight="bold"
               size={'1.75rem'}
-              className={isHomeHeader ? 'text-white' : 'text-gray-500'}
+              className={isHomeHeader ? 'text-white' : 'text-gray-500 dark:text-white'}
             />
           </button>
         </div>
