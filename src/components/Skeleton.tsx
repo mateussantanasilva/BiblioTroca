@@ -14,6 +14,7 @@ const skeleton = tv({
     size: {
       xs: 'h-[3rem]',
       md: 'h-[18rem]',
+      lg: 'h-[33rem]',
     },
   },
 
