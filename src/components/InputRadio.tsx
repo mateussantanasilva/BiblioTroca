@@ -45,9 +45,9 @@ export function InputRadio({
 }: InputRadioProps) {
   return (
     <RadioGroup.Item className={item({ variant })} value={value} id={id}>
-      <BookmarkSimple className="flex-none place-self-start mt-1 w-4 h-4 md:[w-6 h-6]" />
+      <BookmarkSimple className="md:[w-6 h-6] mt-1 h-4 w-4 flex-none place-self-start" />
       <label htmlFor={id} className="flex-1">
-        <p className="text-base-140-md mb-3">{title}</p>
+        <p className="mb-3 text-base-140-md">{title}</p>
         <p className="text-base-160">{text}</p>
       </label>
       <div className={containerIndicator({ variant })}>

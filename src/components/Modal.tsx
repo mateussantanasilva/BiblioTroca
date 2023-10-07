@@ -41,13 +41,13 @@ export function Modal({ variant }: ModalProps) {
 
   return (
     <Dialog.Portal>
-      <Dialog.Overlay className="fixed inset-0 w-screen h-screen bg-overlay" />
+      <Dialog.Overlay className="fixed inset-0 w-screen h-screen bg-overlay z-20" />
 
       <Dialog.Content className="w-max">
         <Card
           type="content"
           componentType="section"
-          className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-[20.438rem] max-[350px]:max-w-[18rem]  text-gray-500 dark:bg-black dark:border dark:text-white"
+          className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-[20.438rem] max-[350px]:max-w-[18rem]  text-gray-500 dark:bg-black dark:border dark:text-white z-30"
         >
           <Dialog.Close className="block ml-auto">
             <X weight="bold" size={'1.53rem'} />

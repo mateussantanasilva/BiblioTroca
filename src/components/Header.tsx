@@ -10,7 +10,7 @@ export function Header({ children, className }: HeaderProps) {
   return (
     <header
       className={twMerge(
-        'h-60 bg-primary-500 px-6 py-10 pb-20 md:pb-16 z-[1] text-white',
+        'z-[1] h-60 bg-primary-500 px-6 py-10 pb-20 text-white md:pb-16',
         className,
       )}
     >
