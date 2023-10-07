@@ -32,6 +32,7 @@ export function PublicHeader({ variant }: PublicHeaderProps) {
   const { isDarkTheme } = useThemes()
 
   const isHomeHeader = variant === 'home'
+  const isNonFocusable = openMenu ? -1 : 0
 
   function handleOpenMobileMenu() {
     setOpenMenu(!openMenu)
@@ -78,20 +79,23 @@ export function PublicHeader({ variant }: PublicHeaderProps) {
               Entrar
             </Button>
 
-            <SwitchTheme isHomeHeader={isHomeHeader} />
+            <SwitchTheme id="change-theme" isHomeHeader={isHomeHeader} />
           </div>
 
           <button
             onClick={handleOpenMobileMenu}
             aria-label="Abrir menu"
             aria-expanded={openMenu}
-            aria-hidden={!openMenu}
+            aria-hidden={openMenu}
+            tabIndex={isNonFocusable}
             className="sm:hidden"
           >
             <List
               weight="bold"
               size={'1.75rem'}
-              className={isHomeHeader ? 'text-white' : 'text-gray-500 dark:text-white'}
+              className={
+                isHomeHeader ? 'text-white' : 'text-gray-500 dark:text-white'
+              }
             />
           </button>
         </div>

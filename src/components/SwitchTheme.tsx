@@ -6,10 +6,11 @@ import { motion } from 'framer-motion'
 import { CircleHalf, Sun } from '@phosphor-icons/react'
 
 interface SwitchThemeProps {
+  id: string
   isHomeHeader?: boolean
 }
 
-export function SwitchTheme({ isHomeHeader = false }: SwitchThemeProps) {
+export function SwitchTheme({ id, isHomeHeader = false }: SwitchThemeProps) {
   const { changeTheme, isDarkTheme } = useThemes()
 
   function handleChangeTheme() {
@@ -18,9 +19,10 @@ export function SwitchTheme({ isHomeHeader = false }: SwitchThemeProps) {
 
   return (
     <Switch.Root
-      id="change-theme"
+      id={id}
       onCheckedChange={handleChangeTheme}
       checked={isDarkTheme}
+      aria-label="Alterar tema"
       className={`relative h-[1.563rem] w-[3.5rem] rounded-full bg-gray-600 dark:bg-black dark:shadow-solid-white
       ${isHomeHeader && 'bg-white'}`}
     >

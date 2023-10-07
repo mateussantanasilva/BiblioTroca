@@ -30,10 +30,6 @@ export default function Home() {
             priority
             className="relative z-0 px-6 lg:-my-[1.45rem] lg:w-[34.375rem] min-[2000px]:w-[42rem]"
           />
-
-          {/* <button className="flex items-center justify-center bg-primary-500 w-11 h-11 mx-auto rounded-full absolute z-10 translate-y-[26rem] lg:translate-y-[32rem]">
-            <ArrowDown weight="bold" size={'1.25rem'} className="text-white" />
-          </button> */}
         </section>
 
         <Image

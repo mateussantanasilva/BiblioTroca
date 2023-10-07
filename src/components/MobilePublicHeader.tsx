@@ -19,6 +19,8 @@ export function MobilePublicHeader({
 }: MobileHeaderProps) {
   const { isDarkTheme } = useThemes()
 
+  const isNonFocusable = !openMenu ? -1 : 0
+
   const transitionConfigs = {
     opacity: { duration: 0.3 },
     y: { type: 'spring', damping: 20, stiffness: 120 },
@@ -44,6 +46,7 @@ export function MobilePublicHeader({
           aria-label="Fechar menu"
           aria-expanded={openMenu}
           aria-hidden={!openMenu}
+          tabIndex={isNonFocusable}
         >
           <X
             weight="bold"
@@ -66,7 +69,7 @@ export function MobilePublicHeader({
           <li className="flex items-center justify-between">
             <label htmlFor="change-theme">Alterar Tema</label>
 
-            <SwitchTheme />
+            <SwitchTheme id="change-mobile-theme" />
           </li>
 
           <li className="text-btn-base">
