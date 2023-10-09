@@ -1,7 +1,5 @@
 'use client'
 
-import Link from 'next/link'
-
 import { Card } from '@/components/Card'
 import { Book, booksDefault } from '@/model/book'
 import { Header } from '@/components/Header'
@@ -16,10 +14,13 @@ import {
   pendingTransactionsSize,
   wishListSize,
 } from '@/docs/navigationInfo'
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
-import { Dropdown } from '@/components/Dropdown'
 import { Modal } from '@/components/Modal'
 import * as Dialog from '@radix-ui/react-dialog'
+import * as Tooltip from '@radix-ui/react-tooltip'
+import Link from 'next/link'
+import { useContextSelector } from 'use-context-selector'
+import { ModalContext } from '@/contexts/ModalContext'
+import { TooltipContent } from '@/components/TooltipContent'
 
 export default function MeusLivros() {
   const [myBooks, setMyBooks] = useState<Book[]>([])
@@ -27,6 +28,15 @@ export default function MeusLivros() {
   useEffect(() => {
     setMyBooks(booksDefault)
   }, [])
+
+  const { modalIsOpen, changeModalVisibility } = useContextSelector(
+    ModalContext,
+    (context) => {
+      return {
+        ...context,
+      }
+    },
+  )
 
   return (
     <div>
@@ -40,10 +50,10 @@ export default function MeusLivros() {
           history={historySize}
         />
       </Header>
-      <main className="px-6 pb-10 mt-28 md:mt-32">
-        <section className="max-w-5xl mx-auto">
-          <h1 className="font-secondary flex justify-between items-center text-gray-500 text-title-xs mb-5">
-            <div className="flex gap-1 items-center">
+      <main className="mt-28 px-6 pb-10 md:mt-32">
+        <section className="mx-auto max-w-5xl">
+          <h1 className="mb-5 flex items-center justify-between font-secondary text-title-xs text-gray-500">
+            <div className="flex items-center gap-1">
               Meus Livros
               <span className="font-primary text-sm-140 text-gray-400">
                 | {myBooks.length} livro(s)
@@ -61,78 +71,81 @@ export default function MeusLivros() {
           </h1>
           <div className="flex flex-col gap-4">
             {myBooks.map((book) => (
-              <Link
-                href={`/perfil/meus-livros/${book.id}/atualizar-livro`}
+              <Card
+                type="content"
+                className="grid grid-cols-2 items-center justify-between gap-y-7"
                 key={book.id}
               >
-                <Card
-                  type="menu"
-                  className="grid grid-cols-2 justify-between gap-y-7 items-center"
-                  key={book.id}
-                >
-                  <div className="flex flex-col gap-6 md:grid grid-cols-2 md:items-center">
-                    <div>
-                      <strong className="text-base-140 text-gray-500">
-                        {book.title}
-                      </strong>
-                      <p className="text-xs-140 text-gray-400">
-                        por {book.author}
-                      </p>
-                    </div>
-                    <span className="border-[1px] h-max border-primary-500 text-xs w-max py-1 px-2 text-primary-500 rounded-lg md:justify-self-center">
-                      {book.studyArea}
-                    </span>
-                  </div>
-                  <div className="flex flex-col justify-between justify-self-end h-full md:flex-row-reverse md:w-3/4 md:items-center">
-                    <DropdownMenu.Root>
-                      <DropdownMenu.Trigger asChild>
-                        <button className="p-1 w-max self-end border-2 border-primary-500 rounded-lg md:self-center">
-                          <Icon.SlidersHorizontal
-                            size={20}
-                            weight="bold"
-                            className="text-primary-500"
-                          />
-                        </button>
-                      </DropdownMenu.Trigger>
+                <div className="flex grid-cols-2 flex-col gap-6 md:grid md:items-center">
+                  <Tooltip.Provider delayDuration={300}>
+                    <Tooltip.Root>
+                      <Tooltip.Trigger asChild>
+                        <Link
+                          href={`/perfil/meus-livros/${book.id}`}
+                          className="!w-max"
+                        >
+                          <strong className="text-base-140 text-gray-500">
+                            {book.title}
+                          </strong>
+                          <p className="text-xs-140 text-gray-400">
+                            por {book.author}
+                          </p>
+                        </Link>
+                      </Tooltip.Trigger>
+                      <TooltipContent>Visualizar Livro</TooltipContent>
+                    </Tooltip.Root>
+                  </Tooltip.Provider>
+                  <span className="h-max w-max rounded-lg border-[1px] border-primary-500 px-2 py-1 text-xs text-primary-500 md:justify-self-center">
+                    {book.studyArea}
+                  </span>
+                </div>
+                <div className="flex h-full flex-col justify-between justify-self-end md:w-3/4 md:flex-row-reverse md:items-center">
+                  <div className="flex items-center justify-end gap-2">
+                    <Tooltip.Provider delayDuration={300}>
+                      <Tooltip.Root>
+                        <Tooltip.Trigger asChild>
+                          <Button
+                            variant="cardEdit"
+                            componentType="a"
+                            href={`/perfil/meus-livros/${book.id}/atualizar-livro`}
+                          >
+                            <Icon.PencilSimple weight="bold" />
+                          </Button>
+                        </Tooltip.Trigger>
+                        <Tooltip.Portal>
+                          <TooltipContent>Editar Livro</TooltipContent>
+                        </Tooltip.Portal>
+                      </Tooltip.Root>
+                    </Tooltip.Provider>
 
-                      <DropdownMenu.Portal>
-                        <Dropdown.Content>
-                          <Dropdown.Item>
-                            <Link
-                              href={`/perfil/meus-livros/${book.id}/atualizar-livro`}
-                              className="flex items-center justify-between px-3 w-full h-full"
-                            >
-                              <span>Editar item</span>
-                              <Icon.PencilSimple size={18} />
-                            </Link>
-                          </Dropdown.Item>
-                          <Dropdown.Separator />
-                          <Dropdown.Item>
-                            <Dialog.Root>
-                              <Dialog.Trigger asChild>
-                                <button className="flex items-center justify-between px-3 w-full h-full">
-                                  <span className="text-red-500">
-                                    Deletar item
-                                  </span>
-                                  <Icon.TrashSimple
-                                    size={18}
-                                    className="text-red-500"
-                                  />
-                                </button>
-                              </Dialog.Trigger>
-                              <Modal variant="deleteBook" />
-                            </Dialog.Root>
-                          </Dropdown.Item>
-                        </Dropdown.Content>
-                      </DropdownMenu.Portal>
-                    </DropdownMenu.Root>
-                    <div className="flex gap-1 items-center text-gray-500 text-sm-140 justify-self-end">
-                      <Icon.CalendarBlank size={10} />
-                      <span>{formatDate(book.createdAt)}</span>
-                    </div>
+                    <Dialog.Root
+                      onOpenChange={changeModalVisibility}
+                      open={modalIsOpen}
+                    >
+                      <Dialog.Trigger>
+                        <Tooltip.Provider delayDuration={300}>
+                          <Tooltip.Root>
+                            <Tooltip.Trigger asChild>
+                              <Button variant="cardDelete">
+                                <Icon.TrashSimple weight="bold" />
+                              </Button>
+                            </Tooltip.Trigger>
+                            <Tooltip.Portal>
+                              <TooltipContent>Excluir Livro</TooltipContent>
+                            </Tooltip.Portal>
+                          </Tooltip.Root>
+                        </Tooltip.Provider>
+                      </Dialog.Trigger>
+
+                      <Modal variant="deleteBook" />
+                    </Dialog.Root>
                   </div>
-                </Card>
-              </Link>
+                  <div className="flex items-center gap-1 justify-self-end text-sm-140 text-gray-500">
+                    <Icon.CalendarBlank size={10} />
+                    <span>{formatDate(book.createdAt)}</span>
+                  </div>
+                </div>
+              </Card>
             ))}
           </div>
         </section>

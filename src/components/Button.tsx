@@ -22,6 +22,10 @@ const button = tv({
       delete: 'bg-red-500 text-white [&:not(:disabled)]:hover:bg-red-600',
       evaluate:
         'bg-orange-500 text-white [&:not(:disabled)]:hover:bg-orange-400',
+      cardEdit:
+        'bg-transparent border-2 border-primary-500 text-primary-500 p-2 !w-max hover:bg-primary-500 hover:text-white',
+      cardDelete:
+        'bg-transparent border-2 border-red-500 text-red-500 p-2 !w-max hover:bg-red-500 hover:text-white',
     },
 
     size: {

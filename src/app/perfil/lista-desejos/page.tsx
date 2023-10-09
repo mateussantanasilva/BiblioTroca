@@ -14,11 +14,12 @@ import {
   wishListSize,
 } from '@/docs/navigationInfo'
 import { Wishlist, wishlistDefault } from '@/model/wishlist'
-import { Dropdown } from '@/components/Dropdown'
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
-import Link from 'next/link'
 import * as Dialog from '@radix-ui/react-dialog'
 import { Modal } from '@/components/Modal'
+import * as Tooltip from '@radix-ui/react-tooltip'
+import { TooltipContent } from '@/components/TooltipContent'
+import { ModalContext } from '@/contexts/ModalContext'
+import { useContextSelector } from 'use-context-selector'
 
 export default function MeusLivros() {
   const [myWishlist, setMyWishlist] = useState<Wishlist[]>([])
@@ -26,6 +27,15 @@ export default function MeusLivros() {
   useEffect(() => {
     setMyWishlist(wishlistDefault)
   }, [])
+
+  const { modalIsOpen, changeModalVisibility } = useContextSelector(
+    ModalContext,
+    (context) => {
+      return {
+        ...context,
+      }
+    },
+  )
 
   return (
     <div>
@@ -39,10 +49,10 @@ export default function MeusLivros() {
           history={historySize}
         />
       </Header>
-      <main className="px-6 pb-10 mt-28 md:mt-32">
-        <section className="max-w-5xl mx-auto">
-          <h1 className="font-secondary flex justify-between items-center text-gray-500 text-title-xs mb-5">
-            <div className="flex gap-1 items-center">
+      <main className="mt-28 px-6 pb-10 md:mt-32">
+        <section className="mx-auto max-w-5xl">
+          <h1 className="mb-5 flex items-center justify-between font-secondary text-title-xs text-gray-500">
+            <div className="flex items-center gap-1">
               Lista de desejos
               <span className="font-primary text-sm-140 text-gray-400">
                 | {myWishlist.length} livro(s)
@@ -62,10 +72,10 @@ export default function MeusLivros() {
             {myWishlist.map((wish) => (
               <Card
                 type="content"
-                className="grid grid-cols-2 justify-between gap-y-7 items-center"
+                className="grid grid-cols-2 items-center justify-between gap-y-7"
                 key={wish.id}
               >
-                <div className="flex flex-col gap-6 md:grid grid-cols-2 md:items-center">
+                <div className="flex grid-cols-2 flex-col gap-6 md:grid md:items-center">
                   <div>
                     <strong className="text-base-140 text-gray-500">
                       {wish.title}
@@ -74,54 +84,52 @@ export default function MeusLivros() {
                       por {wish.author}
                     </p>
                   </div>
-                  <span className="border-[1px] h-max border-primary-500 text-xs w-max py-1 px-2 text-primary-500 rounded-lg md:justify-self-center">
+                  <span className="h-max w-max rounded-lg border-[1px] border-primary-500 px-2 py-1 text-xs text-primary-500 md:justify-self-center">
                     {wish.studyArea}
                   </span>
                 </div>
-                <div className="flex flex-col justify-between justify-self-end h-full md:flex-row-reverse md:w-3/4 md:items-center">
-                  <DropdownMenu.Root>
-                    <DropdownMenu.Trigger asChild>
-                      <button className="p-1 w-max self-end border-2 border-primary-500 rounded-lg md:self-center">
-                        <Icon.SlidersHorizontal
-                          size={20}
-                          weight="bold"
-                          className="text-primary-500"
-                        />
-                      </button>
-                    </DropdownMenu.Trigger>
-
-                    <DropdownMenu.Portal>
-                      <Dropdown.Content>
-                        <Dropdown.Item>
-                          <Link
+                <div className="flex h-full flex-col justify-between justify-self-end md:w-3/4 md:flex-row-reverse md:items-center">
+                  <div className="flex items-center justify-end gap-2">
+                    <Tooltip.Provider delayDuration={300}>
+                      <Tooltip.Root>
+                        <Tooltip.Trigger asChild>
+                          <Button
+                            variant="cardEdit"
+                            componentType="a"
                             href={`/perfil/lista-desejos/${wish.id}/atualizar-desejo`}
-                            className="flex items-center justify-between px-3 w-full h-full"
                           >
-                            <span>Editar item</span>
-                            <Icon.PencilSimple size={18} />
-                          </Link>
-                        </Dropdown.Item>
-                        <Dropdown.Separator />
-                        <Dropdown.Item>
-                          <Dialog.Root>
-                            <Dialog.Trigger asChild>
-                              <button className="flex items-center justify-between px-3 w-full h-full">
-                                <span className="text-red-500">
-                                  Deletar item
-                                </span>
-                                <Icon.TrashSimple
-                                  size={18}
-                                  className="text-red-500"
-                                />
-                              </button>
-                            </Dialog.Trigger>
-                            <Modal variant="deleteBook" />
-                          </Dialog.Root>
-                        </Dropdown.Item>
-                      </Dropdown.Content>
-                    </DropdownMenu.Portal>
-                  </DropdownMenu.Root>
-                  <div className="flex gap-1 items-center text-gray-500 text-sm-140 justify-self-end">
+                            <Icon.PencilSimple weight="bold" />
+                          </Button>
+                        </Tooltip.Trigger>
+                        <Tooltip.Portal>
+                          <TooltipContent>Editar Desejo</TooltipContent>
+                        </Tooltip.Portal>
+                      </Tooltip.Root>
+                    </Tooltip.Provider>
+
+                    <Dialog.Root
+                      onOpenChange={changeModalVisibility}
+                      open={modalIsOpen}
+                    >
+                      <Dialog.Trigger>
+                        <Tooltip.Provider delayDuration={300}>
+                          <Tooltip.Root>
+                            <Tooltip.Trigger asChild>
+                              <Button variant="cardDelete">
+                                <Icon.TrashSimple weight="bold" />
+                              </Button>
+                            </Tooltip.Trigger>
+                            <Tooltip.Portal>
+                              <TooltipContent>Excluir Desejo</TooltipContent>
+                            </Tooltip.Portal>
+                          </Tooltip.Root>
+                        </Tooltip.Provider>
+                      </Dialog.Trigger>
+
+                      <Modal variant="deleteBook" />
+                    </Dialog.Root>
+                  </div>
+                  <div className="flex items-center gap-1 justify-self-end text-sm-140 text-gray-500">
                     <Icon.CalendarBlank size={10} />
                     <span>{formatDate(wish.createdAt)}</span>
                   </div>
