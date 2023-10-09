@@ -6,22 +6,22 @@ import { Button } from '@/components/Button'
 
 export default function Login() {
   return (
-    <main className="font-primary flex flex-col h-screen gap-x-4 lg:bg-white-500 md:flex-row md:items-center">
+    <main className="flex h-screen flex-col gap-x-4 font-primary dark:bg-black md:flex-row md:items-center lg:bg-white-500">
       <Image
         src="/background-image-login.png"
         alt="Imagem de Fundo da Página de Login"
         width={683}
         height={1024}
-        className="h-2/4 w-full object-bottom object-cover md:h-full md:w-2/3"
+        className="h-2/4 w-full object-cover object-bottom md:h-full md:w-2/3"
       />
-      <div className="flex flex-col justify-center px-9 pb-6 pt-4 lg:pb-0 h-full bg-white-500">
-        <Logo className="w-[172px] mx-auto mb-5" />
-        <p className="text-base-160 text-center mb-16">
+      <div className="flex h-full flex-col justify-center bg-white-500 px-9 pb-6 pt-4 dark:bg-black lg:pb-0">
+        <Logo className="mx-auto mb-5 w-[172px]" />
+        <p className="mb-16 text-center text-base-160">
           Comece sua jornada no mundo da troca de livros educacionais. Clique no
           botão para acessar sua conta.
         </p>
         <Button
-          className="font-bold mx-auto"
+          className="mx-auto font-bold"
           componentType="a"
           href="/perfil/completar-perfil"
         >

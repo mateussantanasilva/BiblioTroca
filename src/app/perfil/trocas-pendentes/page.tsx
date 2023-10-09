@@ -40,11 +40,11 @@ export default function TrocasPendentes() {
           history={historySize}
         />
       </Header>
-      <main className="px-6 pb-10 mt-28 md:mt-32">
-        <section className="max-w-5xl mx-auto">
-          <h1 className="font-secondary flex gap-1 items-center text-gray-500 text-title-xs mb-5">
+      <main className="mt-28 px-6 pb-10 md:mt-32">
+        <section className="mx-auto max-w-5xl">
+          <h1 className="mb-5 flex items-center gap-1 font-secondary text-title-xs text-gray-500 dark:text-white">
             Trocas
-            <span className="font-primary text-sm-140 text-gray-400">
+            <span className="font-primary text-sm-140 text-gray-400 dark:text-white">
               | {pendingTransactions.length} troca(s)
             </span>
           </h1>
@@ -56,25 +56,25 @@ export default function TrocasPendentes() {
               >
                 <Card
                   type="common"
-                  className="grid grid-cols-2 justify-between gap-y-7 items-center md:grid-cols-4"
+                  className="grid grid-cols-2 items-center justify-between gap-y-7 md:grid-cols-4"
                 >
                   <div>
-                    <strong className="text-base-140 text-gray-500">
+                    <strong className="text-base-140 text-gray-500 dark:text-yellow-500">
                       {pendingTransaction.book.title}
                     </strong>
-                    <p className="text-xs-140 text-gray-400">
+                    <p className="text-xs-140 text-gray-400 dark:text-yellow-500">
                       {pendingTransaction.type === 'send' ? '+' : '-'}
                       20 pontos
                     </p>
                   </div>
-                  <span className="flex gap-1 items-center text-gray-500 text-sm-140 justify-self-end md:justify-self-center">
+                  <span className="flex items-center gap-1 justify-self-end text-sm-140 text-gray-500 dark:text-yellow-500 md:justify-self-center">
                     <Icon.Circle
                       weight="fill"
                       className={status({ color: pendingTransaction.status })}
                     />
                     {pendingTransaction.status}
                   </span>
-                  <div className="flex gap-1 items-center text-gray-500 text-sm-140 md:justify-self-center">
+                  <div className="flex items-center gap-1 text-sm-140 text-gray-500 dark:text-yellow-500 md:justify-self-center">
                     <Icon.PaperPlaneTilt size={10} />
                     <span>
                       {pendingTransaction.type === 'receive'
@@ -83,7 +83,7 @@ export default function TrocasPendentes() {
                       {pendingTransaction.sellerCustomer.name}
                     </span>
                   </div>
-                  <div className="flex gap-1 items-center text-gray-500 text-sm-140 justify-self-end">
+                  <div className="flex items-center gap-1 justify-self-end text-sm-140 text-gray-500 dark:text-yellow-500">
                     <Icon.CalendarBlank size={10} />
                     <span>{formatDate(pendingTransaction.startDate)}</span>
                   </div>

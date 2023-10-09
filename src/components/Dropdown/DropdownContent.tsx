@@ -1,15 +1,17 @@
 import {
   Content,
   DropdownMenuContentProps,
+  Arrow,
 } from '@radix-ui/react-dropdown-menu'
 
 export function DropdownContent({ children }: DropdownMenuContentProps) {
   return (
     <Content
-      className="w-48 mr-6 relative z-10 bg-white rounded-lg shadow-container will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
+      className="relative z-10 mr-6 w-48 rounded-lg bg-white shadow-container will-change-[opacity,transform] data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade data-[side=right]:animate-slideLeftAndFade data-[side=top]:animate-slideDownAndFade dark:border-2 dark:border-white dark:bg-black"
       sideOffset={10}
     >
       {children}
+      <Arrow className="fill-white" />
     </Content>
   )
 }

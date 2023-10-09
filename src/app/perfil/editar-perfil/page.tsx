@@ -4,17 +4,29 @@ import { Avatar } from '@/components/Avatar'
 import { Button } from '@/components/Button'
 import { Header } from '@/components/Header'
 import { TextField } from '@/components/TextField'
+import { Modal } from '@/components/Modal'
+import * as Icon from '@phosphor-icons/react'
+import * as Dialog from '@radix-ui/react-dialog'
+import Link from 'next/link'
 
-export default function Perfil() {
+export default function EditProfile() {
   return (
     <>
-      <Header className="h-[300px]">
-        <div className="flex flex-col items-center gap-1">
-          <h1 className="font-primary text-sm-140">Cadastro</h1>
-          <h2 className="text-center font-secondary text-title-base">
-            Complete seu <br className="md:hidden" /> perfil
-          </h2>
-        </div>
+      <Header className="h-[300px] pt-16 text-center">
+        <Link
+          href="/perfil/trocas-pendentes"
+          className="absolute left-6 top-10"
+        >
+          <Icon.ArrowLeft
+            className="transition-transform duration-300 hover:scale-110 dark:text-yellow-500"
+            size={32}
+            weight="bold"
+          />
+        </Link>
+        <h1 className="font-primary text-sm-160">Cadastro</h1>
+        <h2 className="font-secondary text-title-base">
+          Gerencie seu <br className="md:hidden" /> Perfil
+        </h2>
       </Header>
       <main className="relative z-[2] px-6 pb-12 font-primary">
         <form
@@ -56,7 +68,18 @@ export default function Perfil() {
               </div>
             </div>
           </div>
-          <Button className="w-full lg:max-w-full">Confirmar</Button>
+          <Button className="w-full lg:max-w-full">Atualizar Livro</Button>
+
+          <Dialog.Root>
+            <Dialog.Trigger asChild>
+              <Button variant="ghostRed" className="mt-10 w-full lg:max-w-full">
+                Excluir Conta
+                <Icon.UserMinus weight="bold" size={20} />
+              </Button>
+            </Dialog.Trigger>
+
+            <Modal variant="deleteAccount" />
+          </Dialog.Root>
         </form>
       </main>
     </>

@@ -16,6 +16,8 @@ const button = tv({
         'text-primary-500 border-2 border-primary-500 [&:not(:disabled)]:hover:bg-primary-500 [&:not(:disabled)]:hover:text-white',
       ghostWhite:
         'text-white border-2 border-white [&:not(:disabled)]:hover:bg-primary-100 [&:not(:disabled)]:hover:text-primary-500',
+      ghostRed:
+        'text-red-500 border-red-500 border-2 hover:bg-red-500 hover:text-white',
       white:
         'bg-white text-primary-500 [&:not(:disabled)]:hover:bg-primary-100',
       whatsapp: 'bg-green-500 text-white [&:not(:disabled)]:hover:bg-green-400',

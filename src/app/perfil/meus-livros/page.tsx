@@ -52,10 +52,10 @@ export default function MeusLivros() {
       </Header>
       <main className="mt-28 px-6 pb-10 md:mt-32">
         <section className="mx-auto max-w-5xl">
-          <h1 className="mb-5 flex items-center justify-between font-secondary text-title-xs text-gray-500">
+          <h1 className="mb-5 flex items-center justify-between font-secondary text-title-xs text-gray-500 dark:text-white">
             <div className="flex items-center gap-1">
               Meus Livros
-              <span className="font-primary text-sm-140 text-gray-400">
+              <span className="font-primary text-sm-140 text-gray-400 dark:text-white">
                 | {myBooks.length} livro(s)
               </span>
             </div>
@@ -65,7 +65,7 @@ export default function MeusLivros() {
                 href="/perfil/meus-livros/cadastrar-livro"
                 className="p-2"
               >
-                <Icon.Plus fill="#fff" size={20} weight="bold" />
+                <Icon.Plus size={20} weight="bold" />
               </Button>
             </span>
           </h1>
@@ -84,10 +84,10 @@ export default function MeusLivros() {
                           href={`/perfil/meus-livros/${book.id}`}
                           className="!w-max"
                         >
-                          <strong className="text-base-140 text-gray-500">
+                          <strong className="text-base-140 text-gray-500 dark:text-yellow-500">
                             {book.title}
                           </strong>
-                          <p className="text-xs-140 text-gray-400">
+                          <p className="text-xs-140 text-gray-400 dark:text-yellow-500">
                             por {book.author}
                           </p>
                         </Link>
@@ -95,7 +95,7 @@ export default function MeusLivros() {
                       <TooltipContent>Visualizar Livro</TooltipContent>
                     </Tooltip.Root>
                   </Tooltip.Provider>
-                  <span className="h-max w-max rounded-lg border-[1px] border-primary-500 px-2 py-1 text-xs text-primary-500 md:justify-self-center">
+                  <span className="h-max w-max rounded-lg border-[1px] border-primary-500 px-2 py-1 text-xs text-primary-500 dark:border-white dark:text-white md:justify-self-center">
                     {book.studyArea}
                   </span>
                 </div>
@@ -140,7 +140,7 @@ export default function MeusLivros() {
                       <Modal variant="deleteBook" />
                     </Dialog.Root>
                   </div>
-                  <div className="flex items-center gap-1 justify-self-end text-sm-140 text-gray-500">
+                  <div className="flex items-center gap-1 justify-self-end text-sm-140 text-gray-500 dark:text-white">
                     <Icon.CalendarBlank size={10} />
                     <span>{formatDate(book.createdAt)}</span>
                   </div>

@@ -26,10 +26,10 @@ export default function Book({ params }: PagePropos) {
 
   return (
     <>
-      <Header className="text-center pt-16">
+      <Header className="pt-16 text-center">
         <Link href="/perfil/meus-livros" className="absolute left-6 top-10">
           <Icon.ArrowLeft
-            className="hover:scale-110 transition-transform duration-300"
+            className="transition-transform duration-300 hover:scale-110 dark:text-yellow-500"
             size={32}
             weight="bold"
           />
@@ -40,8 +40,8 @@ export default function Book({ params }: PagePropos) {
         </h2>
       </Header>
       <main className="relative z-[2] px-6 pb-10">
-        <section className="-mt-12 max-w-5xl mx-auto">
-          <form className="flex flex-col gap-11 max-w-[520px] mx-auto">
+        <section className="mx-auto -mt-12 max-w-5xl">
+          <form className="mx-auto flex max-w-[520px] flex-col gap-11">
             <Card type="content" className="flex flex-col gap-4 py-8">
               <TextField
                 label="Título"
@@ -74,7 +74,7 @@ export default function Book({ params }: PagePropos) {
                 value={book?.year}
               />
               <div>
-                <label className="text-base-140-md mb-1">
+                <label className="mb-1 text-base-140-md">
                   Condição do livro
                 </label>
                 <Root className="grid gap-2" defaultValue="good">
@@ -110,7 +110,7 @@ export default function Book({ params }: PagePropos) {
                 name="description"
                 value={book?.description}
                 componentType="textarea"
-                className="resize-none h-28 overflow-auto"
+                className="h-28 resize-none overflow-auto"
               />
             </Card>
             <Button className="lg:max-w-full" disabled>
