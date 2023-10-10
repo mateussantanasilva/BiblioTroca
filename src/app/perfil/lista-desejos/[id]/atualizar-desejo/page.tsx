@@ -24,10 +24,10 @@ export default function UpdateWish({ params }: PagePropos) {
 
   return (
     <>
-      <Header className="text-center pt-16">
+      <Header className="pt-16 text-center">
         <Link href="/perfil/lista-desejos" className="absolute left-6 top-10">
           <Icon.ArrowLeft
-            className="hover:scale-110 transition-transform duration-300"
+            className="transition-transform duration-300 hover:scale-110"
             size={32}
             weight="bold"
           />
@@ -38,8 +38,8 @@ export default function UpdateWish({ params }: PagePropos) {
         </h2>
       </Header>
       <main className="relative z-[2] px-6 pb-10">
-        <section className="-mt-12 max-w-5xl mx-auto">
-          <form className="flex flex-col gap-11 max-w-[520px] mx-auto">
+        <section className="mx-auto -mt-12 max-w-5xl">
+          <form className="mx-auto flex max-w-[520px] flex-col gap-11">
             <Card type="content" className="flex flex-col gap-4 py-8">
               <TextField
                 label="Título"
