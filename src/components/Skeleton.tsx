@@ -8,8 +8,8 @@ const skeleton = tv({
 
   variants: {
     variant: {
-      card: 'min-w-[12.5rem] min-h-[12.5rem] px-4 py-5 shadow-container animate-pulse bg-white dark:bg-black dark:border',
-      line: 'h-[1rem] bg-gray-300 dark:bg-black dark:border',
+      card: 'min-w-[12.5rem] min-h-[12.5rem] px-4 py-5 shadow-container animate-pulse bg-white dark:bg-black dark:shadow-solid-white',
+      line: 'h-[1rem] bg-gray-300 dark:bg-black dark:shadow-solid-white',
     },
     size: {
       xs: 'h-[3rem]',
