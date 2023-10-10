@@ -54,14 +54,14 @@ export function PublicHeader({ variant }: PublicHeaderProps) {
               ${isHomeHeader && 'text-white'}`}
             >
               <li
-                className={`transition-colors duration-200 hover:text-primary-500 dark:hover:text-yellow-300 
+                className={`border-b border-transparent transition-colors duration-200 hover:border-primary-100  hover:text-primary-100 dark:hover:text-yellow-300 
                 ${isHomeHeader && 'hover:text-primary-400'}`}
               >
                 <Link href="/">Home</Link>
               </li>
 
               <li
-                className={`transition-colors duration-200 hover:text-primary-500 dark:hover:text-yellow-300 
+                className={`border-b border-transparent transition-colors duration-200 hover:border-primary-100  hover:text-primary-100 dark:hover:text-yellow-300 
                 ${isHomeHeader && 'hover:text-primary-400'}`}
               >
                 <Link href="/livros">Buscar Livros</Link>
