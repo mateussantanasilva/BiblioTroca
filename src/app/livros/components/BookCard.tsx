@@ -12,12 +12,12 @@ export function BookCard({ book }: BookCardProps) {
     <Card
       componentType="article"
       type="content"
-      className="text-gray-500 px-0 dark:bg-black dark:shadow-solid-white dark:text-white"
+      className="px-0 text-gray-500 dark:bg-black dark:text-white dark:shadow-solid-white"
     >
-      <header className="flex justify-between items-start gap-3 mb-3 px-4 max-[350px]:flex-col">
+      <header className="mb-3 flex items-start justify-between gap-3 px-4 max-[350px]:flex-col">
         <div className="flex flex-col">
           <strong className="font-secondary text-title-sm">{book.name}</strong>
-          <p className="text-gray-400 text-base-140 dark:text-white">
+          <p className="text-base-140 text-gray-400 dark:text-white">
             por {book.author}
           </p>
         </div>
@@ -25,25 +25,25 @@ export function BookCard({ book }: BookCardProps) {
         <Link
           href={`/livro/${book.id}`}
           prefetch={false} // prefetch works only on hover
-          className="flex items-center gap-1 text-sm-140 hover:text-primary-500 transition-colors duration-200 dark:text-yellow-500 dark:hover:text-yellow-300"
+          className="flex items-center gap-1 text-sm-140 transition-colors duration-200 hover:text-primary-500 dark:text-yellow-500 dark:hover:text-yellow-300"
         >
           Detalhes
           <ArrowRight size={'0.75rem'} />
         </Link>
       </header>
 
-      <p className="text-base-160 mb-3 px-4">
+      <p className="mb-3 px-4 text-base-160">
         {book.shortDescription.concat('...')}
       </p>
 
       <span
         aria-label="categoria"
-        className="rounded-xl border-[1px] border-primary-500 py-1 px-3 text-primary-500 text-xs-140 mb-4 mx-4 inline-block dark:text-white dark:border-white"
+        className="mx-4 mb-4 inline-block rounded-xl border-[1px] border-primary-500 px-3 py-1 text-xs-140 text-primary-500 dark:border-white dark:text-white"
       >
         {book.category}
       </span>
 
-      <footer className="pt-4 flex justify-between items-start border-t-[1px] border-gray-300 max-[350px]:flex-col">
+      <footer className="flex items-start justify-between border-t-[1px] border-gray-300 pt-4 max-[350px]:flex-col">
         <div className="flex flex-col gap-[0.125rem] px-4">
           <p className="flex items-center gap-1 text-base-140">
             <PaperPlaneTilt size={'0.75rem'} />
@@ -60,7 +60,7 @@ export function BookCard({ book }: BookCardProps) {
             <Star weight="fill" className="text-orange-500" />
             {book.seller.averageRating}
           </p>
-          <span className="text-gray-400 text-sm-140 dark:text-white">{`(${book.seller.avaliationsNumber})`}</span>
+          <span className="text-sm-140 text-gray-400 dark:text-white">{`(${book.seller.avaliationsNumber})`}</span>
         </div>
       </footer>
     </Card>

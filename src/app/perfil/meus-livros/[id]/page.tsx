@@ -22,10 +22,10 @@ export default function Book({ params }: PagePropos) {
 
   return (
     <>
-      <Header className="text-center pt-16">
+      <Header className="pt-16 text-center">
         <Link href="/perfil/meus-livros" className="absolute left-6 top-10">
           <Icon.ArrowLeft
-            className="hover:scale-110 transition-transform duration-300"
+            className="transition-transform duration-300 hover:scale-110 dark:text-yellow-500"
             size={32}
             weight="bold"
           />
@@ -36,16 +36,16 @@ export default function Book({ params }: PagePropos) {
         </h2>
       </Header>
       <main className="relative z-[2] px-6 pb-10">
-        <section className="-mt-12 max-w-5xl mx-auto">
+        <section className="mx-auto -mt-12 max-w-5xl">
           <Card type="content">
             <p className="mb-3 text-base-140-md">Escrito por {book?.author}</p>
             <div className="mb-4">
-              <p className="text-base-140-md mb-1">Categoria</p>
-              <span className="border-[1px] border-primary-500 text-xs-140 rounded-lg px-2 py-1 text-primary-500">
+              <p className="mb-1 text-base-140-md">Categoria</p>
+              <span className="rounded-lg border-[1px] border-primary-500 px-2 py-1 text-xs-140 text-primary-500 dark:border-white dark:text-white">
                 {book?.studyArea}
               </span>
             </div>
-            <div className="grid grid-cols-2 mb-4">
+            <div className="mb-4 grid grid-cols-2">
               <div>
                 <p className="text-base-140-md">Idioma</p>
                 <p>{book?.language}</p>
@@ -55,7 +55,7 @@ export default function Book({ params }: PagePropos) {
                 <p>{book?.year}</p>
               </div>
             </div>
-            <div className="grid grid-cols-2 mb-4">
+            <div className="mb-4 grid grid-cols-2">
               <div>
                 <p className="text-base-140-md">Editora</p>
                 <p>{book?.publishingCompany}</p>

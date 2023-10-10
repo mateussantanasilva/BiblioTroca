@@ -1,16 +1,7 @@
 .swiper {
-  @apply
-    min-[600px]:hidden
-    overflow-hidden
-    -ml-2
-    relative
-    z-[1]
-  ;
+  @apply relative z-[1] -ml-2 overflow-hidden min-[600px]:hidden;
 }
 
 .swiper-slide {
-  @apply
-    !w-max
-    p-2
-  ;
+  @apply !w-max p-2 dark:!text-white;
 }

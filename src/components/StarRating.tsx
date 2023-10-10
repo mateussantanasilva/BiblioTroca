@@ -24,7 +24,7 @@ export function StarRating() {
         />
       }
       onChange={(_, selectedStars) => handleToEvaluate(selectedStars)}
-      className="flex left-1/2 -translate-x-1/2 -mt-7 mb-12"
+      className="left-1/2 -mt-7 mb-12 flex -translate-x-1/2"
     />
   )
 }

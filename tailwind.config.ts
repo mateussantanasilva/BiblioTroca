@@ -79,6 +79,7 @@ const config: Config = {
           'radial-gradient(50% 50% at 50% 50%, #7A2F73 0%, #3B1838 100%)',
         'gradient-title':
           'linear-gradient(180deg, #FFF 80.21%, rgba(255, 255, 255, 0.00) 100%)',
+        'dark-mode': 'radial-gradient(0 0 at 0 0, #000 0%, #000 100%)',
       },
 
       backgroundColor: {

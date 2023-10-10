@@ -6,10 +6,11 @@ import { motion } from 'framer-motion'
 import { CircleHalf, Sun } from '@phosphor-icons/react'
 
 interface SwitchThemeProps {
+  id: string
   isHomeHeader?: boolean
 }
 
-export function SwitchTheme({ isHomeHeader = false }: SwitchThemeProps) {
+export function SwitchTheme({ id, isHomeHeader = false }: SwitchThemeProps) {
   const { changeTheme, isDarkTheme } = useThemes()
 
   function handleChangeTheme() {
@@ -18,10 +19,11 @@ export function SwitchTheme({ isHomeHeader = false }: SwitchThemeProps) {
 
   return (
     <Switch.Root
-      id="change-theme"
+      id={id}
       onCheckedChange={handleChangeTheme}
       checked={isDarkTheme}
-      className={`relative w-[3.5rem] h-[1.563rem] rounded-full bg-gray-600 dark:bg-black dark:shadow-solid-white
+      aria-label="Alterar tema"
+      className={`relative h-[1.563rem] w-[3.5rem] rounded-full bg-gray-600 dark:bg-black dark:shadow-solid-white
       ${isHomeHeader && 'bg-white'}`}
     >
       <CircleHalf
@@ -37,7 +39,7 @@ export function SwitchTheme({ isHomeHeader = false }: SwitchThemeProps) {
         className="relative z-10"
       >
         <Switch.Thumb
-          className={`absolute w-[1.25rem] h-[1.25rem] rounded-full top-[50%] translate-y-[-50%] left-1 dark:bg-white
+          className={`absolute left-1 top-[50%] h-[1.25rem] w-[1.25rem] translate-y-[-50%] rounded-full dark:bg-white
         ${isHomeHeader ? 'bg-primary-500' : 'bg-white-500'}`}
         />
       </motion.div>

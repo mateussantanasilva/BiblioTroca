@@ -17,16 +17,16 @@ export function Avatar({ src, name, className }: AvatarProps) {
   return (
     <AvatarUI.Root
       className={twMerge(
-        'overflow-hidden inline-flex items-center justify-center rounded-full align-middle select-none w-16 h-16 md:w-28 md:h-28',
+        'inline-flex h-16 w-16 select-none items-center justify-center overflow-hidden rounded-full align-middle md:h-28 md:w-28',
         className,
       )}
     >
       <AvatarUI.Image
-        className="w-full h-full object-cover rounded-full"
+        className="h-full w-full rounded-full object-cover"
         src={src}
         alt={name}
       />
-      <AvatarUI.Fallback className="text-primary-500 font-primary leading-1 flex h-full w-full items-center justify-center bg-white text-title-base">
+      <AvatarUI.Fallback className="leading-1 flex h-full w-full items-center justify-center bg-white font-primary text-title-base text-primary-500">
         {initials}
       </AvatarUI.Fallback>
     </AvatarUI.Root>

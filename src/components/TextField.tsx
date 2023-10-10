@@ -17,13 +17,13 @@ export function TextField<T extends ElementType = 'input'>({
   ...rest
 }: TextFieldProps<T>) {
   return (
-    <div className="flex flex-col gap-1 w-full">
-      <label className="text-base-140-md w-max" htmlFor={id}>
+    <div className="flex w-full flex-col gap-1">
+      <label className="w-max text-base-140-md" htmlFor={id}>
         {label}
       </label>
       <ComponentType
         className={twMerge(
-          'w-full p-4 rounded-lg text-base-140 border-gray-300 border-[1px] disabled:text-gray-300 placeholder:opacity-50 disabled: hover:disabled:border-gray-300 outline-primary-500 hover:border-gray-400',
+          'disabled: w-full rounded-lg border-[1px] border-gray-300 bg-white-100 p-4 font-primary text-base-140 outline-primary-500 placeholder:font-primary placeholder:text-base-140 placeholder:text-gray-400 hover:border-gray-400 disabled:text-gray-300 hover:disabled:border-gray-300 dark:bg-black',
           className,
         )}
         type={type}

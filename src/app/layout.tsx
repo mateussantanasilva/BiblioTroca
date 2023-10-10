@@ -1,7 +1,9 @@
-import { barlow, inter } from '@/styles/fonts'
 import type { Metadata } from 'next'
 import { ThemesProvider } from '@/lib/NextThemes'
 import { QueryProvider } from '@/lib/ReactQuery'
+import { VLibrasPlugin } from '@/components/VLibrasPlugin'
+import { MotionConfigs } from '@/lib/FramerMotion'
+import { barlow, inter } from '@/styles/fonts'
 import '@/styles/globals.css'
 
 export const metadata: Metadata = {
@@ -45,9 +47,13 @@ export default function RootLayout({
       <body
         className={`antialiased ${inter.variable} ${barlow.variable} bg-white-200 dark:bg-black`}
       >
-        <ThemesProvider>
-          <QueryProvider>{children}</QueryProvider>
-        </ThemesProvider>
+        <MotionConfigs>
+          <VLibrasPlugin />
+
+          <ThemesProvider>
+            <QueryProvider>{children}</QueryProvider>
+          </ThemesProvider>
+        </MotionConfigs>
       </body>
     </html>
   )

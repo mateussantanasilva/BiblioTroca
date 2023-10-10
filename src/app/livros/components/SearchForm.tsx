@@ -36,8 +36,9 @@ export function SearchForm({ createQuery }: SearchFormProps) {
       <input
         type="text"
         placeholder="Busque por um livro, autor ou categoria."
+        aria-label="Filtrar livros por nome, autor ou categoria."
         {...register('query')}
-        className="w-[100%] max-w-md bg-white-100 rounded-lg border-[1px] border-gray-300 p-4 font-primary placeholder:text-gray-400 placeholder:text-base-140 placeholder:font-primary dark:bg-black"
+        className="w-[100%] max-w-md rounded-lg border-[1px] border-gray-300 bg-white-100 p-4 font-primary outline-none placeholder:font-primary placeholder:text-base-140 placeholder:text-gray-400 focus:ring-2 focus:ring-primary-500 dark:bg-black dark:placeholder:text-white dark:focus:ring-white"
       />
 
       <Button
@@ -45,6 +46,7 @@ export function SearchForm({ createQuery }: SearchFormProps) {
         disabled={isSubmitting}
         variant="ghostPurple"
         size="sm"
+        aria-label="Buscar livros"
         className="p-4"
       >
         <MagnifyingGlass size={'1.4rem'} weight="bold" />

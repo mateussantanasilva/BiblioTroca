@@ -8,6 +8,8 @@ import { Card } from '@/components/Card'
 import { BookCard } from './components/BookCard'
 import { Footer } from '@/components/Footer'
 import { SearchForm } from './components/SearchForm'
+import { SkeletonList } from './components/SkeletonList'
+import { motion } from 'framer-motion'
 
 import SeachBooksImage from '../../assets/search-books.png'
 
@@ -24,17 +26,17 @@ export default function Books() {
     <div className="dark:bg-black">
       <PublicHeader />
 
-      <main className="max-w-[73rem] mx-auto">
+      <main className="mx-auto max-w-[73rem]">
         <Card
           componentType="section"
           type="content"
-          className="flex justify-between text-gray-500 mx-6 p-0 overflow-hidden dark:bg-black dark:shadow-solid-white dark:text-white"
+          className="mx-6 flex justify-between overflow-hidden p-0 text-gray-500 dark:bg-black dark:text-white dark:shadow-solid-white"
         >
           <div className="px-4 py-5">
-            <h2 className="text-title-lg font-secondary mb-3">
+            <h2 className="mb-3 font-secondary text-title-lg">
               Explore Livros Disponíveis
             </h2>
-            <p className="text-lg-140 mb-10 max-w-[38.063rem]">
+            <p className="mb-10 max-w-[38.063rem] text-lg-140">
               Encontre e inicie uma jornada de trocas para expandir sua
               biblioteca e compartilhar conhecimento.
             </p>
@@ -51,12 +53,21 @@ export default function Books() {
           />
         </Card>
 
-        <section className="grid grid-cols-book-cards gap-4 mt-8 mb-9 mx-6 max-[350px]:grid-cols-1">
-          {isLoading && <p>Carregando...</p>}
+        <section className="mx-6 mb-9 mt-8 grid grid-cols-book-cards gap-4 max-[350px]:grid-cols-1">
+          {isLoading && <SkeletonList />}
 
           {books &&
             books.map((book) => {
-              return <BookCard key={book.id} book={book} />
+              return (
+                <motion.div
+                  key={book.id}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ type: 'spring', stiffness: 50 }}
+                >
+                  <BookCard book={book} />
+                </motion.div>
+              )
             })}
         </section>
       </main>

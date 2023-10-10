@@ -14,11 +14,11 @@ import ShadowHero from '../assets/shadow-hero.png'
 export default function Home() {
   return (
     <>
-      <div className="relative bg-radial-gradient h-screen overflow-hidden">
+      <div className="relative h-screen overflow-hidden bg-radial-gradient dark:bg-dark-mode">
         <PublicHeader variant="home" />
 
-        <section className="max-w-[73rem] mx-auto flex flex-col items-center relative">
-          <h1 className="text-center font-secondary bg-gradient-title bg-clip-text text-transparent px-6 max-w-xl text-title-xl lg:text-title-2xl lg:max-w-[45rem]">
+        <section className="relative mx-auto flex max-w-[73rem] flex-col items-center">
+          <h1 className="max-w-xl bg-gradient-title bg-clip-text px-6 text-center font-secondary text-title-xl text-transparent lg:max-w-[45rem] lg:text-title-2xl">
             Cada Livro, uma Nova Jornada ao Conhecimento
           </h1>
 
@@ -28,19 +28,15 @@ export default function Home() {
             width={550}
             quality={100}
             priority
-            className="px-6 relative z-0 lg:-my-[1.45rem] lg:w-[34.375rem] min-[2000px]:w-[42rem]"
+            className="relative z-0 px-6 lg:-my-[1.45rem] lg:w-[34.375rem] min-[2000px]:w-[42rem]"
           />
-
-          {/* <button className="flex items-center justify-center bg-primary-500 w-11 h-11 mx-auto rounded-full absolute z-10 translate-y-[26rem] lg:translate-y-[32rem]">
-            <ArrowDown weight="bold" size={'1.25rem'} className="text-white" />
-          </button> */}
         </section>
 
         <Image
           src={ShadowHero}
           alt=""
           width={1440}
-          className="absolute h-44 bottom-0"
+          className="absolute bottom-0 h-44 w-screen"
         />
       </div>
 
