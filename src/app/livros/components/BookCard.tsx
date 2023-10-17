@@ -12,7 +12,7 @@ export function BookCard({ book }: BookCardProps) {
     <Card
       componentType="article"
       type="content"
-      className="px-0 text-gray-500 dark:bg-black dark:text-white dark:shadow-solid-white"
+      className="px-0 text-gray-500 hover:ring-2 hover:ring-primary-400"
     >
       <header className="mb-3 flex items-start justify-between gap-3 px-4 max-[350px]:flex-col">
         <div className="flex flex-col">

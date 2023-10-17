@@ -30,7 +30,7 @@ export default function Books() {
         <Card
           componentType="section"
           type="content"
-          className="mx-6 flex justify-between overflow-hidden p-0 text-gray-500 dark:bg-black dark:text-white dark:shadow-solid-white"
+          className="mx-6 flex justify-between overflow-hidden p-0 text-gray-500"
         >
           <div className="px-4 py-5">
             <h2 className="mb-3 font-secondary text-title-lg">

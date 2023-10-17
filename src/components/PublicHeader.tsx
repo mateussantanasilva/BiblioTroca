@@ -32,6 +32,8 @@ export function PublicHeader({ variant }: PublicHeaderProps) {
   const { isDarkTheme } = useThemes()
 
   const isHomeHeader = variant === 'home'
+  const homeHeaderStyles =
+    'hover:text-primary-100 hover:border-primary-100 dark:hover:border-yellow-300'
   const isNonFocusable = openMenu ? -1 : 0
 
   function handleOpenMobileMenu() {
@@ -54,15 +56,17 @@ export function PublicHeader({ variant }: PublicHeaderProps) {
               ${isHomeHeader && 'text-white'}`}
             >
               <li
-                className={`border-b border-transparent transition-colors duration-200 hover:border-primary-100  hover:text-primary-100 dark:hover:text-yellow-300 
-                ${isHomeHeader && 'hover:text-primary-400'}`}
+                className={`border-b border-transparent transition-colors duration-200 dark:hover:text-yellow-300 
+                ${isHomeHeader && homeHeaderStyles} 
+                ${!isHomeHeader && 'hover:text-primary-500'}`}
               >
                 <Link href="/">Home</Link>
               </li>
 
               <li
-                className={`border-b border-transparent transition-colors duration-200 hover:border-primary-100  hover:text-primary-100 dark:hover:text-yellow-300 
-                ${isHomeHeader && 'hover:text-primary-400'}`}
+                className={`border-b border-transparent transition-colors duration-200 dark:hover:text-yellow-300 
+                ${isHomeHeader && homeHeaderStyles}
+                ${!isHomeHeader && 'hover:text-primary-500'}`}
               >
                 <Link href="/livros">Buscar Livros</Link>
               </li>
