@@ -6,7 +6,7 @@ async function createExchangeRequest(transaction: TransactionData) {
   return await api.post('/transactions', transaction)
 }
 
-export function useRequest() {
+export function useTransaction() {
   const mutation = useMutation({
     mutationFn: createExchangeRequest,
   })

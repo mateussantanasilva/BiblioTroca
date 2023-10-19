@@ -16,7 +16,8 @@ import SeachBooksImage from '../../assets/search-books.png'
 export default function Books() {
   const [query, setQuery] = useState<string | undefined>(undefined)
 
-  const { data: books, isLoading } = useBooks(query)
+  const { query: bookQuery } = useBooks(query)
+  const { data: books, isLoading } = bookQuery
 
   function createQuery(query: string) {
     setQuery(query)
