@@ -11,6 +11,7 @@ const card = tv({
       content: 'px-4 py-5 dark:text-white',
       form: 'px-3 py-8',
       dropdown: 'p-3',
+      login: 'py-10 px-5 max-w-sm dark:text-white',
     },
   },
 })

@@ -15,8 +15,10 @@ export function Logo({ isWhiteLogo = false, className }: LogoProps) {
       <Image
         src={isWhiteLogo ? WhiteLogo : BlackLogo}
         alt="Logotipo Bibliotroca"
-        width={1376}
+        width={172}
+        height={54}
         className={className}
+        priority
       />
     </Link>
   )
