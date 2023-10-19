@@ -1,5 +1,3 @@
-'use client'
-
 import Image from 'next/image'
 import { PublicHeader } from '../components/PublicHeader'
 import { Presentation } from './components/Presentation'
@@ -18,7 +16,7 @@ export default function Home() {
       <div className="relative h-screen overflow-hidden bg-radial-gradient dark:bg-dark-mode">
         <PublicHeader variant="home" />
 
-        <Reveal>
+        <Reveal isHero>
           <section className="relative mx-auto flex max-w-[73rem] flex-col items-center">
             <h1 className="max-w-xl bg-gradient-title bg-clip-text px-6 text-center font-secondary text-title-xl text-transparent lg:max-w-[45rem] lg:text-title-2xl">
               Cada Livro, uma Nova Jornada ao Conhecimento
