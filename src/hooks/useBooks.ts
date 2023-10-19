@@ -29,5 +29,7 @@ export function useBooks(filterQuery?: string) {
     refetchInterval: 1000 * 60 * 5, // 5 minutes in miliseconds
   })
 
-  return query
+  const bookCount = query.data?.length
+
+  return { query, bookCount }
 }

@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 import * as Accordion from '@radix-ui/react-accordion'
 import { Card } from '@/components/Card'

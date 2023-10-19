@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useTheme } from 'next-themes'
 
 export function useThemes() {
@@ -10,7 +10,7 @@ export function useThemes() {
   }, [theme])
 
   function changeTheme() {
-    if (theme === 'dark') {
+    if (isDarkTheme) {
       setTheme('light')
     } else {
       setTheme('dark')

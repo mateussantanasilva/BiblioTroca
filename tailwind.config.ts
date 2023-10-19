@@ -72,6 +72,7 @@ const config: Config = {
         container: '0px 2px 6px 0px rgba(0, 0, 0, 0.20)',
         'container-lg': '0px 3px 8px rgba(0, 0, 0, 0.24)',
         'solid-white': '0 0 0 1px white',
+        'hover-container': '0px 2px 6px 0px #7A2F73',
       },
 
       backgroundImage: {

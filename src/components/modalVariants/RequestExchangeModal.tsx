@@ -2,7 +2,7 @@ import { useParams, useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import { ModalContext } from '@/contexts/ModalContext'
 import { useContextSelector } from 'use-context-selector'
-import { useRequest } from '@/hooks/useRequest'
+import { useTransaction } from '@/hooks/useTransaction'
 import { useSingleBook } from '@/hooks/useSingleBook'
 import { TransactionData } from '@/@types/transactionData'
 import { Button } from '../Button'
@@ -12,7 +12,7 @@ export function RequestExchangeModal() {
     return context.changeModalVisibility
   })
 
-  const { mutate, isSuccess, isLoading } = useRequest()
+  const { mutate, isSuccess, isLoading } = useTransaction()
 
   const router = useRouter()
   const { id } = useParams()

@@ -1,8 +1,13 @@
+'use client'
+
 import Image from 'next/image'
+import { useBooks } from '@/hooks/useBooks'
 
 import AboutUsImage from '../../assets/about-us-image.jpg'
 
 export function AboutUs() {
+  const { bookCount } = useBooks()
+
   return (
     <section className="mx-auto max-w-[73rem] px-6 py-9 text-gray-500 md:text-center">
       <h2 className="mb-3 font-secondary text-title-lg dark:text-white">
@@ -19,7 +24,7 @@ export function AboutUs() {
       <dl className="mb-5 flex w-fit gap-8 md:mx-auto">
         <div>
           <dt className="mb-1 font-secondary text-title-base text-primary-500 dark:text-white">
-            + 70
+            + {bookCount}
           </dt>
           <dd className="text-base-140 text-gray-500 dark:text-white">
             Livros cadastrados

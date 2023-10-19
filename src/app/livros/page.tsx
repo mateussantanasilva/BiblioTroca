@@ -16,7 +16,8 @@ import SeachBooksImage from '../../assets/search-books.png'
 export default function Books() {
   const [query, setQuery] = useState<string | undefined>(undefined)
 
-  const { data: books, isLoading } = useBooks(query)
+  const { query: bookQuery } = useBooks(query)
+  const { data: books, isLoading } = bookQuery
 
   function createQuery(query: string) {
     setQuery(query)
@@ -30,7 +31,7 @@ export default function Books() {
         <Card
           componentType="section"
           type="content"
-          className="mx-6 flex justify-between overflow-hidden p-0 text-gray-500 dark:bg-black dark:text-white dark:shadow-solid-white"
+          className="mx-6 flex justify-between overflow-hidden p-0 text-gray-500"
         >
           <div className="px-4 py-5">
             <h2 className="mb-3 font-secondary text-title-lg">
