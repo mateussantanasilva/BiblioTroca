@@ -27,10 +27,13 @@ export default function Book({ params }: PagePropos) {
   return (
     <>
       <Header className="pt-16 text-center">
-        <Link href="/perfil/meus-livros" className="absolute left-6 top-10">
+        <Link
+          href="/perfil/meus-livros"
+          className="absolute left-6 top-10 min-[768px]:hidden"
+        >
           <Icon.ArrowLeft
             className="transition-transform duration-300 hover:scale-110 dark:text-yellow-500"
-            size={32}
+            size={24}
             weight="bold"
           />
         </Link>

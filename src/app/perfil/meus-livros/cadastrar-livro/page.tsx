@@ -13,10 +13,13 @@ export default function CreateBook() {
   return (
     <>
       <Header className="pt-16 text-center">
-        <Link href="/perfil/meus-livros" className="absolute left-6 top-10">
+        <Link
+          href="/perfil/meus-livros"
+          className="absolute left-6 top-10 min-[768px]:hidden"
+        >
           <Icon.ArrowLeft
             className="transition-transform duration-300 hover:scale-110 dark:text-yellow-500"
-            size={32}
+            size={24}
             weight="bold"
           />
         </Link>
@@ -31,7 +34,25 @@ export default function CreateBook() {
             <Card type="content" className="flex flex-col gap-4 py-8">
               <TextField label="Título" id="title" name="title" />
               <TextField label="Autor" id="author" name="author" />
-              <TextField label="Categoria" id="studyArea" name="studyArea" />
+              <TextField
+                label="Categoria"
+                id="studyArea"
+                name="studyArea"
+                componentType="select"
+                className="relative cursor-pointer"
+              >
+                <option selected disabled>
+                  Selecione...
+                </option>
+                <option value="C.Bio">Ciências Biológicas</option>
+                <option value="Eng">Engenharias</option>
+                <option value="C.Sau">Ciências da Saúde</option>
+                <option value="C.Agra">Ciências Agrárias</option>
+                <option value="Ling.L.A">Linguística, Letras e Artes</option>
+                <option value="C.Soci">Ciências Sociais Aplicadas</option>
+                <option value="C.Human">Ciências Humanas</option>
+                <option value="C.Exat">Ciências Exatas e da Terra</option>
+              </TextField>
               <TextField
                 label="Editora"
                 id="publishingCompany"

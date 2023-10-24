@@ -1,4 +1,4 @@
-import { ComponentProps, ElementType } from 'react'
+import { ComponentProps, ElementType, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 type TextFieldProps<T extends ElementType> = ComponentProps<T> & {
@@ -10,6 +10,7 @@ export function TextField<T extends ElementType = 'input'>({
   type,
   id,
   name,
+  value,
   label,
   placeholder,
   className,
@@ -30,6 +31,7 @@ export function TextField<T extends ElementType = 'input'>({
         placeholder={placeholder}
         id={id}
         name={name}
+        value={value}
         {...rest}
       />
     </div>
