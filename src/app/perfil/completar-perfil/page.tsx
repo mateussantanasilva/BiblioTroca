@@ -18,7 +18,7 @@ export default function Perfil() {
       </Header>
       <main className="relative z-[2] px-6 pb-12 font-primary">
         <form
-          className="mx-auto flex w-full max-w-lg flex-col gap-8"
+          className="mx-auto flex w-full max-w-[540px] flex-col gap-8"
           action="/perfil/trocas-pendentes"
         >
           <div className="mx-auto -mt-24 w-full rounded-lg bg-white px-6 pb-8 shadow-container dark:border-2 dark:border-white dark:bg-black md:-mt-28">

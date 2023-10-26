@@ -9,7 +9,8 @@ interface Buyer {
 
 export interface TransactionData {
   id: string
-  status: string
+  status: 'Pendente' | 'Concluído' | 'Cancelado'
+  type: 'send' | 'receive'
   createdAt: string
   bookDetails: BookCompleteData
   buyer: Buyer

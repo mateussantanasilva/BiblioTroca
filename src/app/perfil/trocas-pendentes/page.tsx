@@ -3,8 +3,6 @@
 import { Card, status } from '@/components/Card'
 import { Header } from '@/components/Header'
 import { Navigation } from '@/components/Navigation'
-import { Transaction, transactionsDefault } from '@/model/transaction'
-import { useEffect, useState } from 'react'
 import * as Icon from '@phosphor-icons/react'
 import Link from 'next/link'
 import { formatDate } from '@/utils/format-date'
@@ -14,19 +12,11 @@ import {
   pendingTransactionsSize,
   wishListSize,
 } from '@/docs/navigationInfo'
+import { useTransactions } from '@/hooks/useTransactions'
 
 export default function TrocasPendentes() {
-  const [pendingTransactions, setPendingTransactions] = useState<Transaction[]>(
-    [],
-  )
-
-  useEffect(() => {
-    setPendingTransactions(
-      transactionsDefault.filter((transaction) => {
-        return transaction.status === 'Pendente'
-      }),
-    )
-  }, [])
+  const { query: transactionsQuery } = useTransactions()
+  const { data: pendingTransactions, isLoading } = transactionsQuery
 
   return (
     <>
@@ -45,13 +35,13 @@ export default function TrocasPendentes() {
           <h1 className="mb-5 flex items-center gap-1 font-secondary text-title-xs text-gray-500 dark:text-white">
             Trocas
             <span className="font-primary text-sm-140 text-gray-400 dark:text-white">
-              | {pendingTransactions.length} troca(s)
+              | {pendingTransactions?.length} troca(s)
             </span>
           </h1>
           <div className="flex flex-col gap-4">
-            {pendingTransactions.map((pendingTransaction) => (
+            {pendingTransactions?.map((pendingTransaction) => (
               <Link
-                key={pendingTransaction.book.id}
+                key={pendingTransaction.bookDetails.id}
                 href={`/perfil/trocas-pendentes/troca/${pendingTransaction.id}`}
               >
                 <Card
@@ -60,7 +50,7 @@ export default function TrocasPendentes() {
                 >
                   <div>
                     <strong className="text-base-140 text-gray-500 dark:text-yellow-500">
-                      {pendingTransaction.book.title}
+                      {pendingTransaction.bookDetails.name}
                     </strong>
                     <p className="text-xs-140 text-gray-400 dark:text-yellow-500">
                       {pendingTransaction.type === 'send' ? '+' : '-'}
@@ -80,12 +70,14 @@ export default function TrocasPendentes() {
                       {pendingTransaction.type === 'receive'
                         ? 'Recebendo de '
                         : 'Enviando para '}
-                      {pendingTransaction.sellerCustomer.name}
+                      {pendingTransaction.bookDetails.seller.name}
                     </span>
                   </div>
                   <div className="flex items-center gap-1 justify-self-end text-sm-140 text-gray-500 dark:text-yellow-500">
                     <Icon.CalendarBlank size={10} />
-                    <span>{formatDate(pendingTransaction.startDate)}</span>
+                    <span>
+                      {formatDate(Date.parse(pendingTransaction.createdAt))}
+                    </span>
                   </div>
                 </Card>
               </Link>

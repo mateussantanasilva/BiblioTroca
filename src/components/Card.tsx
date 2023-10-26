@@ -6,7 +6,7 @@ const card = tv({
   base: 'bg-white shadow-container font-primary rounded-lg transition-all dark:ring-transparent dark:bg-black dark:shadow-solid-white',
   variants: {
     type: {
-      menu: 'pt-5 pb-6 px-3 w-[7.75rem] min-[650px]:w-full h-full hover:shadow-container-lg hover:scale-[1.005]',
+      menu: 'pt-5 pb-6 px-3 w-[7.75rem] h-[140px] hover:shadow-container-lg hover:scale-[1.005]',
       common: 'p-4 hover:shadow-container-lg hover:scale-[1.005]',
       content: 'px-4 py-5 dark:text-white',
       form: 'px-3 py-8',

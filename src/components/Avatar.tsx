@@ -17,7 +17,7 @@ export function Avatar({ src, name, className }: AvatarProps) {
   return (
     <AvatarUI.Root
       className={twMerge(
-        'inline-flex h-16 w-16 select-none items-center justify-center overflow-hidden rounded-full align-middle md:h-28 md:w-28',
+        'inline-flex h-[60px] w-[60px] select-none items-center justify-center overflow-hidden rounded-full align-middle md:h-28 md:w-28',
         className,
       )}
     >
