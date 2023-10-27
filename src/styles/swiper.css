@@ -1,3 +1,7 @@
+.swiper-wrapper {
+  @apply min-[613px]:grid min-[613px]:grid-cols-4 min-[613px]:gap-2
+}
+
 .swiper-slide {
-  @apply !w-max p-2 dark:!text-white;
+  @apply !w-max p-2 dark:!text-white min-[613px]:!w-full min-[613px]:!mr-0;
 }

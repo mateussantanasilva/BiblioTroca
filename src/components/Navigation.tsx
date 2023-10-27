@@ -88,8 +88,12 @@ export function Navigation({
           <span className="font-primary text-xs-140 md:text-lg">
             Sua jornada já lhe rendeu
           </span>
-          <div className="mt-2">
-            <Icon.CurrencyCircleDollar className="text-yellow-500" />
+          <div className="mt-2 flex items-center gap-1">
+            <Icon.CurrencyCircleDollar
+              className="h-[27px] w-[27px] text-yellow-500 md:h-9 md:w-9"
+              weight="bold"
+            />
+            <span className="font-secondary text-title-base">240 pontos</span>
           </div>
         </div>
         <DropdownMenu.Root>
@@ -162,7 +166,7 @@ export function Navigation({
         modules={[FreeMode]}
       >
         {menuItems.map((menuItem) => (
-          <SwiperSlide key={menuItem.link} className="w-max">
+          <SwiperSlide key={menuItem.link}>
             <Link href={menuItem.link}>
               <Card type="menu">
                 {menuItem.icon}

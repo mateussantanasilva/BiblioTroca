@@ -1,9 +1,12 @@
+'use client'
+
 import type { Metadata } from 'next'
 import { ThemesProvider } from '@/lib/NextThemes'
 import { QueryProvider } from '@/lib/ReactQuery'
 import { VLibrasPlugin } from '@/components/VLibrasPlugin'
 import { MotionConfigs } from '@/lib/FramerMotion'
 import { barlow, inter } from '@/styles/fonts'
+import { useEffect } from 'react'
 import '@/styles/globals.css'
 
 export const metadata: Metadata = {
@@ -42,6 +45,22 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  useEffect(() => {
+    const window: MouseFlowWindow = {
+      _mfq: undefined,
+    }
+
+    window._mfq = []
+    ;(function () {
+      const mf = document.createElement('script')
+      mf.type = 'text/javascript'
+      mf.defer = true
+      mf.src =
+        '//cdn.mouseflow.com/projects/e7dc990a-dfab-4866-b15f-1e442cd97f62'
+      document.getElementsByTagName('head')[0].appendChild(mf)
+    })()
+  }, [])
+
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <body
