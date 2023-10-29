@@ -1,7 +1,11 @@
+.swiper {
+  @apply !-ml-2 min-[613px]:!w-[calc(100%+1rem)];
+}
+
 .swiper-wrapper {
-  @apply min-[613px]:grid min-[613px]:grid-cols-4 min-[613px]:gap-2
+  @apply min-[613px]:grid min-[613px]:grid-cols-4 min-[613px]:gap-2;
 }
 
 .swiper-slide {
-  @apply !w-max p-2 dark:!text-white min-[613px]:!w-full min-[613px]:!mr-0;
+  @apply !w-max p-2 dark:!text-white min-[613px]:!mr-0 min-[613px]:!w-full;
 }

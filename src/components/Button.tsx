@@ -20,7 +20,8 @@ const button = tv({
         'text-red-500 border-red-500 border-2 hover:bg-red-500 hover:text-white',
       white:
         'bg-white text-primary-500 [&:not(:disabled)]:hover:bg-primary-100',
-      whatsapp: 'bg-green-500 text-white [&:not(:disabled)]:hover:bg-green-400',
+      whatsapp:
+        'px-4 py-2 bg-green-500 text-white [&:not(:disabled)]:hover:bg-green-400 !w-max',
       delete: 'bg-red-500 text-white [&:not(:disabled)]:hover:bg-red-600',
       evaluate:
         'bg-orange-500 text-white [&:not(:disabled)]:hover:bg-orange-400',
@@ -33,7 +34,7 @@ const button = tv({
     size: {
       sm: 'w-fit py-2 px-4',
       md: 'w-fit',
-      lg: 'w-[11.125rem]',
+      lg: 'w-[11.125rem] h-[2.5rem]',
       full: 'w-full',
     },
   },
@@ -68,7 +69,7 @@ const ButtonComponent = forwardRef<any, BaseButtonProps<any>>(
     >
       {variant === 'whatsapp' ? (
         <>
-          <WhatsappLogo size={'1.54rem'} />
+          <WhatsappLogo size={22} />
           {children}
         </>
       ) : (

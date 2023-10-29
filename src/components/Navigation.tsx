@@ -1,15 +1,15 @@
 'use client'
 
 import Link from 'next/link'
+import { ReactNode } from 'react'
 
-import { Avatar, AvatarProps } from './Avatar'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import * as Icon from '@phosphor-icons/react'
+import { Avatar, AvatarProps } from './Avatar'
 import { Card } from './Card'
-
 import { Dropdown } from './Dropdown'
+import { Skeleton } from './Skeleton'
 import { useThemes } from '@/hooks/useThemes'
-import { ReactNode } from 'react'
 
 import 'swiper/css'
 import 'swiper/css/free-mode'
@@ -18,19 +18,19 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { FreeMode } from 'swiper/modules'
 
 type NavigationProps = AvatarProps & {
-  pendingExchanges: number
-  amountBooks: number
-  wishlist: number
-  history: number
+  pendingTransactions: number | undefined
+  myBooks: number | undefined
+  wishList: number | undefined
+  history: number | undefined
 }
 
 export function Navigation({
   name,
   src,
-  amountBooks,
-  pendingExchanges,
+  pendingTransactions,
+  myBooks,
+  wishList,
   history,
-  wishlist,
 }: NavigationProps) {
   const { changeTheme, isDarkTheme } = useThemes()
 
@@ -41,6 +41,7 @@ export function Navigation({
   type MenuItem = {
     link: string
     name: string
+    length: number | undefined
     subtitle: string
     icon: ReactNode
   }
@@ -49,30 +50,52 @@ export function Navigation({
     {
       link: '/perfil/trocas-pendentes',
       name: 'Trocas',
-      subtitle: `${pendingExchanges} trocas`,
-      icon: <Icon.Swap weight="bold" size={22} className="text-primary-500" />,
+      subtitle: 'pendente(s)',
+      length: pendingTransactions,
+      icon: (
+        <Icon.Swap
+          weight="bold"
+          size={22}
+          className="text-primary-500 dark:text-yellow-500"
+        />
+      ),
     },
     {
-      link: '/perfil/livros',
+      link: '/perfil/meus-livros',
       name: 'Meus Livros',
-      subtitle: `${amountBooks} livros`,
-      icon: <Icon.Books weight="bold" size={22} className="text-primary-500" />,
+      subtitle: 'livro(s)',
+      length: myBooks,
+      icon: (
+        <Icon.Books
+          weight="bold"
+          size={22}
+          className="text-primary-500 dark:text-yellow-500"
+        />
+      ),
     },
     {
-      link: '/perfil/lista-de-desejos',
+      link: '/perfil/lista-desejos',
       name: 'Lista de Desejos',
-      subtitle: `${wishlist} desejos`,
-      icon: <Icon.Heart weight="bold" size={22} className="text-primary-500" />,
+      subtitle: 'desejo(s)',
+      length: wishList,
+      icon: (
+        <Icon.Heart
+          weight="bold"
+          size={22}
+          className="text-primary-500 dark:text-yellow-500"
+        />
+      ),
     },
     {
       link: '/perfil/historico',
       name: 'Histórico',
-      subtitle: `${history} trocas`,
+      subtitle: 'troca(s)',
+      length: history,
       icon: (
         <Icon.ListMagnifyingGlass
           weight="bold"
           size={22}
-          className="text-primary-500"
+          className="text-primary-500 dark:text-yellow-500"
         />
       ),
     },
@@ -134,7 +157,7 @@ export function Navigation({
                   <Dropdown.Item>
                     <button
                       onClick={handleChangeTheme}
-                      className="flex h-full w-full items-center justify-between px-3 dark:text-yellow-500"
+                      className="flex h-full w-full items-center justify-between px-3"
                     >
                       <span>Tema claro</span>
                       <Icon.Sun size={18} />
@@ -160,7 +183,7 @@ export function Navigation({
         </DropdownMenu.Root>
       </section>
       <Swiper
-        slidesPerView={'auto'}
+        slidesPerView="auto"
         spaceBetween={2}
         freeMode={true}
         modules={[FreeMode]}
@@ -170,9 +193,23 @@ export function Navigation({
             <Link href={menuItem.link}>
               <Card type="menu">
                 {menuItem.icon}
-                <p className="mb-auto mt-3 text-base-140-md text-black">
+                <p className="h-max text-base-140-md text-black dark:text-yellow-500">
                   {menuItem.name}
                 </p>
+                <span className="h-max self-end text-xs-140 text-gray-400 dark:text-yellow-500">
+                  {menuItem.length ? (
+                    menuItem.length === 0 ? (
+                      'Sem trocas'
+                    ) : (
+                      `${menuItem.length} ${menuItem.subtitle}`
+                    )
+                  ) : (
+                    <Skeleton
+                      variant="line"
+                      className="w-[78px] animate-pulse"
+                    />
+                  )}
+                </span>
               </Card>
             </Link>
           </SwiperSlide>

@@ -4,6 +4,8 @@ interface Buyer {
   firstName: string
   lastName: string
   email: string
+  averageRating: number
+  avaliationsNumber: number
   phoneNumber: string
 }
 

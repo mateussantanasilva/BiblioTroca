@@ -137,7 +137,7 @@
   ],
   "transactions": [
     {
-      "id": "2023-09-14T22:35:19.931Z",
+      "id": "1",
       "status": "Pendente",
       "type": "send",
       "createdAt": "2023-09-14T22:35:19.931Z",
@@ -164,11 +164,13 @@
         "firstName": "Mateus",
         "lastName": "Santana",
         "email": "santanasilva1778@gmail.com",
+        "averageRating": 4.7,
+        "avaliationsNumber": 14,
         "phoneNumber": "11912345678"
       }
     },
     {
-      "id": "2023-09-14T22:35:19.931Z",
+      "id": "2",
       "status": "Concluído",
       "type": "receive",
       "createdAt": "2023-09-14T22:35:19.931Z",
@@ -195,11 +197,13 @@
         "firstName": "Mateus",
         "lastName": "Santana",
         "email": "santanasilva1778@gmail.com",
+        "averageRating": 4.7,
+        "avaliationsNumber": 14,
         "phoneNumber": "11912345678"
       }
     },
     {
-      "id": "2023-09-14T22:35:19.931Z",
+      "id": "3",
       "status": "Cancelado",
       "type": "send",
       "createdAt": "2023-09-14T22:35:19.931Z",
@@ -226,6 +230,8 @@
         "firstName": "Mateus",
         "lastName": "Santana",
         "email": "santanasilva1778@gmail.com",
+        "averageRating": 4.7,
+        "avaliationsNumber": 14,
         "phoneNumber": "11912345678"
       }
     }
