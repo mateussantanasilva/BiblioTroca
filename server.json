@@ -140,7 +140,7 @@
       "id": "1",
       "status": "Pendente",
       "type": "send",
-      "createdAt": "2023-09-14T22:35:19.931Z",
+      "createdAt": "2023-09-12T22:35:19.931Z",
       "bookDetails": {
         "id": 3,
         "name": "Lógica de Programação",
@@ -173,17 +173,17 @@
       "id": "2",
       "status": "Concluído",
       "type": "receive",
-      "createdAt": "2023-09-14T22:35:19.931Z",
+      "createdAt": "2023-09-13T22:35:19.931Z",
       "bookDetails": {
         "id": 3,
-        "name": "Lógica de Programação",
-        "author": "Richard Helm",
+        "name": "Inteligência Artificial - Do Zero ao Metaverso",
+        "author": "Martha Gabriel",
         "category": "Tecnologia",
         "language": "Português",
-        "year": "2009",
-        "publishingCompany": "Alta Books",
-        "state": "Pode ter algumas marcas leves de manuseio, sem rasuras.",
-        "description": "O livro destaca a importância de manter o código limpo, não apenas para a eficácia imediata, mas para garantir que o software permaneça sustentável e fácil de manter a longo prazo. Utilizando exemplos práticos e diretrizes claras, Martin delineia os princípios do desenvolvimento de software ágil, focando em técnicas e práticas que levam a um código mais limpo e eficiente.",
+        "year": "2022",
+        "publishingCompany": "Atlas",
+        "state": "Novo, sem marcas de rasura e manuseio",
+        "description": "O livro foi criado para explicar de forma simples, não técnica, em linguagem didática, para qualquer pessoa, de todas as idades e formações, o que é a IA, a sua importância e como ela pode nos ajudar ou prejudicar",
         "createdAt": "2023-09-13T23:18:46.765Z",
         "seller": {
           "name": "Pedro",
@@ -235,5 +235,8 @@
         "phoneNumber": "11912345678"
       }
     }
+  ],
+  "wishlist": [
+    
   ]
 }

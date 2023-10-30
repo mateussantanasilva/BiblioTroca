@@ -16,16 +16,25 @@ import { TooltipContent } from '@/components/TooltipContent'
 import { useMyBooks } from '@/hooks/useMyBooks'
 import { useTransactions } from '@/hooks/useTransactions'
 import { Skeleton } from '@/components/Skeleton'
+import { generateArrayWithId } from '@/utils/generate-array-with-id'
+import { useMyWishlist } from '@/hooks/useMyWishlist'
 
 export default function MeusLivros() {
-  const { query: myBooksQuery } = useMyBooks()
-  const { data: myBooks, isLoading, isSuccess } = myBooksQuery
+  const {
+    query: { data: pendingTransactions },
+  } = useTransactions('Pendente')
 
-  const { query: pendingTransactionsQuery } = useTransactions('Pendente')
-  const { data: pendingTransactions } = pendingTransactionsQuery
+  const {
+    query: { data: history },
+  } = useTransactions('Cancelado&Concluído')
 
-  const { query: historyQuery } = useTransactions('Cancelado&Concluído')
-  const { data: history } = historyQuery
+  const {
+    query: { data: myWishlist },
+  } = useMyWishlist()
+
+  const {
+    query: { data: myBooks, isLoading, isSuccess },
+  } = useMyBooks()
 
   const { modalIsOpen, changeModalVisibility } = useContextSelector(
     ModalContext,
@@ -36,6 +45,8 @@ export default function MeusLivros() {
     },
   )
 
+  const quantityToRepeat = generateArrayWithId(4)
+
   return (
     <div>
       <Header>
@@ -44,8 +55,9 @@ export default function MeusLivros() {
           src="https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80"
           pendingTransactions={pendingTransactions?.length}
           myBooks={myBooks?.length}
-          wishList={0}
+          wishList={myWishlist?.length}
           history={history?.length}
+          isLoading={isLoading}
         />
       </Header>
       <main className="mt-28 px-6 pb-10 md:mt-32">
@@ -53,7 +65,7 @@ export default function MeusLivros() {
           <h1 className="mb-5 flex items-center justify-between font-secondary text-title-xs text-gray-500 dark:text-white">
             <div className="flex items-center gap-1">
               Meus Livros
-              {isSuccess && (
+              {isSuccess && myBooks?.length !== 0 && (
                 <span className="font-primary text-sm-140 text-gray-400 dark:text-white">
                   | {myBooks?.length} livro(s)
                 </span>
@@ -70,30 +82,39 @@ export default function MeusLivros() {
             </span>
           </h1>
           <div className="flex flex-col gap-4">
-            {isLoading && (
-              <Skeleton quantity={3} variant="cardContent" className="gap-4">
-                <div className="grid grid-cols-2">
-                  <div className="flex grid-cols-2 flex-col gap-6 md:grid md:items-center">
-                    <div>
-                      <Skeleton variant="line" className="mb-1 w-[125px]" />
+            {isLoading &&
+              quantityToRepeat.map((item) => (
+                <Skeleton
+                  variant="cardContent"
+                  className="gap-4 md:h-[80px]"
+                  key={item}
+                >
+                  <div className="grid grid-cols-2">
+                    <div className="flex grid-cols-2 flex-col gap-6 md:grid md:items-center">
+                      <div>
+                        <Skeleton variant="line" className="mb-1 w-[125px]" />
+                        <Skeleton variant="line" className="w-[90px]" />
+                      </div>
+                      <Skeleton
+                        variant="line"
+                        className="w-[80px] md:justify-self-center"
+                      />
+                    </div>
+                    <div className="flex h-full flex-col justify-between justify-self-end md:w-3/4 md:flex-row-reverse md:items-center">
+                      <div className="flex justify-end gap-2">
+                        <Skeleton variant="line" size="buttonSm" />
+                        <Skeleton variant="line" size="buttonSm" />
+                      </div>
                       <Skeleton variant="line" className="w-[90px]" />
                     </div>
-                    <Skeleton
-                      variant="line"
-                      className="w-[80px] md:justify-self-center"
-                    />
                   </div>
-                  <div className="flex h-full flex-col justify-between justify-self-end md:w-3/4 md:flex-row-reverse md:items-center">
-                    <div className="flex justify-end gap-2">
-                      <Skeleton variant="line" size="buttonSm" />
-                      <Skeleton variant="line" size="buttonSm" />
-                    </div>
-                    <Skeleton variant="line" className="w-[90px]" />
-                  </div>
-                </div>
-              </Skeleton>
+                </Skeleton>
+              ))}
+            {myBooks?.length === 0 && (
+              <span className="mx-auto font-secondary text-title-base text-gray-400">
+                Sem livros cadastrados
+              </span>
             )}
-
             {isSuccess &&
               myBooks?.map((book) => (
                 <Card
@@ -106,10 +127,10 @@ export default function MeusLivros() {
                       <Tooltip.Root>
                         <Tooltip.Trigger asChild>
                           <Link href={`/perfil/meus-livros/${book.id}`}>
-                            <strong className="text-base-140 text-gray-500 dark:text-yellow-500">
+                            <strong className="block truncate text-base-140 text-gray-500 dark:text-yellow-500">
                               {book.name}
                             </strong>
-                            <p className="text-xs-140 text-gray-400 dark:text-yellow-500">
+                            <p className="block truncate text-xs-140 text-gray-400 dark:text-yellow-500">
                               por {book.author}
                             </p>
                           </Link>

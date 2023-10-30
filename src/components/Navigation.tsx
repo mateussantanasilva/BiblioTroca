@@ -22,6 +22,7 @@ type NavigationProps = AvatarProps & {
   myBooks: number | undefined
   wishList: number | undefined
   history: number | undefined
+  isLoading: boolean
 }
 
 export function Navigation({
@@ -31,6 +32,7 @@ export function Navigation({
   myBooks,
   wishList,
   history,
+  isLoading,
 }: NavigationProps) {
   const { changeTheme, isDarkTheme } = useThemes()
 
@@ -197,17 +199,15 @@ export function Navigation({
                   {menuItem.name}
                 </p>
                 <span className="h-max self-end text-xs-140 text-gray-400 dark:text-yellow-500">
-                  {menuItem.length ? (
-                    menuItem.length === 0 ? (
-                      'Sem trocas'
-                    ) : (
-                      `${menuItem.length} ${menuItem.subtitle}`
-                    )
-                  ) : (
+                  {isLoading ? (
                     <Skeleton
                       variant="line"
                       className="w-[78px] animate-pulse"
                     />
+                  ) : menuItem.length === 0 ? (
+                    `Sem ${menuItem.subtitle}`
+                  ) : (
+                    `${menuItem.length} ${menuItem.subtitle}`
                   )}
                 </span>
               </Card>

@@ -10,6 +10,7 @@ import Link from 'next/link'
 import { useSingleTransaction } from '@/hooks/useSingleTransaction'
 import { useRouter } from 'next/navigation'
 import { Skeleton } from '@/components/Skeleton'
+import { formatDate } from '@/utils/format-date'
 
 type PagePropos = {
   params: {
@@ -26,7 +27,11 @@ export default function PendingExchange({ params }: PagePropos) {
   } = useSingleTransaction(params.id)
 
   const router = useRouter()
-  isError && router.push('/trocas-pendentes')
+  isError && router.push('/perfil/trocas-pendentes')
+
+  isSuccess &&
+    transaction?.status !== 'Pendente' &&
+    router.push('/perfil/trocas-pendentes')
 
   return (
     <>
@@ -78,7 +83,7 @@ export default function PendingExchange({ params }: PagePropos) {
                   <Skeleton variant="line" size="button" />
                 </div>
               </Skeleton>
-              <Skeleton variant="cardContent" className="mb-4 !block">
+              <Skeleton variant="cardContent" className="mb-4">
                 <Skeleton variant="line" className="mb-3 w-[180px]" />
                 <Skeleton variant="line" className="mb-4 w-[70px]" />
                 <Skeleton
@@ -88,37 +93,38 @@ export default function PendingExchange({ params }: PagePropos) {
                 />
                 <Skeleton variant="line" className="w-[170px]" />
               </Skeleton>
-              <Skeleton variant="cardContent" className="!block gap-0">
+              <Skeleton variant="cardContent">
                 <Skeleton variant="line" className="mb-3 w-[200px]" />
+                <div className="mb-6 grid grid-cols-2">
+                  <div>
+                    <Skeleton variant="line" className="mb-1 w-[60px]" />
+                    <Skeleton variant="line" className="w-[80px]" />
+                  </div>
+                  <div>
+                    <Skeleton variant="line" className="mb-1 w-[60px]" />
+                    <Skeleton variant="line" className="w-[80px]" />
+                  </div>
+                </div>
+                <div className="mb-6 grid grid-cols-2">
+                  <div>
+                    <Skeleton variant="line" className="mb-1 w-[60px]" />
+                    <Skeleton variant="line" className="w-[80px]" />
+                  </div>
+                  <div>
+                    <Skeleton variant="line" className="mb-1 w-[60px]" />
+                    <Skeleton variant="line" className="w-[80px]" />
+                  </div>
+                </div>
                 <div className="mb-6">
-                  <Skeleton variant="line" className="mb-1 w-[75px]" />
+                  <Skeleton variant="line" className="mb-1 w-[60px]" />
                   <Skeleton variant="line" className="w-[80px]" />
-                </div>
-                <div className="mb-6 grid grid-cols-2">
-                  <div>
-                    <Skeleton variant="line" className="mb-1 w-[60px]" />
-                    <Skeleton variant="line" className="w-[80px]" />
-                  </div>
-                  <div>
-                    <Skeleton variant="line" className="mb-1 w-[60px]" />
-                    <Skeleton variant="line" className="w-[80px]" />
-                  </div>
-                </div>
-                <div className="mb-6 grid grid-cols-2">
-                  <div>
-                    <Skeleton variant="line" className="mb-1 w-[60px]" />
-                    <Skeleton variant="line" className="w-[80px]" />
-                  </div>
-                  <div>
-                    <Skeleton variant="line" className="mb-1 w-[60px]" />
-                    <Skeleton variant="line" className="w-[80px]" />
-                  </div>
                 </div>
                 <Skeleton variant="line" className="mb-1 w-[80px]" />
                 <Skeleton variant="line" className="mb-1 !gap-1" quantity={4} />
               </Skeleton>
             </>
           )}
+
           {isSuccess && (
             <>
               <Card
@@ -239,37 +245,39 @@ export default function PendingExchange({ params }: PagePropos) {
                 >
                   Entrar em Contato
                 </Button>
-                <p>Solicitada em x</p>
+                <p>
+                  Solicitada em {formatDate(Date.parse(transaction?.createdAt))}
+                </p>
               </Card>
               <Card type="content">
                 <p className="mb-3 text-base-140-md">
                   Escrito por {transaction?.bookDetails.author}
                 </p>
-                <div className="mb-4">
-                  <p className="mb-1 text-base-140-md">Categoria</p>
-                  <span className="rounded-lg border-[1px] border-primary-500 px-2 py-1 text-xs-140 text-primary-500 dark:border-white dark:text-white">
-                    {transaction?.bookDetails.category}
-                  </span>
-                </div>
-                <div className="mb-4 grid grid-cols-2">
+                <div className="mb-6 grid grid-cols-2">
+                  <div>
+                    <p className="mb-1 text-base-140-md">Categoria</p>
+                    <span className="rounded-lg border-[1px] border-primary-500 px-2 py-1 text-xs-140 text-primary-500 dark:border-white dark:text-white">
+                      {transaction?.bookDetails.category}
+                    </span>
+                  </div>
                   <div>
                     <p className="text-base-140-md">Idioma</p>
                     <p>{transaction?.bookDetails.language}</p>
                   </div>
+                </div>
+                <div className="mb-6 grid grid-cols-2">
                   <div>
                     <p className="text-base-140-md">Ano</p>
                     <p>{transaction?.bookDetails.year}</p>
                   </div>
-                </div>
-                <div className="mb-4 grid grid-cols-2">
                   <div>
                     <p className="text-base-140-md">Editora</p>
                     <p>{transaction?.bookDetails.publishingCompany}</p>
                   </div>
-                  <div>
-                    <p className="text-base-140-md">Condição do livro</p>
-                    <p>{transaction?.bookDetails.state}</p>
-                  </div>
+                </div>
+                <div className="mb-6">
+                  <p className="text-base-140-md">Condição do livro</p>
+                  <p>{transaction?.bookDetails.state}</p>
                 </div>
                 <p className="text-base-140-md">Descrição</p>
                 <p>{transaction?.bookDetails.description}</p>

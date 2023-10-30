@@ -15,7 +15,7 @@ const skeleton = tv({
     },
     size: {
       xs: 'h-[3rem]',
-      button: 'h-[3.5rem]',
+      button: 'h-[3.5rem] w-full mx-auto lg:max-w-md',
       buttonSm: 'w-[36px] h-[36px]',
       buttonWhatsapp: 'w-[11.75rem] h-[2.5rem]',
       md: 'h-[18rem]',
