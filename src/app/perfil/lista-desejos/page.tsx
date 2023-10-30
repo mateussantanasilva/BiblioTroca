@@ -93,7 +93,8 @@ export default function MeusLivros() {
             {isLoading &&
               quantityToRepeat.map((item) => (
                 <Skeleton
-                  variant="cardContent"
+                  variant="card"
+                  size="content"
                   className="gap-4 md:h-[80px]"
                   key={item}
                 >

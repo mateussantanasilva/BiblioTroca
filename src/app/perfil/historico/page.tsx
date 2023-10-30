@@ -59,7 +59,7 @@ export default function Historico() {
           <div className="flex flex-col gap-4">
             {isLoading &&
               quantityToRepeat.map((item) => (
-                <Skeleton variant="cardContent" className="gap-4" key={item}>
+                <Skeleton variant="card" size="content" key={item}>
                   <div className="flex flex-col gap-7 md:grid md:grid-cols-2">
                     <div className="flex justify-between md:grid md:grid-cols-2 md:items-center">
                       <div className="flex flex-col gap-1">

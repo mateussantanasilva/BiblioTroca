@@ -14,6 +14,7 @@ export interface TransactionData {
   status: 'Pendente' | 'Concluído' | 'Cancelado'
   type: 'send' | 'receive'
   createdAt: string
+  endedAt: string
   bookDetails: BookCompleteData
   buyer: Buyer
 }

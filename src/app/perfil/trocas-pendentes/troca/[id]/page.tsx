@@ -56,9 +56,11 @@ export default function PendingExchange({ params }: PagePropos) {
           {isLoading && (
             <>
               <Skeleton
-                variant="cardContent"
+                variant="card"
+                size="content"
                 className="mb-4 flex flex-col justify-between gap-2 md:h-[4.0625rem] md:flex-row md:items-center"
               >
+                <Skeleton variant="line" className="mx-auto " />
                 <div className="mb-1 flex justify-between md:hidden">
                   <Skeleton variant="line" className="w-[160px]" />
                   <Skeleton variant="line" className="w-[70px]" />
@@ -71,7 +73,7 @@ export default function PendingExchange({ params }: PagePropos) {
                 <Skeleton variant="line" className="w-[80px]" />
                 <Skeleton variant="line" className="w-[140px]" />
               </Skeleton>
-              <Skeleton variant="cardContent" className="mb-4">
+              <Skeleton variant="card" size="content" className="mb-4">
                 <Skeleton variant="line" className="mb-4 w-[137px]" />
                 <Skeleton variant="line" quantity={2} className="mb-2" />
                 <Skeleton variant="line" className="mb-1 w-[150px] sm:hidden" />
@@ -83,7 +85,7 @@ export default function PendingExchange({ params }: PagePropos) {
                   <Skeleton variant="line" size="button" />
                 </div>
               </Skeleton>
-              <Skeleton variant="cardContent" className="mb-4">
+              <Skeleton variant="card" size="content" className="mb-4">
                 <Skeleton variant="line" className="mb-3 w-[180px]" />
                 <Skeleton variant="line" className="mb-4 w-[70px]" />
                 <Skeleton
@@ -93,7 +95,7 @@ export default function PendingExchange({ params }: PagePropos) {
                 />
                 <Skeleton variant="line" className="w-[170px]" />
               </Skeleton>
-              <Skeleton variant="cardContent">
+              <Skeleton variant="card" size="content">
                 <Skeleton variant="line" className="mb-3 w-[200px]" />
                 <div className="mb-6 grid grid-cols-2">
                   <div>

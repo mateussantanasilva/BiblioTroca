@@ -85,28 +85,33 @@ export default function MeusLivros() {
             {isLoading &&
               quantityToRepeat.map((item) => (
                 <Skeleton
-                  variant="cardContent"
-                  className="gap-4 md:h-[80px]"
+                  variant="card"
+                  className="grid grid-cols-2"
+                  size="content"
                   key={item}
                 >
-                  <div className="grid grid-cols-2">
-                    <div className="flex grid-cols-2 flex-col gap-6 md:grid md:items-center">
-                      <div>
-                        <Skeleton variant="line" className="mb-1 w-[125px]" />
-                        <Skeleton variant="line" className="w-[90px]" />
-                      </div>
-                      <Skeleton
-                        variant="line"
-                        className="w-[80px] md:justify-self-center"
-                      />
-                    </div>
-                    <div className="flex h-full flex-col justify-between justify-self-end md:w-3/4 md:flex-row-reverse md:items-center">
-                      <div className="flex justify-end gap-2">
-                        <Skeleton variant="line" size="buttonSm" />
-                        <Skeleton variant="line" size="buttonSm" />
-                      </div>
+                  <div className="flex grid-cols-2 flex-col gap-6 md:grid md:items-center md:gap-0">
+                    <div>
+                      <Skeleton variant="line" className="mb-1 w-[125px]" />
                       <Skeleton variant="line" className="w-[90px]" />
                     </div>
+                    <Skeleton
+                      variant="line"
+                      className="w-[80px] md:justify-self-center"
+                    />
+                  </div>
+                  <div className="flex grid-cols-2 flex-col justify-between justify-self-end md:grid md:w-full md:items-center">
+                    <Skeleton
+                      variant="line"
+                      className="hidden w-[90px] justify-self-center md:block"
+                    />
+                    <Skeleton
+                      variant="line"
+                      size="buttonSm"
+                      quantity={2}
+                      className="!flex-row justify-end"
+                    />
+                    <Skeleton variant="line" className="w-[90px] md:hidden" />
                   </div>
                 </Skeleton>
               ))}
@@ -122,7 +127,7 @@ export default function MeusLivros() {
                   className="grid grid-cols-2 items-center justify-between gap-y-7"
                   key={book.id}
                 >
-                  <div className="flex grid-cols-2 flex-col gap-6 md:grid md:items-center">
+                  <div className="flex grid-cols-2 flex-col gap-6 md:grid md:items-center md:gap-0">
                     <Tooltip.Provider delayDuration={300}>
                       <Tooltip.Root>
                         <Tooltip.Trigger asChild>
@@ -142,7 +147,11 @@ export default function MeusLivros() {
                       {book.category}
                     </span>
                   </div>
-                  <div className="flex h-full flex-col justify-between justify-self-end md:w-3/4 md:flex-row-reverse md:items-center">
+                  <div className="flex h-full w-full flex-col items-end justify-between md:grid md:grid-cols-2 md:items-center">
+                    <div className="hidden items-center gap-1 justify-self-end text-sm-140 text-gray-500 dark:text-white md:flex">
+                      <Icon.CalendarBlank size={10} />
+                      <span>{formatDate(Date.parse(book.createdAt))}</span>
+                    </div>
                     <div className="flex items-center justify-end gap-2">
                       <Tooltip.Provider delayDuration={300}>
                         <Tooltip.Root>
@@ -183,7 +192,7 @@ export default function MeusLivros() {
                         <Modal variant="deleteBook" />
                       </Dialog.Root>
                     </div>
-                    <div className="flex items-center gap-1 justify-self-end text-sm-140 text-gray-500 dark:text-white">
+                    <div className="dark:text- flex items-center gap-1 justify-self-end text-sm-140 text-gray-500 md:hidden">
                       <Icon.CalendarBlank size={10} />
                       <span>{formatDate(Date.parse(book.createdAt))}</span>
                     </div>

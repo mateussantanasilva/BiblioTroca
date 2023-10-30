@@ -9,11 +9,10 @@ const skeleton = tv({
   variants: {
     variant: {
       card: 'min-w-[12.5rem] min-h-[12.5rem] px-4 py-5 shadow-container animate-pulse bg-white dark:bg-black dark:shadow-solid-white',
-      cardContent:
-        'w-full p-4 shadow-container animate-pulse bg-white dark:bg-black dark:shadow-solid-white',
       line: 'h-[1rem] bg-gray-300 dark:bg-black dark:shadow-solid-white',
     },
     size: {
+      content: 'p-4 w-full min-w-0 min-h-0',
       xs: 'h-[3rem]',
       button: 'h-[3.5rem] w-full mx-auto lg:max-w-md',
       buttonSm: 'w-[36px] h-[36px]',
@@ -55,7 +54,7 @@ export function Skeleton({
       )}
 
       {!repeatOnce && (
-        <div className={`${className} flex flex-col gap-2`}>
+        <div className={`flex flex-col gap-2 ${className}`}>
           {quantityToRepeat?.map((item) => {
             return (
               <div key={item} className={skeleton({ variant, size })}>

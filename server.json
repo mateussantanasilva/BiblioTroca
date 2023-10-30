@@ -141,6 +141,7 @@
       "status": "Pendente",
       "type": "send",
       "createdAt": "2023-09-12T22:35:19.931Z",
+      "endedAt": "",
       "bookDetails": {
         "id": 3,
         "name": "Lógica de Programação",
@@ -174,6 +175,7 @@
       "status": "Concluído",
       "type": "receive",
       "createdAt": "2023-09-13T22:35:19.931Z",
+      "endedAt": "2023-09-16T22:35:19.931Z",
       "bookDetails": {
         "id": 3,
         "name": "Inteligência Artificial - Do Zero ao Metaverso",
@@ -207,6 +209,7 @@
       "status": "Cancelado",
       "type": "send",
       "createdAt": "2023-09-14T22:35:19.931Z",
+      "endedAt": "2023-09-17T22:35:19.931Z",
       "bookDetails": {
         "id": 3,
         "name": "Lógica de Programação",
@@ -236,7 +239,45 @@
       }
     }
   ],
-  "wishlist": [
-    
+  "wishlist": [],
+  "my-books": [
+    {
+      "id": 1,
+      "name": "O Programador Apaixonado",
+      "author": "Fowler Chad",
+      "category": "Tecnologia",
+      "language": "Português",
+      "year": "2014",
+      "publishingCompany": "Casa do Código",
+      "state": "Novo, sem marcas de rasura e manuseio",
+      "createdAt": "2023-10-25T20:29:59.153Z",
+      "description": "Neste livro, você vai aprender a empreender com a sua carreira e levá-la para o caminho que você escolheu: o do sucesso!",
+      "seller": {
+        "name": "Ana Clara",
+        "location": "Itaquera, São Paulo",
+        "averageRating": 4.2,
+        "avaliationsNumber": 20,
+        "phoneNumber": "11932468026"
+      }
+    },
+    {
+      "id": 2,
+      "name": "Cientista da Computação Autodidata",
+      "author": "Cory Althoff",
+      "category": "Tecnologia",
+      "language": "Português",
+      "year": "2022",
+      "publishingCompany": "Novatec Editora",
+      "state": "Usado, com marcas bem visíveis de manuseio e rasuras",
+      "createdAt": "2023-10-29T10:52:15.364Z",
+      "description": "Neste livro, você vai aprender a empreender com a sua carreira e levá-la para o caminho que você escolheu: o do sucesso!",
+      "seller": {
+        "name": "Ana Clara",
+        "location": "Itaquera, São Paulo",
+        "averageRating": 4.2,
+        "avaliationsNumber": 20,
+        "phoneNumber": "11932468026"
+      }
+    }
   ]
 }

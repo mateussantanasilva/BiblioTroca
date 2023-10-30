@@ -13,7 +13,7 @@ async function fetchMyBooks() {
     _order: 'desc',
   }
 
-  const response = await api.get('/books', {
+  const response = await api.get('/my-books', {
     params,
   })
 
