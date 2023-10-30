@@ -52,21 +52,21 @@ export default function PendingExchange({ params }: PagePropos) {
             <>
               <Skeleton
                 variant="cardContent"
-                className="mb-4 gap-2 md:flex md:h-[4.0625rem] md:flex-row md:items-center"
+                className="mb-4 flex flex-col justify-between gap-2 md:h-[4.0625rem] md:flex-row md:items-center"
               >
-                <div className="flex justify-between md:hidden">
+                <div className="mb-1 flex justify-between md:hidden">
                   <Skeleton variant="line" className="w-[160px]" />
-                  <Skeleton variant="line" className="w-[68px]" />
+                  <Skeleton variant="line" className="w-[70px]" />
                 </div>
                 <Skeleton
                   variant="line"
                   className="hidden w-[200px] md:block"
                 />
-                <Skeleton variant="line" className="hidden w-[80px] md:block" />
+                <Skeleton variant="line" className="hidden w-[75px] md:block" />
                 <Skeleton variant="line" className="w-[80px]" />
-                <Skeleton variant="line" className="w-[143px]" />
+                <Skeleton variant="line" className="w-[140px]" />
               </Skeleton>
-              <Skeleton variant="cardContent" className="mb-4 !block">
+              <Skeleton variant="cardContent" className="mb-4">
                 <Skeleton variant="line" className="mb-4 w-[137px]" />
                 <Skeleton variant="line" quantity={2} className="mb-2" />
                 <Skeleton variant="line" className="mb-1 w-[150px] sm:hidden" />

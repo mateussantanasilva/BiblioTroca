@@ -40,13 +40,18 @@ export default function TrocasPendentes() {
         <section className="mx-auto max-w-5xl">
           <h1 className="mb-5 flex items-center gap-1 font-secondary text-title-xs text-gray-500 dark:text-white">
             Trocas
-            <span className="font-primary text-sm-140 text-gray-400 dark:text-white">
-              | {pendingTransactions?.length} troca(s)
-            </span>
+            {isSuccess && (
+              <span className="font-primary text-sm-140 text-gray-400 dark:text-white">
+                | {pendingTransactions?.length} troca(s)
+              </span>
+            )}
           </h1>
           <div className="flex flex-col gap-4">
             {isLoading && (
-              <Skeleton variant="cardContent">
+              <Skeleton
+                variant="cardContent"
+                className="flex flex-col gap-7 md:grid md:grid-cols-2"
+              >
                 <div className="flex justify-between md:grid md:grid-cols-2 md:items-center">
                   <div className="flex flex-col gap-1">
                     <Skeleton

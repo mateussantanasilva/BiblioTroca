@@ -15,4 +15,5 @@ export interface BookCompleteData {
   state: string
   description: string
   seller: Seller
+  createdAt: string
 }

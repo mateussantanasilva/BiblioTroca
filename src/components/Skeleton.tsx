@@ -10,15 +10,16 @@ const skeleton = tv({
     variant: {
       card: 'min-w-[12.5rem] min-h-[12.5rem] px-4 py-5 shadow-container animate-pulse bg-white dark:bg-black dark:shadow-solid-white',
       cardContent:
-        'w-full p-4 shadow-container animate-pulse bg-white dark:bg-black dark:shadow-solid-white flex flex-col justify-between gap-7 md:grid md:grid-cols-2',
+        'w-full p-4 shadow-container animate-pulse bg-white dark:bg-black dark:shadow-solid-white',
       line: 'h-[1rem] bg-gray-300 dark:bg-black dark:shadow-solid-white',
     },
     size: {
       xs: 'h-[3rem]',
       button: 'h-[3.5rem]',
+      buttonSm: 'w-[36px] h-[36px]',
+      buttonWhatsapp: 'w-[11.75rem] h-[2.5rem]',
       md: 'h-[18rem]',
       inputRadio: 'w-full h-[9rem] md:h-[7rem]',
-      buttonWhatsapp: 'w-[11.75rem] h-[2.5rem]',
       lg: 'h-[33rem]',
     },
   },
