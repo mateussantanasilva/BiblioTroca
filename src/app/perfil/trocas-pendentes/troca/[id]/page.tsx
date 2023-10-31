@@ -60,7 +60,6 @@ export default function PendingExchange({ params }: PagePropos) {
                 size="content"
                 className="mb-4 flex flex-col justify-between gap-2 md:h-[4.0625rem] md:flex-row md:items-center"
               >
-                <Skeleton variant="line" className="mx-auto " />
                 <div className="mb-1 flex justify-between md:hidden">
                   <Skeleton variant="line" className="w-[160px]" />
                   <Skeleton variant="line" className="w-[70px]" />

@@ -1,16 +1,19 @@
+import { XCircle } from '@phosphor-icons/react'
 import { ComponentProps, ElementType, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 type TextFieldProps<T extends ElementType> = ComponentProps<T> & {
   label: string
   componentType?: T
+  clear?: boolean
 }
 
 export function TextField<T extends ElementType = 'input'>({
   type,
   id,
   name,
-  value,
+  defaultValue,
+  clear,
   label,
   placeholder,
   className,
@@ -18,7 +21,7 @@ export function TextField<T extends ElementType = 'input'>({
   ...rest
 }: TextFieldProps<T>) {
   return (
-    <div className="flex w-full flex-col gap-1">
+    <div className="relative flex w-full flex-col gap-1">
       <label className="w-max text-base-140-md" htmlFor={id}>
         {label}
       </label>
@@ -31,7 +34,7 @@ export function TextField<T extends ElementType = 'input'>({
         placeholder={placeholder}
         id={id}
         name={name}
-        value={value}
+        defaultValue={defaultValue}
         {...rest}
       />
     </div>

@@ -7,9 +7,8 @@ import { InputRadio } from '@/components/InputRadio'
 import { Root } from '@radix-ui/react-radio-group'
 import * as Icon from '@phosphor-icons/react'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import { Book, booksDefault } from '@/model/book'
 import { TextField } from '@/components/TextField'
+import { useMySingleBook } from '@/hooks/useMySingleBook'
 
 type PagePropos = {
   params: {
@@ -18,11 +17,12 @@ type PagePropos = {
 }
 
 export default function Book({ params }: PagePropos) {
-  const [book, setBook] = useState<Book | undefined>(undefined)
-
-  useEffect(() => {
-    setBook(booksDefault.find(({ id }) => id === params.id))
-  }, [params.id])
+  const {
+    data: book,
+    isLoading,
+    isSuccess,
+    isError,
+  } = useMySingleBook(params.id)
 
   return (
     <>
@@ -50,31 +50,32 @@ export default function Book({ params }: PagePropos) {
                 label="Título"
                 id="title"
                 name="title"
-                value={book?.title}
+                clear
+                defaultValue={book?.name}
               />
               <TextField
                 label="Autor"
                 id="author"
                 name="author"
-                value={book?.author}
+                defaultValue={book?.author}
               />
               <TextField
                 label="Categoria"
                 id="studyArea"
                 name="studyArea"
-                value={book?.studyArea}
+                defaultValue={book?.category}
               />
               <TextField
                 label="Editora"
                 id="publishingCompany"
                 name="publishingCompany"
-                value={book?.publishingCompany}
+                defaultValue={book?.publishingCompany}
               />
               <TextField
                 label="Ano de Lançamento"
                 id="year"
                 name="year"
-                value={book?.year}
+                defaultValue={book?.year}
               />
               <div>
                 <label className="mb-1 text-base-140-md">
@@ -105,13 +106,13 @@ export default function Book({ params }: PagePropos) {
                 label="Idioma"
                 id="language"
                 name="language"
-                value={book?.language}
+                defaultValue={book?.language}
               />
               <TextField
                 label="Descrição"
                 id="description"
                 name="description"
-                value={book?.description}
+                defaultValue={book?.description}
                 componentType="textarea"
                 className="h-28 resize-none overflow-auto"
               />
