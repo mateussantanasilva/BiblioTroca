@@ -19,6 +19,7 @@ const skeleton = tv({
       buttonWhatsapp: 'w-[11.75rem] h-[2.5rem]',
       md: 'h-[18rem]',
       inputRadio: 'w-full h-[9rem] md:h-[7rem]',
+      inputRadioSm: 'w-full h-[7.5rem]',
       lg: 'h-[33rem]',
     },
   },
