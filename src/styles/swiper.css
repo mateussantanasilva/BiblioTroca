@@ -1,11 +1,11 @@
 .swiper {
-  @apply !-ml-2 min-[613px]:!w-[calc(100%+1rem)];
+  @apply !pl-6 !pr-6 !-mr-8 !-ml-8 min-[597px]:!w-[calc(100%+1rem)] min-[597px]:!m-0 min-[597px]:!p-0 min-[597px]:!-ml-2;
 }
 
 .swiper-wrapper {
-  @apply min-[613px]:grid min-[613px]:grid-cols-4 min-[613px]:gap-2;
+  @apply min-[597px]:grid min-[597px]:grid-cols-4 min-[597px]:gap-2;
 }
 
 .swiper-slide {
-  @apply !w-max p-2 dark:!text-white min-[613px]:!mr-0 min-[613px]:!w-full;
+  @apply !w-max p-2 dark:!text-white min-[597px]:!mr-0 min-[597px]:!w-full;
 }

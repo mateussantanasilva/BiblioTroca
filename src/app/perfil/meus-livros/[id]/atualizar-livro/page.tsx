@@ -7,11 +7,13 @@ import { InputRadio } from '@/components/InputRadio'
 import { Root } from '@radix-ui/react-radio-group'
 import * as Icon from '@phosphor-icons/react'
 import Link from 'next/link'
-import { TextField } from '@/components/TextField'
+import { TextField, inputStyle } from '@/components/TextField'
 import { useMySingleBook } from '@/hooks/useMySingleBook'
 import { Skeleton } from '@/components/Skeleton'
 import { generateArrayWithId } from '@/utils/generate-array-with-id'
 import { useRouter } from 'next/navigation'
+import { useForm } from 'react-hook-form'
+import { useState } from 'react'
 
 type PagePropos = {
   params: {
@@ -31,6 +33,14 @@ export default function Book({ params }: PagePropos) {
 
   const router = useRouter()
   isError && router.push('/perfil/meus-livros')
+
+  const { register, handleSubmit } = useForm()
+
+  const [output, setOutput] = useState('')
+
+  function updateWish(data: any) {
+    setOutput(JSON.stringify(data, null, 2))
+  }
 
   return (
     <>
@@ -86,43 +96,14 @@ export default function Book({ params }: PagePropos) {
             </div>
           )}
           {isSuccess && (
-            <form className="mx-auto flex max-w-[520px] flex-col gap-11">
+            <form
+              onSubmit={handleSubmit(updateWish)}
+              className="mx-auto flex max-w-[520px] flex-col gap-11"
+            >
               <Card type="content" className="flex flex-col gap-4 py-8">
-                <TextField
-                  label="Título"
-                  id="name"
-                  name="name"
-                  defaultValue={book?.name}
-                  clear
-                />
-                <TextField
-                  label="Autor"
-                  id="author"
-                  name="author"
-                  defaultValue={book?.author}
-                  clear
-                />
-                <TextField
-                  label="Categoria"
-                  id="category"
-                  name="category"
-                  defaultValue={book?.category}
-                  clear
-                />
-                <TextField
-                  label="Editora"
-                  id="publishingCompany"
-                  name="publishingCompany"
-                  defaultValue={book?.publishingCompany}
-                  clear
-                />
-                <TextField
-                  label="Ano de Lançamento"
-                  id="year"
-                  name="year"
-                  defaultValue={book?.year}
-                  clear
-                />
+                <TextField label="Título" id="name">
+                  <input {...register('name')} id="name" className="input" />
+                </TextField>
                 <div>
                   <label className="mb-1 text-base-140-md">
                     Condição do livro
@@ -148,29 +129,12 @@ export default function Book({ params }: PagePropos) {
                     />
                   </Root>
                 </div>
-                <TextField
-                  label="Idioma"
-                  id="language"
-                  name="language"
-                  defaultValue={book?.language}
-                  clear
-                />
-                <TextField
-                  label="Descrição"
-                  id="description"
-                  name="description"
-                  defaultValue={book?.description}
-                  componentType="textarea"
-                  className="h-28 resize-none overflow-auto"
-                  clear
-                />
               </Card>
-              <Button className="lg:max-w-full" disabled>
-                Atualizar
-              </Button>
+              <Button className="lg:max-w-full">Atualizar</Button>
             </form>
           )}
         </section>
+        <pre>{output}</pre>
       </main>
     </>
   )
