@@ -11,7 +11,7 @@ import { useForm } from 'react-hook-form'
 import { ViaCEPData } from '@/@types/viaCepData'
 import Link from 'next/link'
 import axios from 'axios'
-import { useState } from 'react'
+import { FocusEvent, useState } from 'react'
 import { Input } from '@/components/Input'
 
 export default function EditProfile() {
@@ -97,11 +97,12 @@ export default function EditProfile() {
                 </TextField>
                 <TextField label="CEP" htmlFor="cep">
                   <Input
+                    componentType="input"
                     type="text"
                     id="cep"
                     {...register('cep')}
-                    onBlur={(e) => {
-                      checkCep(e.target.value)
+                    onBlur={(event: FocusEvent<HTMLInputElement>) => {
+                      checkCep(event.target.value)
                     }}
                   />
                   {isError && (

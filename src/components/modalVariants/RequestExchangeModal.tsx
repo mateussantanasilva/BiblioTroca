@@ -32,7 +32,7 @@ export function RequestExchangeModal() {
 
   const transactionToAdd: TransactionData = {
     id: currentTime,
-    status: 'Solicitação pendente',
+    status: 'Pendente',
     createdAt: currentTime,
     bookDetails,
     // gets user data by session
@@ -41,7 +41,11 @@ export function RequestExchangeModal() {
       lastName: 'Santana',
       email: 'santanasilva1778@gmail.com',
       phoneNumber: '11912345678',
+      averageRating: 4.7,
+      avaliationsNumber: 12,
     },
+    type: 'send',
+    endedAt: '2023-10-25T20:29:59.153Z',
   }
 
   function handleCreateRequest() {

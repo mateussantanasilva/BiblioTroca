@@ -4,7 +4,7 @@ import { Avatar } from '@/components/Avatar'
 import { Button } from '@/components/Button'
 import { Header } from '@/components/Header'
 import { TextField } from '@/components/TextField'
-import { useState } from 'react'
+import { FocusEvent, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import * as Icon from '@phosphor-icons/react'
 import axios from 'axios'
@@ -89,8 +89,8 @@ export default function CompleteProfile() {
                     type="text"
                     id="cep"
                     {...register('cep')}
-                    onBlur={(e) => {
-                      checkCep(e.target.value)
+                    onBlur={(event: FocusEvent<HTMLInputElement>) => {
+                      checkCep(event.target.value)
                     }}
                   />
                   {isError && (

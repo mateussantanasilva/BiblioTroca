@@ -6,7 +6,6 @@ import { QueryProvider } from '@/lib/ReactQuery'
 import { VLibrasPlugin } from '@/components/VLibrasPlugin'
 import { MotionConfigs } from '@/lib/FramerMotion'
 import { barlow, inter } from '@/styles/fonts'
-import { useEffect } from 'react'
 import '@/styles/globals.css'
 
 export const metadata: Metadata = {
