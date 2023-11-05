@@ -4,13 +4,15 @@ import { Button } from '@/components/Button'
 import { Card, status } from '@/components/Card'
 import { Header } from '@/components/Header'
 import { InputRadio } from '@/components/InputRadio'
-import { Root } from '@radix-ui/react-radio-group'
 import * as Icon from '@phosphor-icons/react'
 import Link from 'next/link'
 import { useSingleTransaction } from '@/hooks/useSingleTransaction'
 import { useRouter } from 'next/navigation'
 import { Skeleton } from '@/components/Skeleton'
 import { formatDate } from '@/utils/format-date'
+import { motion } from 'framer-motion'
+import { useForm } from 'react-hook-form'
+import { Input } from '@/components/Input'
 
 type PagePropos = {
   params: {
@@ -32,6 +34,8 @@ export default function PendingExchange({ params }: PagePropos) {
   isSuccess &&
     transaction?.status !== 'Pendente' &&
     router.push('/perfil/trocas-pendentes')
+
+  const { register } = useForm()
 
   return (
     <>
@@ -127,7 +131,11 @@ export default function PendingExchange({ params }: PagePropos) {
           )}
 
           {isSuccess && (
-            <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ type: 'spring', stiffness: 50 }}
+            >
               <Card
                 type="content"
                 className="mb-4 flex flex-col gap-2 md:flex-row md:items-center md:justify-between"
@@ -162,94 +170,100 @@ export default function PendingExchange({ params }: PagePropos) {
                   Solicitada há x dias
                 </div>
               </Card>
-              <Card type="content" className="mb-4">
-                <p className="mb-3 text-base-140-md">
-                  {transaction?.type === 'send'
-                    ? 'Atualize os status'
-                    : 'Solicitação a ser confirmada'}
-                </p>
-                <p className="mb-1 text-base-160">
-                  {transaction?.type === 'send'
-                    ? 'Selecione o status certo para manter todos informados sobre o progresso da troca.'
-                    : 'Você enviou uma solicitação de troca. Aguarde a decisão do vendedor de confirmar ou recusar a solicitação. Se mudar de ideia, você tem a opção de cancelar a solicitação a qualquer momento antes da confirmação.'}
-                </p>
-                <form className="flex flex-col gap-11">
-                  {transaction?.type === 'send' ? (
-                    <>
-                      <Root
-                        className="flex flex-col gap-2 md:flex-row"
-                        defaultValue="accept"
-                      >
-                        <InputRadio
-                          title="Aceitar Solicitação"
-                          value="accept"
-                          text="Ao selecionar essa opção, você está aceitando prosseguir com a troca"
-                          id="accept"
-                        />
-                        <InputRadio
-                          title="Recusar Solicitação"
-                          value="reject"
-                          text="Selecione esta opção caso não deseje seguir com esta troca atual."
-                          id="reject"
-                        />
-                      </Root>
-                      <Button className="mx-auto">Atualizar status</Button>
-                    </>
-                  ) : (
-                    <>
-                      <Root
-                        className="flex flex-col gap-2 md:flex-row"
-                        defaultValue="cancel"
-                      >
-                        <InputRadio
-                          title="Cancelar Solicitação"
-                          value="cancel"
-                          text="Selecione esta opção se decidir interromper a solicitação de troca em andamento."
-                          id="reject"
-                          variant="danger"
-                        />
-                      </Root>
-                      <Button className="mx-auto" variant="ghostPurple">
-                        Cancelar solicitação
-                      </Button>
-                    </>
-                  )}
-                </form>
-              </Card>
-              <Card type="content" className="mb-4">
-                <p className="mb-3 text-base-140-md">
-                  {transaction?.type === 'send'
-                    ? `Enviando para ${transaction?.buyer.firstName}`
-                    : `Recebendo de ${transaction?.bookDetails.seller.name}`}
-                </p>
-                <p className="mb-4 flex items-center gap-1">
-                  <Icon.Star
-                    size={12}
-                    className="text-orange-500"
-                    weight="fill"
-                  />
-                  {transaction?.type === 'send'
-                    ? transaction?.buyer.averageRating.toFixed(1)
-                    : transaction?.bookDetails.seller.averageRating.toFixed(1)}
-                  <span className="text-sm-140 text-gray-400">
-                    ({transaction?.bookDetails.seller.avaliationsNumber})
-                  </span>
-                </p>
-                <Button
-                  className="mb-5"
-                  variant="whatsapp"
-                  href={
-                    transaction?.type === 'send'
-                      ? `https://wa.me/${transaction?.buyer.phoneNumber}`
-                      : `https://wa.me/${transaction?.bookDetails.seller.phoneNumber}`
-                  }
+              <div className="mb-4 grid gap-4">
+                <Card type="content">
+                  <p className="mb-3 text-base-140-md">
+                    {transaction?.type === 'send'
+                      ? 'Atualize os status'
+                      : 'Solicitação a ser confirmada'}
+                  </p>
+                  <p className="mb-1 text-base-160">
+                    {transaction?.type === 'send'
+                      ? 'Selecione o status certo para manter todos informados sobre o progresso da troca.'
+                      : 'Você enviou uma solicitação de troca. Aguarde a decisão do vendedor de confirmar ou recusar a solicitação. Se mudar de ideia, você tem a opção de cancelar a solicitação a qualquer momento antes da confirmação.'}
+                  </p>
+                  <form className="flex flex-col gap-11">
+                    {transaction?.type === 'send' ? (
+                      <>
+                        <div className="flex flex-col gap-4">
+                          <Input
+                            id="accept"
+                            value="Ao selecionar essa opção, você está aceitando prosseguir com a troca."
+                            type="radio"
+                            data-type="radio"
+                            {...register('status')}
+                            defaultChecked
+                          />
+                          <InputRadio
+                            title="Aceitar Solicitação"
+                            text="Ao selecionar esta opção, você está aceitando prosseguir com a troca."
+                            htmlFor="accept"
+                          />
+                          <Input
+                            id="refuse"
+                            value="Selecione esta opção caso não deseje seguir com esta troca atual."
+                            type="radio"
+                            data-type="radio"
+                            {...register('status')}
+                          />
+                          <InputRadio
+                            title="Recusar Solicitação"
+                            text="Selecione esta opção caso não deseje seguir com esta troca atual."
+                            htmlFor="refuse"
+                          />
+                        </div>
+                        <Button className="mx-auto">Atualizar status</Button>
+                      </>
+                    ) : (
+                      <>
+                        <Button className="mx-auto" variant="ghostPurple">
+                          Cancelar solicitação
+                        </Button>
+                      </>
+                    )}
+                  </form>
+                </Card>
+                <Card
+                  type="content"
+                  className="flex flex-col items-center justify-center"
                 >
-                  Entrar em Contato
-                </Button>
-                <p>
-                  Solicitada em {formatDate(Date.parse(transaction?.createdAt))}
-                </p>
-              </Card>
+                  <p className="mb-3 text-base-140-md">
+                    {transaction?.type === 'send'
+                      ? `Enviando para ${transaction?.buyer.firstName}`
+                      : `Recebendo de ${transaction?.bookDetails.seller.name}`}
+                  </p>
+                  <p className="mb-4 flex items-center gap-1">
+                    <Icon.Star
+                      size={12}
+                      className="text-orange-500"
+                      weight="fill"
+                    />
+                    {transaction?.type === 'send'
+                      ? transaction?.buyer.averageRating.toFixed(1)
+                      : transaction?.bookDetails.seller.averageRating.toFixed(
+                          1,
+                        )}
+                    <span className="text-sm-140 text-gray-400">
+                      ({transaction?.bookDetails.seller.avaliationsNumber})
+                    </span>
+                  </p>
+                  <Button
+                    className="mb-5"
+                    variant="whatsapp"
+                    href={
+                      transaction?.type === 'send'
+                        ? `https://wa.me/${transaction?.buyer.phoneNumber}`
+                        : `https://wa.me/${transaction?.bookDetails.seller.phoneNumber}`
+                    }
+                  >
+                    Entrar em Contato
+                  </Button>
+                  <p>
+                    Solicitada em{' '}
+                    {formatDate(Date.parse(transaction?.createdAt))}
+                  </p>
+                </Card>
+              </div>
               <Card type="content">
                 <p className="mb-3 text-base-140-md">
                   Escrito por {transaction?.bookDetails.author}
@@ -283,7 +297,7 @@ export default function PendingExchange({ params }: PagePropos) {
                 <p className="text-base-140-md">Descrição</p>
                 <p>{transaction?.bookDetails.description}</p>
               </Card>
-            </>
+            </motion.div>
           )}
         </section>
       </main>

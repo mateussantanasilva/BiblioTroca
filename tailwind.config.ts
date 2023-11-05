@@ -129,6 +129,8 @@ const config: Config = {
 
         growDownAndFade: 'growDownAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
         shrinkUpAndFade: 'shrinkUpAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
+        loading:
+          'spin 1s linear infinite, pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite',
       },
     },
   },

@@ -1,5 +1,5 @@
 .swiper {
-  @apply !pl-6 !pr-6 !-mr-8 !-ml-8 min-[597px]:!w-[calc(100%+1rem)] min-[597px]:!m-0 min-[597px]:!p-0 min-[597px]:!-ml-2;
+  @apply !-ml-6 !-mr-6 !pl-[22px] !pr-[22px];
 }
 
 .swiper-wrapper {
@@ -7,5 +7,5 @@
 }
 
 .swiper-slide {
-  @apply !w-max p-2 dark:!text-white min-[597px]:!mr-0 min-[597px]:!w-full;
+  @apply !w-max !p-[2px] !pb-3 dark:!text-white min-[597px]:!mr-0 min-[597px]:!w-full;
 }

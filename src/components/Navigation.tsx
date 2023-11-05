@@ -43,7 +43,6 @@ export function Navigation({
   type MenuItem = {
     link: string
     name: string
-    length: number | undefined
     subtitle: string
     icon: ReactNode
   }
@@ -52,8 +51,7 @@ export function Navigation({
     {
       link: '/perfil/trocas-pendentes',
       name: 'Trocas',
-      subtitle: 'pendente(s)',
-      length: pendingTransactions,
+      subtitle: `${pendingTransactions} pendete(s)`,
       icon: (
         <Icon.Swap
           weight="bold"
@@ -65,8 +63,7 @@ export function Navigation({
     {
       link: '/perfil/meus-livros',
       name: 'Meus Livros',
-      subtitle: 'livro(s)',
-      length: myBooks,
+      subtitle: `${myBooks} livro(s)`,
       icon: (
         <Icon.Books
           weight="bold"
@@ -78,8 +75,7 @@ export function Navigation({
     {
       link: '/perfil/lista-desejos',
       name: 'Lista de Desejos',
-      subtitle: 'desejo(s)',
-      length: wishList,
+      subtitle: `${wishList} desejo(s)`,
       icon: (
         <Icon.Heart
           weight="bold"
@@ -91,8 +87,7 @@ export function Navigation({
     {
       link: '/perfil/historico',
       name: 'Histórico',
-      subtitle: 'troca(s)',
-      length: history,
+      subtitle: `${history} troca(s)`,
       icon: (
         <Icon.ListMagnifyingGlass
           weight="bold"
@@ -110,7 +105,7 @@ export function Navigation({
           <p className="font-secondary text-title-sm md:text-title-base">
             Olá, {name}!
           </p>
-          <span className="font-primary text-xs-140 md:text-lg">
+          <span className="font-primary text-xs-140 text-gray-300 md:text-lg">
             Sua jornada já lhe rendeu
           </span>
           <div className="mt-2 flex items-center gap-1">
@@ -124,7 +119,11 @@ export function Navigation({
         <DropdownMenu.Root>
           <DropdownMenu.Trigger asChild>
             <button className="h-max w-max rounded-full">
-              <Avatar src={src} name={name} />
+              <Avatar
+                className="hover:ring-2 hover:ring-white"
+                src={src}
+                name={name}
+              />
             </button>
           </DropdownMenu.Trigger>
 
@@ -186,7 +185,7 @@ export function Navigation({
       </section>
       <Swiper
         slidesPerView="auto"
-        spaceBetween={2}
+        spaceBetween={14}
         freeMode={true}
         modules={[FreeMode]}
       >
@@ -204,10 +203,8 @@ export function Navigation({
                       variant="line"
                       className="w-[78px] animate-pulse"
                     />
-                  ) : menuItem.length === 0 ? (
-                    `Sem ${menuItem.subtitle}`
                   ) : (
-                    `${menuItem.length} ${menuItem.subtitle}`
+                    menuItem.subtitle
                   )}
                 </span>
               </Card>

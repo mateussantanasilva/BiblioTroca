@@ -1,4 +1,4 @@
-import { WishListData } from '@/@types/wishlistData'
+import { WishData } from '@/@types/wishData'
 import { api } from '@/lib/axios'
 import { useQuery } from '@tanstack/react-query'
 
@@ -21,7 +21,7 @@ async function fetchMyWishlist() {
 }
 
 export function useMyWishlist() {
-  const query = useQuery<WishListData[]>({
+  const query = useQuery<WishData[]>({
     queryKey: ['wishlistData', 'myWishlist'],
     queryFn: async () => await fetchMyWishlist(),
     refetchInterval: 1000 * 60 * 5, // 5 minutes in miliseconds

@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { Skeleton } from '@/components/Skeleton'
 import { useRouter } from 'next/navigation'
 import { useMySingleBook } from '@/hooks/useMySingleBook'
+import { motion } from 'framer-motion'
 
 type PagePropos = {
   params: {
@@ -81,40 +82,44 @@ export default function Book({ params }: PagePropos) {
             </Skeleton>
           )}
           {isSuccess && (
-            <Card type="content">
-              <h3 className="mb-6 text-title-sm">{book?.name}</h3>
-              <p className="mb-3 text-base-140-md">
-                Escrito por {book?.author}
-              </p>
-              <div className="mb-6 grid grid-cols-2">
-                <div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ type: 'spring', stiffness: 50 }}
+            >
+              <Card type="content">
+                <h3 className="mb-6 text-title-sm">{book?.name}</h3>
+                <p className="mb-3 text-base-140-md">
+                  Escrito por {book?.author}
+                </p>
+                <div className="mb-6">
                   <p className="mb-1 text-base-140-md">Categoria</p>
                   <span className="rounded-lg border-[1px] border-primary-500 px-2 py-1 text-xs-140 text-primary-500 dark:border-white dark:text-white">
                     {book?.category}
                   </span>
                 </div>
-                <div>
-                  <p className="text-base-140-md">Idioma</p>
-                  <p>{book?.language}</p>
+                <div className="mb-6 grid grid-cols-2">
+                  <div>
+                    <p className="text-base-140-md">Idioma</p>
+                    <p>{book?.language}</p>
+                  </div>
+                  <div>
+                    <p className="text-base-140-md">Ano</p>
+                    <p>{book?.year}</p>
+                  </div>
                 </div>
-              </div>
-              <div className="mb-6 grid grid-cols-2">
-                <div>
-                  <p className="text-base-140-md">Ano</p>
-                  <p>{book?.year}</p>
-                </div>
-                <div>
+                <div className="mb-6">
                   <p className="text-base-140-md">Editora</p>
                   <p>{book?.publishingCompany}</p>
                 </div>
-              </div>
-              <div className="mb-6">
-                <p className="text-base-140-md">Condição do livro</p>
-                <p>{book?.state}</p>
-              </div>
-              <p className="text-base-140-md">Descrição</p>
-              <p>{book?.description}</p>
-            </Card>
+                <div className="mb-6">
+                  <p className="text-base-140-md">Condição do livro</p>
+                  <p>{book?.state}</p>
+                </div>
+                <p className="text-base-140-md">Descrição</p>
+                <p>{book?.description}</p>
+              </Card>
+            </motion.div>
           )}
         </section>
       </main>

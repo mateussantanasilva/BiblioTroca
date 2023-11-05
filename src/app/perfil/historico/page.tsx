@@ -13,7 +13,7 @@ import { useRouter } from 'next/navigation'
 import { Skeleton } from '@/components/Skeleton'
 import { generateArrayWithId } from '@/utils/generate-array-with-id'
 
-export default function Historico() {
+export default function History() {
   const {
     query: { data: pendingTransactions },
   } = useTransactions('Pendente')
@@ -37,7 +37,7 @@ export default function Historico() {
 
   return (
     <>
-      <Header>
+      <Header className="h-[233px]">
         <Navigation
           name="Ana Clara"
           src="https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80"
@@ -51,10 +51,12 @@ export default function Historico() {
       <main className="mt-28 px-6 pb-10 md:mt-32">
         <section className="mx-auto max-w-5xl">
           <h1 className="mb-5 flex items-center gap-1 font-secondary text-title-xs text-gray-500 dark:text-white">
-            Historico
-            <span className="font-primary text-sm-140 text-gray-400 dark:text-white">
-              | {transactions?.length} troca(s)
-            </span>
+            Histórico
+            {isSuccess && transactions?.length !== 0 && (
+              <span className="font-primary text-sm-140 text-gray-400 dark:text-white">
+                | {transactions?.length} troca(s)
+              </span>
+            )}
           </h1>
           <div className="flex flex-col gap-4">
             {isLoading &&
@@ -87,6 +89,11 @@ export default function Historico() {
                   </div>
                 </Skeleton>
               ))}
+            {transactions?.length === 0 && (
+              <span className="mx-auto font-secondary text-title-base text-gray-400 dark:text-white">
+                Sem trocas realizadas
+              </span>
+            )}
             {isSuccess &&
               transactions?.map((transaction) => (
                 <Link

@@ -16,7 +16,7 @@ type PagePropos = {
   }
 }
 
-export default function TrocaHistorico({ params }: PagePropos) {
+export default function ExchangeHistory({ params }: PagePropos) {
   const {
     data: transaction,
     isLoading,
@@ -179,7 +179,7 @@ export default function TrocaHistorico({ params }: PagePropos) {
                   Solicitada em {formatDate(Date.parse(transaction?.createdAt))}
                 </p>
                 <p>
-                  Finalizado em {formatDate(Date.parse(transaction?.endedAt))}
+                  Entregue em {formatDate(Date.parse(transaction?.endedAt))}
                 </p>
               </Card>
               <Card type="content">

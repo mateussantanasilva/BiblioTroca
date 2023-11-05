@@ -4,12 +4,15 @@ import { Button } from '@/components/Button'
 import { Card } from '@/components/Card'
 import { Header } from '@/components/Header'
 import { InputRadio } from '@/components/InputRadio'
-import { Root } from '@radix-ui/react-radio-group'
 import * as Icon from '@phosphor-icons/react'
 import Link from 'next/link'
 import { TextField } from '@/components/TextField'
+import { Input } from '@/components/Input'
+import { useForm } from 'react-hook-form'
 
 export default function CreateBook() {
+  const { register } = useForm()
+
   return (
     <>
       <Header className="pt-16 text-center">
@@ -30,72 +33,107 @@ export default function CreateBook() {
       </Header>
       <main className="relative z-[2] px-6 pb-10">
         <section className="mx-auto -mt-12 max-w-5xl">
-          <form className="mx-auto flex max-w-[520px] flex-col gap-11">
+          <form className="mx-auto flex max-w-[540px] flex-col gap-11">
             <Card type="content" className="flex flex-col gap-4 py-8">
-              <TextField label="Título" id="title" name="title" />
-              <TextField label="Autor" id="author" name="author" />
-              <TextField
-                label="Categoria"
-                id="studyArea"
-                name="studyArea"
-                componentType="select"
-                className="relative cursor-pointer"
-              >
-                <option selected disabled>
-                  Selecione...
-                </option>
-                <option value="C.Bio">Ciências Biológicas</option>
-                <option value="Eng">Engenharias</option>
-                <option value="C.Sau">Ciências da Saúde</option>
-                <option value="C.Agra">Ciências Agrárias</option>
-                <option value="Ling.L.A">Linguística, Letras e Artes</option>
-                <option value="C.Soci">Ciências Sociais Aplicadas</option>
-                <option value="C.Human">Ciências Humanas</option>
-                <option value="C.Exat">Ciências Exatas e da Terra</option>
+              <TextField label="Título" htmlFor="name">
+                <Input id="name" {...register('name')} />
               </TextField>
-              <TextField
-                label="Editora"
-                id="publishingCompany"
-                name="publishingCompany"
-              />
-              <TextField label="Ano de Lançamento" id="year" name="year" />
+              <TextField label="Autor" htmlFor="author">
+                <Input id="author" {...register('author')} />
+              </TextField>
+              <TextField label="Categoria" htmlFor="category">
+                <div className="select">
+                  <Input
+                    componentType="select"
+                    variant="select"
+                    id="category"
+                    {...register('category')}
+                  >
+                    <option selected disabled>
+                      Selecione...
+                    </option>
+                    <option value="Biologia">Ciências Biológicas</option>
+                    <option value="Engenharia">Engenharias</option>
+                    <option value="Medicina">Ciências da Saúde</option>
+                    <option value="Ciência Agrária">Ciências Agrárias</option>
+                    <option value="Linguística">
+                      Linguística, Letras e Artes
+                    </option>
+                    <option value="Sociologia">
+                      Ciências Sociais Aplicadas
+                    </option>
+                    <option value="Humanas">Ciências Humanas</option>
+                    <option value="Exatas">Ciências Exatas e da Terra</option>
+                  </Input>
+                  <Icon.CaretDown
+                    size={20}
+                    className="absolute right-3 top-[calc(50%-10px)] z-[1]"
+                  />
+                </div>
+              </TextField>
+              <TextField label="Editora" htmlFor="publishingCompany">
+                <Input
+                  id="publishingCompany"
+                  {...register('publishingCompany')}
+                />
+              </TextField>
+              <TextField label="Ano de Lançamento" htmlFor="year">
+                <Input id="year" {...register('year')} />
+              </TextField>
               <div>
-                <label className="mb-1 text-base-140-md">
-                  Condição do livro
-                </label>
-                <Root className="grid gap-2" defaultValue="good">
+                <p className="mb-1 text-base-140-md">Condição do Livro</p>
+                <div className="flex flex-col gap-3">
+                  <Input
+                    id="new"
+                    value="Lido apenas uma ou poucas vezes, sem marcas."
+                    type="radio"
+                    data-type="radio"
+                    {...register('state')}
+                  />
                   <InputRadio
                     title="Novo"
-                    value="new"
-                    text="Lido apenas uma vez ou poucas vezes,sem marcas"
-                    id="new"
+                    text="Lido apenas uma ou poucas vezes, sem marcas."
+                    htmlFor="new"
+                  />
+                  <Input
+                    id="good"
+                    value="Pode ter algumas marcas leves de manuseio, sem rasuras."
+                    type="radio"
+                    data-type="radio"
+                    {...register('state')}
                   />
                   <InputRadio
                     title="Bom"
-                    value="good"
                     text="Pode ter algumas marcas leves de manuseio, sem rasuras."
-                    id="good"
+                    htmlFor="good"
+                  />
+                  <Input
+                    id="warn-out"
+                    value="Bastante usado, com várias marcas de uso e anotações."
+                    type="radio"
+                    data-type="radio"
+                    {...register('state')}
                   />
                   <InputRadio
                     title="Desgastado"
-                    value="worn-out"
-                    text="Bastante usado,com várias marcas de uso e anotações."
-                    id="worn-out"
+                    text="Bastante usado, com várias marcas de uso e anotações."
+                    htmlFor="warn-out"
                   />
-                </Root>
+                </div>
               </div>
-              <TextField label="Idioma" id="language" name="language" />
-              <TextField
-                label="Descrição"
-                id="description"
-                name="description"
-                componentType="textarea"
-                className="h-28 resize-none overflow-auto"
-              />
+              <TextField label="Idioma" htmlFor="language">
+                <Input id="language" {...register('language')} />
+              </TextField>
+              <TextField label="Descrição" htmlFor="description">
+                <Input
+                  variant="textarea"
+                  componentType="textarea"
+                  id="description"
+                  {...register('description')}
+                />
+              </TextField>
             </Card>
-            <Button className="lg:max-w-full" disabled>
-              Cadastrar
-            </Button>
+            <Button className="lg:max-w-full">Atualizar</Button>
           </form>
         </section>
       </main>

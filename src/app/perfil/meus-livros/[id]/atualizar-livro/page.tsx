@@ -3,17 +3,17 @@
 import { Button } from '@/components/Button'
 import { Card } from '@/components/Card'
 import { Header } from '@/components/Header'
-import { InputRadio } from '@/components/InputRadio'
-import { Root } from '@radix-ui/react-radio-group'
 import * as Icon from '@phosphor-icons/react'
 import Link from 'next/link'
-import { TextField, inputStyle } from '@/components/TextField'
+import { TextField } from '@/components/TextField'
 import { useMySingleBook } from '@/hooks/useMySingleBook'
 import { Skeleton } from '@/components/Skeleton'
 import { generateArrayWithId } from '@/utils/generate-array-with-id'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
-import { useState } from 'react'
+import { motion } from 'framer-motion'
+import { Input } from '@/components/Input'
+import { InputRadio } from '@/components/InputRadio'
 
 type PagePropos = {
   params: {
@@ -21,7 +21,7 @@ type PagePropos = {
   }
 }
 
-export default function Book({ params }: PagePropos) {
+export default function UpdateBook({ params }: PagePropos) {
   const {
     data: book,
     isLoading,
@@ -34,13 +34,7 @@ export default function Book({ params }: PagePropos) {
   const router = useRouter()
   isError && router.push('/perfil/meus-livros')
 
-  const { register, handleSubmit } = useForm()
-
-  const [output, setOutput] = useState('')
-
-  function updateWish(data: any) {
-    setOutput(JSON.stringify(data, null, 2))
-  }
+  const { register } = useForm()
 
   return (
     <>
@@ -96,45 +90,140 @@ export default function Book({ params }: PagePropos) {
             </div>
           )}
           {isSuccess && (
-            <form
-              onSubmit={handleSubmit(updateWish)}
-              className="mx-auto flex max-w-[520px] flex-col gap-11"
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ type: 'spring', stiffness: 50 }}
             >
-              <Card type="content" className="flex flex-col gap-4 py-8">
-                <TextField label="Título" id="name">
-                  <input {...register('name')} id="name" className="input" />
-                </TextField>
-                <div>
-                  <label className="mb-1 text-base-140-md">
-                    Condição do livro
-                  </label>
-                  <Root className="grid gap-2" defaultValue="good">
-                    <InputRadio
-                      title="Novo"
-                      value="new"
-                      text="Lido apenas uma vez ou poucas vezes, sem marcas"
-                      id="new"
+              <form className="mx-auto flex max-w-[540px] flex-col gap-11">
+                <Card type="content" className="flex flex-col gap-4 py-8">
+                  <TextField label="Título" htmlFor="name">
+                    <Input
+                      defaultValue={book?.name}
+                      id="name"
+                      {...register('name')}
                     />
-                    <InputRadio
-                      title="Bom"
-                      value="good"
-                      text="Pode ter algumas marcas leves de manuseio, sem rasuras."
-                      id="good"
+                  </TextField>
+                  <TextField label="Autor" htmlFor="author">
+                    <Input
+                      defaultValue={book?.author}
+                      id="author"
+                      {...register('author')}
                     />
-                    <InputRadio
-                      title="Desgastado"
-                      value="worn-out"
-                      text="Bastante usado, com várias marcas de uso e anotações."
-                      id="worn-out"
+                  </TextField>
+                  <TextField label="Categoria" htmlFor="category">
+                    <div className="select">
+                      <Input
+                        componentType="select"
+                        variant="select"
+                        defaultValue={book?.category}
+                        id="category"
+                        {...register('category')}
+                      >
+                        <option selected disabled>
+                          Selecione...
+                        </option>
+                        <option value="Biologia">Ciências Biológicas</option>
+                        <option value="Engenharia">Engenharias</option>
+                        <option value="Medicina">Ciências da Saúde</option>
+                        <option value="Ciência Agrária">
+                          Ciências Agrárias
+                        </option>
+                        <option value="Linguística">
+                          Linguística, Letras e Artes
+                        </option>
+                        <option value="Sociologia">
+                          Ciências Sociais Aplicadas
+                        </option>
+                        <option value="Humanas">Ciências Humanas</option>
+                        <option value="Exatas">
+                          Ciências Exatas e da Terra
+                        </option>
+                      </Input>
+                      <Icon.CaretDown
+                        size={20}
+                        className="absolute right-3 top-[calc(50%-10px)] z-[1]"
+                      />
+                    </div>
+                  </TextField>
+                  <TextField label="Editora" htmlFor="publishingCompany">
+                    <Input
+                      defaultValue={book?.publishingCompany}
+                      id="publishingCompany"
+                      {...register('publishingCompany')}
                     />
-                  </Root>
-                </div>
-              </Card>
-              <Button className="lg:max-w-full">Atualizar</Button>
-            </form>
+                  </TextField>
+                  <TextField label="Ano de Lançamento" htmlFor="year">
+                    <Input
+                      defaultValue={book?.year}
+                      id="year"
+                      {...register('year')}
+                    />
+                  </TextField>
+                  <div>
+                    <p className="mb-1 text-base-140-md">Condição do Livro</p>
+                    <div className="flex flex-col gap-3">
+                      <Input
+                        id="new"
+                        value="Lido apenas uma ou poucas vezes, sem marcas."
+                        type="radio"
+                        data-type="radio"
+                        {...register('state')}
+                      />
+                      <InputRadio
+                        title="Novo"
+                        text="Lido apenas uma ou poucas vezes, sem marcas."
+                        htmlFor="new"
+                      />
+                      <Input
+                        id="good"
+                        value="Pode ter algumas marcas leves de manuseio, sem rasuras."
+                        type="radio"
+                        data-type="radio"
+                        {...register('state')}
+                        defaultChecked
+                      />
+                      <InputRadio
+                        title="Bom"
+                        text="Pode ter algumas marcas leves de manuseio, sem rasuras."
+                        htmlFor="good"
+                      />
+                      <Input
+                        id="warn-out"
+                        value="Bastante usado, com várias marcas de uso e anotações."
+                        type="radio"
+                        data-type="radio"
+                        {...register('state')}
+                      />
+                      <InputRadio
+                        title="Desgastado"
+                        text="Bastante usado, com várias marcas de uso e anotações."
+                        htmlFor="warn-out"
+                      />
+                    </div>
+                  </div>
+                  <TextField label="Idioma" htmlFor="language">
+                    <Input
+                      defaultValue={book?.language}
+                      id="language"
+                      {...register('language')}
+                    />
+                  </TextField>
+                  <TextField label="Descrição" htmlFor="description">
+                    <Input
+                      componentType="textarea"
+                      variant="textarea"
+                      defaultValue={book?.description}
+                      id="description"
+                      {...register('description')}
+                    />
+                  </TextField>
+                </Card>
+                <Button className="lg:max-w-full">Atualizar</Button>
+              </form>
+            </motion.div>
           )}
         </section>
-        <pre>{output}</pre>
       </main>
     </>
   )

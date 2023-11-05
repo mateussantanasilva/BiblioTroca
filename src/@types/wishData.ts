@@ -1,4 +1,4 @@
-export interface WishListData {
+export interface WishData {
   id: string
   name: string
   author: string
