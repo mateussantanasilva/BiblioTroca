@@ -12,8 +12,15 @@ const skeleton = tv({
       line: 'h-[1rem] bg-gray-300 dark:bg-black dark:shadow-solid-white',
     },
     size: {
+      content: 'p-4 w-full min-w-0 min-h-0',
       xs: 'h-[3rem]',
+      button: 'h-[3.5rem] w-full mx-auto',
+      buttonSm: 'w-[36px] h-[36px]',
+      buttonWhatsapp: 'w-[11.75rem] h-[2.5rem]',
       md: 'h-[18rem]',
+      inputRadio: 'w-full h-[9rem] md:h-[7rem]',
+      inputRadioSm:
+        'w-full h-[6.5rem] min-[375px]:h-[5.3rem] min-[535px]:h-[4.05rem]',
       lg: 'h-[33rem]',
     },
   },
@@ -49,7 +56,7 @@ export function Skeleton({
       )}
 
       {!repeatOnce && (
-        <div className={`${className} flex flex-col gap-2`}>
+        <div className={`flex flex-col gap-2 ${className}`}>
           {quantityToRepeat?.map((item) => {
             return (
               <div key={item} className={skeleton({ variant, size })}>

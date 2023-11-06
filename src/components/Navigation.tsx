@@ -1,34 +1,38 @@
 'use client'
 
 import Link from 'next/link'
+import { ReactNode } from 'react'
 
-import { Avatar, AvatarProps } from './Avatar'
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 import * as Icon from '@phosphor-icons/react'
+import { Avatar, AvatarProps } from './Avatar'
 import { Card } from './Card'
-
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { FreeMode } from 'swiper/modules'
-import 'swiper/css'
-import 'swiper/css/pagination'
-import '@/styles/swiper.css'
 import { Dropdown } from './Dropdown'
+import { Skeleton } from './Skeleton'
 import { useThemes } from '@/hooks/useThemes'
 
+import 'swiper/css'
+import 'swiper/css/free-mode'
+import '@/styles/swiper.css'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { FreeMode } from 'swiper/modules'
+
 type NavigationProps = AvatarProps & {
-  pendingExchanges: number
-  amountBooks: number
-  wishlist: number
-  history: number
+  pendingTransactions: number | undefined
+  myBooks: number | undefined
+  wishList: number | undefined
+  history: number | undefined
+  isLoading: boolean
 }
 
 export function Navigation({
   name,
   src,
-  amountBooks,
-  pendingExchanges,
+  pendingTransactions,
+  myBooks,
+  wishList,
   history,
-  wishlist,
+  isLoading,
 }: NavigationProps) {
   const { changeTheme, isDarkTheme } = useThemes()
 
@@ -36,19 +40,90 @@ export function Navigation({
     changeTheme()
   }
 
+  type MenuItem = {
+    link: string
+    name: string
+    subtitle: string
+    icon: ReactNode
+  }
+
+  const menuItems: MenuItem[] = [
+    {
+      link: '/perfil/trocas-pendentes',
+      name: 'Trocas',
+      subtitle: `${pendingTransactions} pendete(s)`,
+      icon: (
+        <Icon.Swap
+          weight="bold"
+          size={22}
+          className="text-primary-500 dark:text-yellow-500"
+        />
+      ),
+    },
+    {
+      link: '/perfil/meus-livros',
+      name: 'Meus Livros',
+      subtitle: `${myBooks} livro(s)`,
+      icon: (
+        <Icon.Books
+          weight="bold"
+          size={22}
+          className="text-primary-500 dark:text-yellow-500"
+        />
+      ),
+    },
+    {
+      link: '/perfil/lista-desejos',
+      name: 'Lista de Desejos',
+      subtitle: `${wishList} desejo(s)`,
+      icon: (
+        <Icon.Heart
+          weight="bold"
+          size={22}
+          className="text-primary-500 dark:text-yellow-500"
+        />
+      ),
+    },
+    {
+      link: '/perfil/historico',
+      name: 'Histórico',
+      subtitle: `${history} troca(s)`,
+      icon: (
+        <Icon.ListMagnifyingGlass
+          weight="bold"
+          size={22}
+          className="text-primary-500 dark:text-yellow-500"
+        />
+      ),
+    },
+  ]
+
   return (
     <nav className="mx-auto max-w-5xl font-primary">
-      <section className="mb-10 flex items-center justify-between">
+      <section className="mb-10 flex items-start justify-between">
         <div>
-          <span className="font-primary text-sm md:text-lg">Bem vindo(a),</span>
-          <p className="font-secondary text-title-base md:text-title-lg">
-            {name}
+          <p className="font-secondary text-title-sm md:text-title-base">
+            Olá, {name}!
           </p>
+          <span className="font-primary text-xs-140 text-gray-300 md:text-lg">
+            Sua jornada já lhe rendeu
+          </span>
+          <div className="mt-2 flex items-center gap-1">
+            <Icon.CurrencyCircleDollar
+              className="h-[27px] w-[27px] text-yellow-500 md:h-9 md:w-9"
+              weight="bold"
+            />
+            <span className="font-secondary text-title-base">240 pontos</span>
+          </div>
         </div>
         <DropdownMenu.Root>
           <DropdownMenu.Trigger asChild>
             <button className="h-max w-max rounded-full">
-              <Avatar src={src} name={name} />
+              <Avatar
+                className="hover:ring-2 hover:ring-white"
+                src={src}
+                name={name}
+              />
             </button>
           </DropdownMenu.Trigger>
 
@@ -60,7 +135,7 @@ export function Navigation({
                   href="/perfil/editar-perfil"
                 >
                   <span>Gerenciar Conta</span>
-                  <Icon.Gear size={18} />
+                  <Icon.Gear size={14} />
                 </Link>
               </Dropdown.Item>
               <Dropdown.Separator />
@@ -83,7 +158,7 @@ export function Navigation({
                   <Dropdown.Item>
                     <button
                       onClick={handleChangeTheme}
-                      className="flex h-full w-full items-center justify-between px-3 dark:text-yellow-500"
+                      className="flex h-full w-full items-center justify-between px-3"
                     >
                       <span>Tema claro</span>
                       <Icon.Sun size={18} />
@@ -108,140 +183,35 @@ export function Navigation({
           </DropdownMenu.Portal>
         </DropdownMenu.Root>
       </section>
-
-      <Swiper freeMode modules={[FreeMode]}>
-        <SwiperSlide>
-          <Link href="/perfil/trocas-pendentes">
-            <Card type="menu">
-              <Icon.Swap
-                className="mb-3 text-primary-500 dark:text-yellow-500"
-                weight="bold"
-                size={26}
-              />
-              <p className="mb-7 h-10 text-base font-medium text-gray-600 dark:text-yellow-500 md:mb-0 md:h-max">
-                Trocas
-              </p>
-              <p className="text-xs text-gray-400 dark:text-yellow-500">
-                {pendingExchanges} pendentes
-              </p>
-            </Card>
-          </Link>
-        </SwiperSlide>
-        <SwiperSlide>
-          <Link href="/perfil/meus-livros">
-            <Card type="menu">
-              <Icon.Books
-                className="mb-3 text-primary-500 dark:text-yellow-500"
-                weight="bold"
-                size={26}
-              />
-              <p className="mb-7 h-10 text-base font-medium text-gray-600 dark:text-yellow-500">
-                Meus Livros
-              </p>
-              <p className="text-xs text-gray-400 dark:text-yellow-500">
-                {amountBooks} livros
-              </p>
-            </Card>
-          </Link>
-        </SwiperSlide>
-        <SwiperSlide>
-          <Link href="/perfil/lista-desejos">
-            <Card type="menu">
-              <Icon.Heart
-                className="mb-3 text-primary-500 dark:text-yellow-500"
-                weight="bold"
-                size={26}
-              />
-              <p className="mb-7 h-10 text-base font-medium text-gray-600 dark:text-yellow-500">
-                Lista de Desejos
-              </p>
-              <p className="text-xs text-gray-400 dark:text-yellow-500">
-                {wishlist} livros
-              </p>
-            </Card>
-          </Link>
-        </SwiperSlide>
-        <SwiperSlide>
-          <Link href="/perfil/historico">
-            <Card type="menu">
-              <Icon.ListMagnifyingGlass
-                className="mb-3 text-primary-500 dark:text-yellow-500"
-                weight="bold"
-                size={26}
-              />
-              <p className="mb-7 h-10 text-base font-medium text-gray-600 dark:text-yellow-500">
-                Histórico
-              </p>
-              <p className="text-xs text-gray-400 dark:text-yellow-500">
-                {history} trocas
-              </p>
-            </Card>
-          </Link>
-        </SwiperSlide>
+      <Swiper
+        slidesPerView="auto"
+        spaceBetween={14}
+        freeMode={true}
+        modules={[FreeMode]}
+      >
+        {menuItems.map((menuItem) => (
+          <SwiperSlide key={menuItem.link}>
+            <Link href={menuItem.link}>
+              <Card type="menu">
+                {menuItem.icon}
+                <p className="h-max text-base-140-md text-black dark:text-yellow-500">
+                  {menuItem.name}
+                </p>
+                <span className="h-max self-end text-xs-140 text-gray-400 dark:text-yellow-500">
+                  {isLoading ? (
+                    <Skeleton
+                      variant="line"
+                      className="w-[78px] animate-pulse"
+                    />
+                  ) : (
+                    menuItem.subtitle
+                  )}
+                </span>
+              </Card>
+            </Link>
+          </SwiperSlide>
+        ))}
       </Swiper>
-
-      <div className="hidden w-full grid-cols-4 gap-5 min-[600px]:grid">
-        <Link href="/perfil/trocas-pendentes">
-          <Card type="menu">
-            <Icon.Swap
-              className="mb-3 text-primary-500 dark:text-yellow-500"
-              weight="bold"
-              size={26}
-            />
-            <p className="mb-2 text-base font-medium text-gray-600 dark:text-yellow-500">
-              Trocas
-            </p>
-            <p className="break-keep text-xs text-gray-400 dark:text-yellow-500">
-              {pendingExchanges} pendentes
-            </p>
-          </Card>
-        </Link>
-        <Link href="/perfil/meus-livros">
-          <Card type="menu">
-            <Icon.Books
-              className="mb-3 text-primary-500 dark:text-yellow-500"
-              weight="bold"
-              size={26}
-            />
-            <p className="mb-2 text-base font-medium text-gray-600 dark:text-yellow-500">
-              Meus Livros
-            </p>
-            <p className="break-keep text-xs text-gray-400 dark:text-yellow-500">
-              {amountBooks} livros
-            </p>
-          </Card>
-        </Link>
-        <Link href="/perfil/lista-desejos">
-          <Card type="menu">
-            <Icon.Heart
-              className="mb-3 text-primary-500 dark:text-yellow-500"
-              weight="bold"
-              size={26}
-            />
-            <p className="mb-2 text-base font-medium text-gray-600 dark:text-yellow-500">
-              Lista de Desejos
-            </p>
-            <p className="break-keep text-xs text-gray-400 dark:text-yellow-500">
-              {wishlist} livros
-            </p>
-          </Card>
-        </Link>
-        <Link href="/perfil/historico">
-          <Card type="menu">
-            <Icon.ListMagnifyingGlass
-              className="mb-3 text-primary-500 dark:text-yellow-500"
-              weight="bold"
-              size={26}
-            />
-            <p className="mb-2 text-base font-medium text-gray-600 dark:text-yellow-500">
-              Histórico
-            </p>
-            <p className="break-keep text-xs text-gray-400 dark:text-yellow-500">
-              {history} trocas
-            </p>
-          </Card>
-        </Link>
-      </div>
     </nav>
   )
 }

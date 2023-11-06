@@ -3,4 +3,5 @@ export interface SellerData {
   location: string
   averageRating: number
   avaliationsNumber: number
+  phoneNumber: string
 }

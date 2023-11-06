@@ -1,58 +1,36 @@
-import { VariantProps, tv } from 'tailwind-variants'
-import { BookmarkSimple } from '@phosphor-icons/react'
-import * as RadioGroup from '@radix-ui/react-radio-group'
+import { twMerge } from 'tailwind-merge'
+import { BookmarksSimple } from '@phosphor-icons/react'
 
-const item = tv({
-  base: 'text-left w-full h-full flex justify-between items-center p-4 gap-1 border-[1px] border-gray-300 rounded-md data-[state="checked"]:bg-primary-100 data-[state="checked"]:border-primary-500 data-[state="checked"]:border-2 dark:data-[state="checked"]:bg-black dark:data-[state="checked"]:border-white dark:data-[state="checked"]:text-yellow-500',
-  variants: {
-    variant: {
-      danger:
-        'data-[state="checked"]:bg-red-100 data-[state="checked"]:border-red-500 data-[state="checked"]:border-2 dark:data-[state="checked"]:bg-black dark:data-[state="checked"]:border-white dark:data-[state="checked"]:text-yellow-500',
-    },
-  },
-})
-
-const indicator = tv({
-  base: 'block bg-primary-500 w-3 h-3 rounded-full dark:bg-yellow-500',
-  variants: {
-    variant: {
-      danger: 'bg-red-500 dark:bg-yellow-500',
-    },
-  },
-})
-
-const containerIndicator = tv({
-  base: 'flex-none w-6 h-6 border-2 border-primary-500 flex items-center justify-center rounded-full dark:border-yellow-500',
-  variants: {
-    variant: {
-      danger: 'border-red-500 dark:border-yellow-500',
-    },
-  },
-})
-
-type InputRadioProps = RadioGroup.RadioGroupItemProps &
-  VariantProps<typeof item> & {
-    title: string
-    text: string
-  }
+type InputRadioProps = {
+  title: string
+  text: string
+  htmlFor: string
+  className?: string
+}
 
 export function InputRadio({
-  id,
+  htmlFor,
   title,
-  value,
   text,
-  variant,
+  className,
 }: InputRadioProps) {
   return (
-    <RadioGroup.Item className={item({ variant })} value={value} id={id}>
-      <BookmarkSimple className="md:[w-6 h-6] mt-1 h-4 w-4 flex-none place-self-start" />
-      <label htmlFor={id} className="flex-1">
-        <p className="mb-3 text-base-140-md">{title}</p>
-        <p className="text-base-160">{text}</p>
-      </label>
-      <div className={containerIndicator({ variant })}>
-        <RadioGroup.Indicator className={indicator({ variant })} />
+    <label
+      className={twMerge(
+        `relative w-full cursor-pointer rounded-lg border border-gray-300
+        bg-white-100 p-3 after:absolute after:bottom-[calc(50%-10px)]
+        after:right-3 after:h-5 after:w-5 after:rounded-full after:border-2
+        after:border-primary-500 after:content-[""] dark:bg-black
+        dark:after:border-white`,
+        className,
+      )}
+      htmlFor={htmlFor}
+    >
+      <div className="mb-1 flex items-center gap-1 font-medium">
+        <BookmarksSimple size={16} weight="bold" />
+        <p className="text-base leading-none">{title}</p>
       </div>
-    </RadioGroup.Item>
+      <p className="ml-[18px] mr-6 text-sm-140">{text}</p>
+    </label>
   )
 }

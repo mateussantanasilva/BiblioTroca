@@ -7,19 +7,47 @@ import { TextField } from '@/components/TextField'
 import { Modal } from '@/components/Modal'
 import * as Icon from '@phosphor-icons/react'
 import * as Dialog from '@radix-ui/react-dialog'
+import { useForm } from 'react-hook-form'
+import { ViaCEPData } from '@/@types/viaCepData'
 import Link from 'next/link'
+import axios from 'axios'
+import { FocusEvent, useState } from 'react'
+import { Input } from '@/components/Input'
 
 export default function EditProfile() {
+  const [bairro, setBairro] = useState<string | undefined>('')
+  const [cidade, setCidade] = useState<string | undefined>('')
+
+  const [isLoading, setIsLoading] = useState(false)
+  const [isError, setIsError] = useState(false)
+
+  const { register } = useForm()
+
+  function checkCep(cep: string) {
+    setIsLoading(true)
+    axios
+      .get<ViaCEPData>(`https://viacep.com.br/ws/${cep}/json`)
+      .then(({ data: { bairro, localidade } }) => {
+        setBairro(bairro)
+        setCidade(localidade)
+        setIsError(false)
+      })
+      .catch(
+        (error) => error && (setIsError(true), setBairro(''), setCidade('')),
+      )
+      .finally(() => setIsLoading(false))
+  }
+
   return (
     <>
       <Header className="h-[300px] pt-16 text-center">
         <Link
           href="/perfil/trocas-pendentes"
-          className="absolute left-6 top-10"
+          className="absolute left-6 top-10 min-[768px]:hidden"
         >
           <Icon.ArrowLeft
             className="transition-transform duration-300 hover:scale-110 dark:text-yellow-500"
-            size={32}
+            size={24}
             weight="bold"
           />
         </Link>
@@ -37,38 +65,87 @@ export default function EditProfile() {
             <Avatar
               src="https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80"
               name="Ana Clara"
-              className="mb-9 ml-[50%] h-20 w-20 -translate-x-2/4 -translate-y-2/4 border-2 border-white md:h-32 md:w-32"
+              className="mb-9 ml-[50%] h-20 w-20 -translate-x-1/2 -translate-y-1/2 border-2 border-white md:h-32 md:w-32"
             />
-            <div className="-translate-y-[10%]">
+            <div className="-mt-[10%]">
               <p className="mb-8 text-center font-secondary text-title-base">
                 Ana Clara
               </p>
               <div className="flex flex-col gap-4">
-                <TextField
-                  label="Email"
-                  id="email"
-                  name="email"
-                  type="email"
-                  disabled
-                />
-                <TextField
-                  label="Celular"
-                  id="telephone"
-                  name="telephone"
-                  type="tel"
-                />
-                <TextField label="CEP" id="cep" name="cep" type="string" />
-                <TextField
-                  label="Bairro"
-                  id="district"
-                  name="district"
-                  type="string"
-                />
-                <TextField label="Cidade" id="city" name="city" type="string" />
+                <TextField label="Email" htmlFor="email">
+                  <Input
+                    type="text"
+                    id="email"
+                    className="cursor-not-allowed text-gray-400 focus:ring-0"
+                    value="anaclara@gmail.com"
+                    {...register('email')}
+                  />
+                </TextField>
+                <TextField label="Celular" htmlFor="phoneNumber">
+                  <Input
+                    type="text"
+                    id="phoneNumber"
+                    {...register('phoneNumber')}
+                  />
+                </TextField>
+                <TextField label="Celular" htmlFor="phoneNumber">
+                  <Input
+                    type="text"
+                    id="phoneNumber"
+                    {...register('phoneNumber')}
+                  />
+                </TextField>
+                <TextField label="CEP" htmlFor="cep">
+                  <Input
+                    componentType="input"
+                    type="text"
+                    id="cep"
+                    {...register('cep')}
+                    onBlur={(event: FocusEvent<HTMLInputElement>) => {
+                      checkCep(event.target.value)
+                    }}
+                  />
+                  {isError && (
+                    <Icon.XCircle
+                      size={24}
+                      className="absolute bottom-4 right-4 text-red-500 dark:text-white-500"
+                    />
+                  )}
+                </TextField>
+                <TextField label="Bairro" htmlFor="bairro">
+                  <Input
+                    type="text"
+                    id="bairro"
+                    className="cursor-not-allowed text-gray-400 focus:ring-0"
+                    value={bairro}
+                    {...register('bairro')}
+                  />
+                  {isLoading && (
+                    <Icon.SpinnerGap
+                      size={24}
+                      className="absolute bottom-4 right-4 animate-loading dark:text-white"
+                    />
+                  )}
+                </TextField>
+                <TextField label="Cidade" htmlFor="cidade">
+                  <Input
+                    type="text"
+                    id="cidade"
+                    className="cursor-not-allowed text-gray-400 focus:ring-0"
+                    {...register('cidade')}
+                    value={cidade}
+                  />
+                  {isLoading && (
+                    <Icon.SpinnerGap
+                      size={24}
+                      className="absolute bottom-4 right-4 animate-loading dark:text-white"
+                    />
+                  )}
+                </TextField>
               </div>
             </div>
           </div>
-          <Button className="w-full lg:max-w-full">Atualizar Livro</Button>
+          <Button size="full">Atualizar Perfil</Button>
 
           <Dialog.Root>
             <Dialog.Trigger asChild>

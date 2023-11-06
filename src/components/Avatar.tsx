@@ -17,7 +17,7 @@ export function Avatar({ src, name, className }: AvatarProps) {
   return (
     <AvatarUI.Root
       className={twMerge(
-        'inline-flex h-16 w-16 select-none items-center justify-center overflow-hidden rounded-full align-middle md:h-28 md:w-28',
+        'inline-flex h-[60px] w-[60px] select-none items-center justify-center overflow-hidden rounded-full align-middle transition-all md:h-24 md:w-24',
         className,
       )}
     >
@@ -25,6 +25,7 @@ export function Avatar({ src, name, className }: AvatarProps) {
         className="h-full w-full rounded-full object-cover"
         src={src}
         alt={name}
+        referrerPolicy="no-referrer"
       />
       <AvatarUI.Fallback className="leading-1 flex h-full w-full items-center justify-center bg-white font-primary text-title-base text-primary-500">
         {initials}

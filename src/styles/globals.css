@@ -8,10 +8,24 @@ html {
 }
 
 body {
-  @apply
-    overflow-x-hidden
-    w-screen
-  ;
+  @apply w-screen
+    overflow-x-hidden;
+}
+
+input[type="radio"]:checked + label {
+  @apply bg-primary-100 ring-2 ring-primary-500 before:absolute
+  before:bottom-[calc(50%-5px)] before:right-[17px] before:h-[10px] before:w-[10px]
+  before:rounded-full before:bg-primary-500 before:content-[""]
+  dark:border-yellow-500 dark:bg-black dark:text-yellow-500
+  dark:ring-yellow-500 dark:before:bg-yellow-500 dark:after:border-yellow-500;
+}
+
+input[data-variant="danger"][type="radio"]:checked + label {
+  @apply bg-red-100 ring-red-500 before:bg-red-500 after:border-red-500;
+}
+
+.select {
+  @apply relative;
 }
 
 ::-webkit-scrollbar {
@@ -19,12 +33,12 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #E6E5E5;
+  background: #e6e5e5;
 }
 
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  background: #7C7C8A;
+  background: #7c7c8a;
 }
 
 ::-webkit-scrollbar-thumb:hover {

@@ -3,93 +3,174 @@
 import { Card, status } from '@/components/Card'
 import { Header } from '@/components/Header'
 import { Navigation } from '@/components/Navigation'
-import { Transaction, transactionsDefault } from '@/model/transaction'
-import { useEffect, useState } from 'react'
 import * as Icon from '@phosphor-icons/react'
-import Link from 'next/link'
 import { formatDate } from '@/utils/format-date'
-import {
-  historySize,
-  myBooksSize,
-  pendingTransactionsSize,
-  wishListSize,
-} from '@/docs/navigationInfo'
+import { useTransactions } from '@/hooks/useTransactions'
+import { Skeleton } from '@/components/Skeleton'
+import { generateArrayWithId } from '@/utils/generate-array-with-id'
+import { useMyBooks } from '@/hooks/useMyBooks'
+import { useMyWishlist } from '@/hooks/useMyWishlist'
+import { motion } from 'framer-motion'
 
-export default function TrocasPendentes() {
-  const [pendingTransactions, setPendingTransactions] = useState<Transaction[]>(
-    [],
-  )
+export default function PendingExchanges() {
+  const {
+    query: { data: history },
+  } = useTransactions('Cancelado&Concluído')
 
-  useEffect(() => {
-    setPendingTransactions(
-      transactionsDefault.filter((transaction) => {
-        return transaction.status === 'Pendente'
-      }),
-    )
-  }, [])
+  const {
+    query: { data: myBooks },
+  } = useMyBooks()
+
+  const {
+    query: { data: myWishlist },
+  } = useMyWishlist()
+
+  const {
+    query: { data: pendingTransactions, isLoading, isSuccess },
+  } = useTransactions('Pendente')
+
+  const quantityToRepeat = generateArrayWithId(4)
 
   return (
     <>
-      <Header>
+      <Header className="h-[233px]">
         <Navigation
           name="Ana Clara"
           src="https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80"
-          pendingExchanges={pendingTransactionsSize}
-          amountBooks={myBooksSize}
-          wishlist={wishListSize}
-          history={historySize}
+          pendingTransactions={pendingTransactions?.length}
+          myBooks={myBooks?.length}
+          wishList={myWishlist?.length}
+          history={history?.length}
+          isLoading={isLoading}
         />
       </Header>
       <main className="mt-28 px-6 pb-10 md:mt-32">
         <section className="mx-auto max-w-5xl">
-          <h1 className="mb-5 flex items-center gap-1 font-secondary text-title-xs text-gray-500 dark:text-white">
+          <h1 className="mb-5 flex items-baseline gap-1 font-secondary text-title-xs text-gray-500 dark:text-white">
             Trocas
-            <span className="font-primary text-sm-140 text-gray-400 dark:text-white">
-              | {pendingTransactions.length} troca(s)
-            </span>
+            {isSuccess && pendingTransactions?.length !== 0 && (
+              <span className="font-primary text-sm-140 text-gray-400 dark:text-white">
+                | {pendingTransactions?.length} troca(s)
+              </span>
+            )}
           </h1>
           <div className="flex flex-col gap-4">
-            {pendingTransactions.map((pendingTransaction) => (
-              <Link
-                key={pendingTransaction.book.id}
-                href={`/perfil/trocas-pendentes/troca/${pendingTransaction.id}`}
-              >
-                <Card
-                  type="common"
-                  className="grid grid-cols-2 items-center justify-between gap-y-7 md:grid-cols-4"
+            {isLoading &&
+              quantityToRepeat.map((item) => (
+                <Skeleton
+                  variant="card"
+                  size="content"
+                  className="gap-4"
+                  key={item}
                 >
-                  <div>
-                    <strong className="text-base-140 text-gray-500 dark:text-yellow-500">
-                      {pendingTransaction.book.title}
-                    </strong>
-                    <p className="text-xs-140 text-gray-400 dark:text-yellow-500">
-                      {pendingTransaction.type === 'send' ? '+' : '-'}
-                      20 pontos
-                    </p>
+                  <div className="flex flex-col gap-7 md:grid md:grid-cols-2">
+                    <div className="flex justify-between md:grid md:grid-cols-2 md:items-center">
+                      <div className="flex flex-col gap-1">
+                        <Skeleton
+                          variant="line"
+                          className="w-[156px] md:w-[181px]"
+                        />
+                        <Skeleton variant="line" className="h-4 w-[67px]" />
+                      </div>
+                      <Skeleton
+                        variant="line"
+                        className="w-[68px] md:w-[77px] md:justify-self-center"
+                      />
+                    </div>
+                    <div className="flex justify-between md:grid md:grid-cols-2 md:items-center">
+                      <Skeleton
+                        variant="line"
+                        className="w-[132px] md:w-[152px] md:justify-self-center"
+                      />
+                      <Skeleton
+                        variant="line"
+                        className="w-[80px] md:w-[91px] md:justify-self-end"
+                      />
+                    </div>
                   </div>
-                  <span className="flex items-center gap-1 justify-self-end text-sm-140 text-gray-500 dark:text-yellow-500 md:justify-self-center">
-                    <Icon.Circle
-                      weight="fill"
-                      className={status({ color: pendingTransaction.status })}
-                    />
-                    {pendingTransaction.status}
-                  </span>
-                  <div className="flex items-center gap-1 text-sm-140 text-gray-500 dark:text-yellow-500 md:justify-self-center">
-                    <Icon.PaperPlaneTilt size={10} />
-                    <span>
-                      {pendingTransaction.type === 'receive'
-                        ? 'Recebendo de '
-                        : 'Enviando para '}
-                      {pendingTransaction.sellerCustomer.name}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-1 justify-self-end text-sm-140 text-gray-500 dark:text-yellow-500">
-                    <Icon.CalendarBlank size={10} />
-                    <span>{formatDate(pendingTransaction.startDate)}</span>
-                  </div>
-                </Card>
-              </Link>
-            ))}
+                </Skeleton>
+              ))}
+            {pendingTransactions?.length === 0 && (
+              <span className="mx-auto font-secondary text-title-base text-gray-400 dark:text-white">
+                Sem transações pendentes
+              </span>
+            )}
+            {isSuccess &&
+              pendingTransactions?.map((pendingTransaction) => (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ type: 'spring', stiffness: 50 }}
+                  key={pendingTransaction.id}
+                >
+                  <Card
+                    className="grid grid-cols-2"
+                    type="common"
+                    componentType="a"
+                    href={`/perfil/trocas-pendentes/troca/${pendingTransaction.id}`}
+                  >
+                    <div className="flex flex-col gap-6 md:grid md:grid-cols-2 md:gap-0">
+                      <div>
+                        <p className="block truncate text-base-140 text-gray-500 dark:text-yellow-500">
+                          {pendingTransaction.bookDetails.name}
+                        </p>
+                        <span className="text-sm-140 text-gray-400 dark:text-yellow-500">
+                          {pendingTransaction.type === 'send' ? '+' : '-'}20
+                          pontos
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-1 text-gray-500 dark:text-yellow-500 md:hidden">
+                        <Icon.PaperPlaneTilt size={12} />
+                        <span className="block truncate text-sm-140">
+                          {pendingTransaction.type === 'send'
+                            ? `Enviando para ${pendingTransaction.buyer.firstName}`
+                            : `Recebendo de ${pendingTransaction.bookDetails.seller.name}`}
+                        </span>
+                      </div>
+                      <div className="hidden items-center gap-1 justify-self-center md:flex">
+                        <Icon.Circle
+                          weight="fill"
+                          size={12}
+                          className={status({
+                            color: pendingTransaction.status,
+                          })}
+                        />
+                        <span className="text-sm-140 text-gray-500 dark:text-yellow-500">
+                          {pendingTransaction.status}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex w-full flex-col items-end justify-between md:grid md:grid-cols-2 md:items-center">
+                      <div className="hidden items-center justify-center gap-1 text-gray-500 dark:text-yellow-500 md:flex">
+                        <Icon.PaperPlaneTilt size={12} />
+                        <span className="block truncate text-xs-140 md:text-sm-140">
+                          {pendingTransaction.type === 'send'
+                            ? `Enviando para ${pendingTransaction.buyer.firstName}`
+                            : `Recebendo de ${pendingTransaction.bookDetails.seller.name}`}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-1 justify-self-end text-gray-500 dark:text-yellow-500 md:hidden">
+                        <Icon.Circle
+                          weight="fill"
+                          size={12}
+                          className={status({
+                            color: pendingTransaction.status,
+                          })}
+                        />
+                        <span className="text-sm-140">
+                          {pendingTransaction.status}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-1 text-gray-500 dark:text-yellow-500 md:justify-self-end">
+                        <Icon.CalendarBlank size={12} />
+                        <span className="text-sm-140">
+                          {formatDate(Date.parse(pendingTransaction.createdAt))}
+                        </span>
+                      </div>
+                    </div>
+                  </Card>
+                </motion.div>
+              ))}
           </div>
         </section>
       </main>

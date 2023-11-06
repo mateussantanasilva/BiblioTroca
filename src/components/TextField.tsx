@@ -1,37 +1,25 @@
-import { ComponentProps, ElementType } from 'react'
+import { ReactNode } from 'react'
 import { twMerge } from 'tailwind-merge'
 
-type TextFieldProps<T extends ElementType> = ComponentProps<T> & {
+interface TextFieldProps {
+  htmlFor: string
   label: string
-  componentType?: T
+  className?: string
+  children: ReactNode
 }
 
-export function TextField<T extends ElementType = 'input'>({
-  type,
-  id,
-  name,
+export function TextField({
+  htmlFor,
   label,
-  placeholder,
   className,
-  componentType: ComponentType = 'input',
-  ...rest
-}: TextFieldProps<T>) {
+  children,
+}: TextFieldProps) {
   return (
-    <div className="flex w-full flex-col gap-1">
-      <label className="w-max text-base-140-md" htmlFor={id}>
+    <div className={twMerge('relative flex w-full flex-col gap-1', className)}>
+      <label htmlFor={htmlFor} className="text-base-140-md">
         {label}
       </label>
-      <ComponentType
-        className={twMerge(
-          'disabled: w-full rounded-lg border-[1px] border-gray-300 bg-white-100 p-4 font-primary text-base-140 outline-primary-500 placeholder:font-primary placeholder:text-base-140 placeholder:text-gray-400 hover:border-gray-400 disabled:text-gray-300 hover:disabled:border-gray-300 dark:bg-black',
-          className,
-        )}
-        type={type}
-        placeholder={placeholder}
-        id={id}
-        name={name}
-        {...rest}
-      />
+      {children}
     </div>
   )
 }

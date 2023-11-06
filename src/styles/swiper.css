@@ -1,7 +1,11 @@
 .swiper {
-  @apply relative z-[1] -ml-2 overflow-hidden min-[600px]:hidden;
+  @apply !-ml-6 !-mr-6 !pl-[22px] !pr-[22px];
+}
+
+.swiper-wrapper {
+  @apply min-[597px]:grid min-[597px]:grid-cols-4 min-[597px]:gap-2;
 }
 
 .swiper-slide {
-  @apply !w-max p-2 dark:!text-white;
+  @apply !w-max !p-[2px] !pb-3 dark:!text-white min-[597px]:!mr-0 min-[597px]:!w-full;
 }

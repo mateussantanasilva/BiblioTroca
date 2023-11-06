@@ -6,7 +6,7 @@ import { VariantProps, tv } from 'tailwind-variants'
 import { WhatsappLogo } from '@phosphor-icons/react'
 
 const button = tv({
-  base: 'flex items-center justify-center gap-1 rounded-lg py-4 px-5 text-center font-secondary text-btn-base transition-colors duration-200 focus:outline-1 lg:max-w-md cursor-pointer disabled:opacity-80 disabled:cursor-not-allowed dark:bg-black dark:[&:not(:disabled)]:hover:bg-black dark:border-2 dark:border-white dark:text-yellow-500 dark:[&:not(:disabled)]:hover:text-yellow-300',
+  base: 'flex items-center justify-center gap-1 rounded-lg py-4 px-5 text-center font-secondary text-btn-base transition-colors duration-200 focus:outline-1 lg:max-w-md cursor-pointer disabled:opacity-80 disabled:cursor-not-allowed dark:bg-black dark:[&:not(:disabled)]:hover:bg-black dark:shadow-solid-white dark:text-yellow-500 dark:[&:not(:disabled)]:hover:text-yellow-300',
 
   variants: {
     variant: {
@@ -20,21 +20,22 @@ const button = tv({
         'text-red-500 border-red-500 border-2 hover:bg-red-500 hover:text-white',
       white:
         'bg-white text-primary-500 [&:not(:disabled)]:hover:bg-primary-100',
-      whatsapp: 'bg-green-500 text-white [&:not(:disabled)]:hover:bg-green-400',
+      whatsapp:
+        'px-4 py-2 bg-green-500 text-white [&:not(:disabled)]:hover:bg-green-400 !w-max',
       delete: 'bg-red-500 text-white [&:not(:disabled)]:hover:bg-red-600',
       evaluate:
         'bg-orange-500 text-white [&:not(:disabled)]:hover:bg-orange-400',
       cardEdit:
-        'bg-transparent border-2 border-primary-500 text-primary-500 p-2 !w-max hover:bg-primary-500 hover:text-white',
+        'bg-transparent shadow-[0_0_0_1px_#7A2F73] text-primary-500 p-2.5 !w-max hover:bg-primary-500 hover:text-white',
       cardDelete:
-        'bg-transparent border-2 border-red-500 text-red-500 p-2 !w-max hover:bg-red-500 hover:text-white',
+        'bg-transparent shadow-[0_0_0_1px_#AF1111] text-red-500 p-2.5 !w-max hover:bg-red-500 hover:text-white',
     },
 
     size: {
       sm: 'w-fit py-2 px-4',
       md: 'w-fit',
-      lg: 'w-[11.125rem]',
-      full: 'w-full',
+      lg: 'w-[11.125rem] h-[2.5rem]',
+      full: 'w-full lg:max-w-full',
     },
   },
 
@@ -68,7 +69,7 @@ const ButtonComponent = forwardRef<any, BaseButtonProps<any>>(
     >
       {variant === 'whatsapp' ? (
         <>
-          <WhatsappLogo size={'1.54rem'} />
+          <WhatsappLogo size={22} />
           {children}
         </>
       ) : (
