@@ -1,5 +1,3 @@
-'use client'
-
 import type { Metadata } from 'next'
 import { ThemesProvider } from '@/lib/NextThemes'
 import { QueryProvider } from '@/lib/ReactQuery'
