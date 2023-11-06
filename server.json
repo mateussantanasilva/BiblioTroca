@@ -139,7 +139,7 @@
     {
       "id": "1",
       "status": "Pendente",
-      "type": "send",
+      "type": "receive",
       "createdAt": "2023-09-12T22:35:19.931Z",
       "endedAt": "",
       "bookDetails": {
@@ -172,6 +172,40 @@
     },
     {
       "id": "2",
+      "status": "Pendente",
+      "type": "send",
+      "createdAt": "2023-09-12T22:35:19.931Z",
+      "endedAt": "",
+      "bookDetails": {
+        "id": 3,
+        "name": "Lógica de Programação",
+        "author": "Richard Helm",
+        "category": "Tecnologia",
+        "language": "Português",
+        "year": "2009",
+        "publishingCompany": "Alta Books",
+        "state": "Pode ter algumas marcas leves de manuseio, sem rasuras.",
+        "description": "O livro destaca a importância de manter o código limpo, não apenas para a eficácia imediata, mas para garantir que o software permaneça sustentável e fácil de manter a longo prazo. Utilizando exemplos práticos e diretrizes claras, Martin delineia os princípios do desenvolvimento de software ágil, focando em técnicas e práticas que levam a um código mais limpo e eficiente.",
+        "createdAt": "2023-09-13T23:18:46.765Z",
+        "seller": {
+          "name": "Mateus",
+          "location": "Itaim Bibi, São Paulo",
+          "averageRating": 4.5,
+          "avaliationsNumber": 14,
+          "phoneNumber": "11912345678"
+        }
+      },
+      "buyer": {
+        "firstName": "Pedro",
+        "lastName": "Pessina",
+        "email": "pedro.pessina@gmail.com",
+        "averageRating": 4.7,
+        "avaliationsNumber": 14,
+        "phoneNumber": "11912345678"
+      }
+    },
+    {
+      "id": "3",
       "status": "Concluído",
       "type": "receive",
       "createdAt": "2023-09-13T22:35:19.931Z",
@@ -205,7 +239,7 @@
       }
     },
     {
-      "id": "3",
+      "id": "4",
       "status": "Cancelado",
       "type": "send",
       "createdAt": "2023-09-14T22:35:19.931Z",

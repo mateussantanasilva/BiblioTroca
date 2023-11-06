@@ -115,7 +115,7 @@ export default function PendingExchanges() {
                           {pendingTransaction.bookDetails.name}
                         </p>
                         <span className="text-sm-140 text-gray-400 dark:text-yellow-500">
-                          {pendingTransaction.type === 'send' ? '-' : '+'}20
+                          {pendingTransaction.type === 'send' ? '+' : '-'}20
                           pontos
                         </span>
                       </div>

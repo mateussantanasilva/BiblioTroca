@@ -186,29 +186,29 @@ export default function ExchangeHistory({ params }: PagePropos) {
                 <p className="mb-3 text-base-140-md">
                   Escrito por {transaction?.bookDetails.author}
                 </p>
-                <div className="mb-6 grid grid-cols-2">
+                <div className="mb-6">
                   <div>
                     <p className="mb-1 text-base-140-md">Categoria</p>
                     <span className="rounded-lg border-[1px] border-primary-500 px-2 py-1 text-xs-140 text-primary-500 dark:border-white dark:text-white">
                       {transaction?.bookDetails.category}
                     </span>
                   </div>
+                </div>
+                <div className="mb-6 grid grid-cols-2">
                   <div>
                     <p className="text-base-140-md">Idioma</p>
                     <p>{transaction?.bookDetails.language}</p>
                   </div>
-                </div>
-                <div className="mb-6 grid grid-cols-2">
                   <div>
                     <p className="text-base-140-md">Ano</p>
                     <p>{transaction?.bookDetails.year}</p>
                   </div>
+                </div>
+                <div className="mb-6 grid grid-cols-2">
                   <div>
                     <p className="text-base-140-md">Editora</p>
                     <p>{transaction?.bookDetails.publishingCompany}</p>
                   </div>
-                </div>
-                <div className="mb-6">
                   <div>
                     <p className="text-base-140-md">Condição do livro</p>
                     <p>{transaction?.bookDetails.state}</p>

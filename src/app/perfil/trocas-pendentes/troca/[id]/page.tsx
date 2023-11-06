@@ -76,28 +76,41 @@ export default function PendingExchange({ params }: PagePropos) {
                 <Skeleton variant="line" className="w-[80px]" />
                 <Skeleton variant="line" className="w-[140px]" />
               </Skeleton>
-              <Skeleton variant="card" size="content" className="mb-4">
-                <Skeleton variant="line" className="mb-4 w-[137px]" />
-                <Skeleton variant="line" quantity={2} className="mb-2" />
-                <Skeleton variant="line" className="mb-1 w-[150px] sm:hidden" />
-                <div className="flex flex-col gap-11">
-                  <div className="flex flex-col gap-2 md:flex-row">
-                    <Skeleton variant="line" size="inputRadio" />
-                    <Skeleton variant="line" size="inputRadio" />
-                  </div>
-                  <Skeleton variant="line" size="button" />
-                </div>
-              </Skeleton>
-              <Skeleton variant="card" size="content" className="mb-4">
-                <Skeleton variant="line" className="mb-3 w-[180px]" />
-                <Skeleton variant="line" className="mb-4 w-[70px]" />
+              <div className="mb-4 flex flex-col gap-4 md:flex-row">
                 <Skeleton
-                  variant="line"
-                  size="buttonWhatsapp"
-                  className="mb-5"
-                />
-                <Skeleton variant="line" className="w-[170px]" />
-              </Skeleton>
+                  variant="card"
+                  size="content"
+                  className="mb-4 lg:w-[65%]"
+                >
+                  <Skeleton variant="line" className="mb-4 w-[137px]" />
+                  <Skeleton variant="line" quantity={2} className="mb-2" />
+                  <Skeleton
+                    variant="line"
+                    className="mb-1 w-[150px] sm:hidden"
+                  />
+                  <div className="flex flex-col gap-11">
+                    <div className="flex flex-col gap-2 md:flex-row">
+                      <Skeleton variant="line" size="inputRadio" />
+                      <Skeleton variant="line" size="inputRadio" />
+                    </div>
+                    <Skeleton variant="line" size="button" />
+                  </div>
+                </Skeleton>
+                <Skeleton
+                  variant="card"
+                  size="content"
+                  className="mb-4 flex items-center justify-center lg:w-[35%]"
+                >
+                  <Skeleton variant="line" className="mb-3 w-[180px]" />
+                  <Skeleton variant="line" className="mb-4 w-[70px]" />
+                  <Skeleton
+                    variant="line"
+                    size="buttonWhatsapp"
+                    className="mb-5"
+                  />
+                  <Skeleton variant="line" className="w-[170px]" />
+                </Skeleton>
+              </div>
               <Skeleton variant="card" size="content">
                 <Skeleton variant="line" className="mb-3 w-[200px]" />
                 <div className="mb-6 grid grid-cols-2">
@@ -170,8 +183,8 @@ export default function PendingExchange({ params }: PagePropos) {
                   Solicitada há x dias
                 </div>
               </Card>
-              <div className="mb-4 grid gap-4">
-                <Card type="content">
+              <div className="mb-4 flex flex-col gap-4 md:flex-row">
+                <Card type="content" className="lg:w-[65%]">
                   <p className="mb-3 text-base-140-md">
                     {transaction?.type === 'send'
                       ? 'Atualize os status'
@@ -212,11 +225,30 @@ export default function PendingExchange({ params }: PagePropos) {
                             htmlFor="refuse"
                           />
                         </div>
-                        <Button className="mx-auto">Atualizar status</Button>
+                        <Button className="mx-auto lg:max-w-md">
+                          Atualizar status
+                        </Button>
                       </>
                     ) : (
                       <>
-                        <Button className="mx-auto" variant="ghostPurple">
+                        <Input
+                          id="cancel"
+                          value="Ao selecionar essa opção, você está aceitando prosseguir com a troca."
+                          type="radio"
+                          data-type="radio"
+                          data-variant="danger"
+                          {...register('status')}
+                          defaultChecked
+                        />
+                        <InputRadio
+                          title="Cancelar Solicitação"
+                          text="Selecione esta opção se decidir interromper a solicitação de troca em andamento."
+                          htmlFor="cancel"
+                        />
+                        <Button
+                          className="mx-auto lg:max-w-md"
+                          variant="ghostPurple"
+                        >
                           Cancelar solicitação
                         </Button>
                       </>
@@ -225,14 +257,27 @@ export default function PendingExchange({ params }: PagePropos) {
                 </Card>
                 <Card
                   type="content"
-                  className="flex flex-col items-center justify-center"
+                  className="flex flex-col items-center justify-center lg:w-[35%]"
                 >
-                  <p className="mb-3 text-base-140-md">
-                    {transaction?.type === 'send'
-                      ? `Enviando para ${transaction?.buyer.firstName}`
-                      : `Recebendo de ${transaction?.bookDetails.seller.name}`}
+                  <p className="mb-3 text-center text-base-140-md">
+                    {transaction?.type === 'send' ? (
+                      <>
+                        Enviando para: <br />
+                        <span className="text-xl">
+                          {transaction?.buyer.firstName}{' '}
+                          {transaction?.buyer.lastName}
+                        </span>
+                      </>
+                    ) : (
+                      <>
+                        Recebendo de: <br />
+                        <span className="text-xl">
+                          {transaction?.bookDetails.seller.name}
+                        </span>
+                      </>
+                    )}
                   </p>
-                  <p className="mb-4 flex items-center gap-1">
+                  <p className="mb-4 flex items-baseline gap-1">
                     <Icon.Star
                       size={12}
                       className="text-orange-500"
@@ -258,6 +303,15 @@ export default function PendingExchange({ params }: PagePropos) {
                   >
                     Entrar em Contato
                   </Button>
+                  <div className="mb-5 text-center">
+                    <span className="text-base-140-md">Localização:</span>
+                    <span className="flex items-center gap-1 text-base-140">
+                      <Icon.MapPin size={16} />
+                      {transaction?.type === 'send'
+                        ? 'Itaquera, São Paulo'
+                        : transaction?.bookDetails.seller.location}
+                    </span>
+                  </div>
                   <p>
                     Solicitada em{' '}
                     {formatDate(Date.parse(transaction?.createdAt))}
@@ -268,27 +322,27 @@ export default function PendingExchange({ params }: PagePropos) {
                 <p className="mb-3 text-base-140-md">
                   Escrito por {transaction?.bookDetails.author}
                 </p>
-                <div className="mb-6 grid grid-cols-2">
+                <div className="mb-6">
                   <div>
                     <p className="mb-1 text-base-140-md">Categoria</p>
                     <span className="rounded-lg border-[1px] border-primary-500 px-2 py-1 text-xs-140 text-primary-500 dark:border-white dark:text-white">
                       {transaction?.bookDetails.category}
                     </span>
                   </div>
+                </div>
+                <div className="mb-6 grid grid-cols-2">
                   <div>
                     <p className="text-base-140-md">Idioma</p>
                     <p>{transaction?.bookDetails.language}</p>
                   </div>
-                </div>
-                <div className="mb-6 grid grid-cols-2">
                   <div>
                     <p className="text-base-140-md">Ano</p>
                     <p>{transaction?.bookDetails.year}</p>
                   </div>
-                  <div>
-                    <p className="text-base-140-md">Editora</p>
-                    <p>{transaction?.bookDetails.publishingCompany}</p>
-                  </div>
+                </div>
+                <div className="mb-6">
+                  <p className="text-base-140-md">Editora</p>
+                  <p>{transaction?.bookDetails.publishingCompany}</p>
                 </div>
                 <div className="mb-6">
                   <p className="text-base-140-md">Condição do livro</p>
