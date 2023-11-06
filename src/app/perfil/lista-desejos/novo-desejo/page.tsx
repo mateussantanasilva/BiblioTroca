@@ -73,7 +73,7 @@ export default function CreateWish() {
               </TextField>
             </Card>
             <Button className="lg:max-w-full" disabled>
-              Atualizar
+              Cadastrar
             </Button>
           </form>
         </section>

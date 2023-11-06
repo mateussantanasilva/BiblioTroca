@@ -133,7 +133,7 @@ export default function CreateBook() {
                 />
               </TextField>
             </Card>
-            <Button className="lg:max-w-full">Atualizar</Button>
+            <Button className="lg:max-w-full">Cadastrar</Button>
           </form>
         </section>
       </main>
