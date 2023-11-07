@@ -4,8 +4,8 @@ import { QueryProvider } from '@/lib/ReactQuery'
 import { VLibrasPlugin } from '@/components/VLibrasPlugin'
 import { MotionConfigs } from '@/lib/FramerMotion'
 import { barlow, inter } from '@/styles/fonts'
-import Hotjar from '@hotjar/browser'
 import '@/styles/globals.css'
+import Script from 'next/script'
 
 export const metadata: Metadata = {
   title: 'BiblioTroca',
@@ -43,11 +43,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const siteId = 3725678
-  const hotjarVersion = 6
-
-  Hotjar.init(siteId, hotjarVersion)
-
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <body
@@ -61,6 +56,7 @@ export default function RootLayout({
           </ThemesProvider>
         </MotionConfigs>
       </body>
+      <Script src="/scripts/hotjar.js" />
     </html>
   )
 }
