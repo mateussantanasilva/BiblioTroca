@@ -4,6 +4,7 @@ import { QueryProvider } from '@/lib/ReactQuery'
 import { VLibrasPlugin } from '@/components/VLibrasPlugin'
 import { MotionConfigs } from '@/lib/FramerMotion'
 import { barlow, inter } from '@/styles/fonts'
+import Hotjar from '@hotjar/browser'
 import '@/styles/globals.css'
 
 export const metadata: Metadata = {
@@ -42,6 +43,11 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const siteId = 3725678
+  const hotjarVersion = 6
+
+  Hotjar.init(siteId, hotjarVersion)
+
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <body
