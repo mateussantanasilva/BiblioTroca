@@ -99,7 +99,7 @@ export default function PendingExchange({ params }: PagePropos) {
                 <Skeleton
                   variant="card"
                   size="content"
-                  className="mb-4 flex items-center justify-center lg:w-[35%]"
+                  className="mb-4 flex flex-col items-center justify-center lg:w-[35%]"
                 >
                   <Skeleton variant="line" className="mb-3 w-[180px]" />
                   <Skeleton variant="line" className="mb-4 w-[70px]" />

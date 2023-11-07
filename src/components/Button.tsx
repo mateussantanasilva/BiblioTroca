@@ -13,7 +13,7 @@ const button = tv({
       purple:
         'bg-primary-500 outline-primary-500 text-white [&:not(:disabled)]:hover:bg-primary-400',
       ghostPurple:
-        'text-primary-500 border-2 border-primary-500 [&:not(:disabled)]:hover:bg-primary-500 [&:not(:disabled)]:hover:text-white',
+        'text-primary-500 border-2 border-primary-500 [&:not(:disabled)]:hover:bg-primary-500 [&:not(:disabled)]:hover:text-white dark:border-none',
       ghostWhite:
         'text-white border-2 border-white [&:not(:disabled)]:hover:bg-primary-100 [&:not(:disabled)]:hover:text-primary-500',
       ghostRed:

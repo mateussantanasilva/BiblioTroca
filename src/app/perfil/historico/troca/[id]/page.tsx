@@ -1,6 +1,5 @@
 'use client'
 
-import { Button } from '@/components/Button'
 import { Card, status } from '@/components/Card'
 import { Header } from '@/components/Header'
 import { Skeleton } from '@/components/Skeleton'
@@ -9,6 +8,10 @@ import Link from 'next/link'
 import { useSingleTransaction } from '@/hooks/useSingleTransaction'
 import { useRouter } from 'next/navigation'
 import { formatDate } from '@/utils/format-date'
+import { ModalContext } from '@/contexts/ModalContext'
+import { useContextSelector } from 'use-context-selector'
+import { Modal } from '@/components/Modal'
+import * as Dialog from '@radix-ui/react-dialog'
 
 type PagePropos = {
   params: {
@@ -28,6 +31,15 @@ export default function ExchangeHistory({ params }: PagePropos) {
   isError && router.push('perfil/historico')
 
   transaction?.status === 'Pendente' && router.push('perfil/historico')
+
+  const { modalIsOpen, changeModalVisibility } = useContextSelector(
+    ModalContext,
+    (context) => {
+      return {
+        ...context,
+      }
+    },
+  )
 
   return (
     <>
@@ -163,18 +175,25 @@ export default function ExchangeHistory({ params }: PagePropos) {
                   {transaction?.type === 'send'
                     ? transaction?.buyer.averageRating.toFixed(1)
                     : transaction?.bookDetails.seller.averageRating.toFixed(1)}
-                  <span className="text-sm-140 text-gray-400">(14)</span>
+                  <span className="text-sm-140 text-gray-400">
+                    {transaction?.type === 'send'
+                      ? transaction?.buyer.avaliationsNumber
+                      : transaction?.bookDetails.seller.avaliationsNumber}
+                  </span>
                 </p>
-                {transaction?.status === 'Pendente' ? (
-                  <Button className="mb-5 lg:max-w-full" variant="whatsapp">
-                    Entrar em Contato
-                  </Button>
-                ) : (
-                  <p className="mb-4 flex items-center gap-1">
-                    <span>Avalia a experiência da troca</span>
-                    <Icon.ArrowRight size={14} />
-                  </p>
-                )}
+                <Dialog.Root
+                  onOpenChange={changeModalVisibility}
+                  open={modalIsOpen}
+                >
+                  <Dialog.Trigger>
+                    <p className="mb-4 flex cursor-pointer items-center gap-1">
+                      <span>Avalia a experiência da troca</span>
+                      <Icon.ArrowRight size={14} />
+                    </p>
+                  </Dialog.Trigger>
+
+                  <Modal variant="evaluate" />
+                </Dialog.Root>
                 <p>
                   Solicitada em {formatDate(Date.parse(transaction?.createdAt))}
                 </p>

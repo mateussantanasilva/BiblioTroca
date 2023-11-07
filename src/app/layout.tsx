@@ -5,6 +5,7 @@ import { VLibrasPlugin } from '@/components/VLibrasPlugin'
 import { MotionConfigs } from '@/lib/FramerMotion'
 import { barlow, inter } from '@/styles/fonts'
 import '@/styles/globals.css'
+import Script from 'next/script'
 
 export const metadata: Metadata = {
   title: 'BiblioTroca',
@@ -55,6 +56,7 @@ export default function RootLayout({
           </ThemesProvider>
         </MotionConfigs>
       </body>
+      <Script src="/scripts/hotjar.js" />
     </html>
   )
 }
