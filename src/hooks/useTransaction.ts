@@ -3,7 +3,7 @@ import { api } from '@/lib/axios'
 import { TransactionData } from '@/@types/transactionData'
 
 async function createExchangeRequest(transaction: TransactionData) {
-  return await api.post('/transactions', transaction)
+  return await api.post('/transacoes', transaction)
 }
 
 export function useTransaction() {

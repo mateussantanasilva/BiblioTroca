@@ -1,5 +1,6 @@
 import axios from 'axios'
 
 export const api = axios.create({
-  baseURL: 'https://json-server-bibliotroca.vercel.app',
+  baseURL:
+    'https://serverbibliotroca-production.up.railway.app/api/v1/bibliotroca',
 })

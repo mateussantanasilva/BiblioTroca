@@ -272,7 +272,8 @@ export default function PendingExchange({ params }: PagePropos) {
                       <>
                         Recebendo de: <br />
                         <span className="text-xl">
-                          {transaction?.bookDetails.seller.name}
+                          {transaction?.bookDetails.seller.firstName}{' '}
+                          {transaction?.bookDetails.seller.lastName}
                         </span>
                       </>
                     )}

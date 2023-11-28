@@ -32,9 +32,7 @@ export function BookCard({ book }: BookCardProps) {
         </Link>
       </header>
 
-      <p className="mb-3 px-4 text-base-160">
-        {book.shortDescription.concat('...')}
-      </p>
+      <p className="mb-3 px-4 text-base-160">{book.shortDescription}</p>
 
       <span
         aria-label="categoria"
@@ -47,20 +45,20 @@ export function BookCard({ book }: BookCardProps) {
         <div className="flex flex-col gap-[0.125rem] px-4">
           <p className="flex items-center gap-1 text-base-140">
             <PaperPlaneTilt size={'0.75rem'} />
-            Enviado por {book.seller.name}
+            Enviado por {book.user.name}
           </p>
           <p className="flex items-center gap-1 text-sm-140 text-gray-400 dark:text-white">
             <MapPin size={'0.75rem'} />
-            {book.seller.location}
+            {book.user.location}
           </p>
         </div>
 
         <div className="flex items-center gap-1 px-4 max-[350px]:mt-[0.125rem]">
           <p className="flex items-center gap-1 text-base-140">
             <Star weight="fill" className="text-orange-500" />
-            {book.seller.averageRating}
+            {book.user.averageRating}
           </p>
-          <span className="text-sm-140 text-gray-400 dark:text-white">{`(${book.seller.avaliationsNumber})`}</span>
+          <span className="text-sm-140 text-gray-400 dark:text-white">{`(${book.user.avaliationsNumber})`}</span>
         </div>
       </footer>
     </Card>
