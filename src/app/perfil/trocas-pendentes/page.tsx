@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { Card, status } from '@/components/Card'
 import { Header } from '@/components/Header'
 import { Navigation } from '@/components/Navigation'
@@ -106,7 +107,7 @@ export default function PendingExchanges() {
                   <Card
                     className="grid grid-cols-2"
                     type="common"
-                    componentType="a"
+                    componentType={Link}
                     href={`/perfil/trocas-pendentes/troca/${pendingTransaction.id}`}
                   >
                     <div className="flex flex-col gap-6 md:grid md:grid-cols-2 md:gap-0">
@@ -124,7 +125,7 @@ export default function PendingExchanges() {
                         <span className="block truncate text-sm-140">
                           {pendingTransaction.type === 'send'
                             ? `Enviando para ${pendingTransaction.buyer.firstName}`
-                            : `Recebendo de ${pendingTransaction.bookDetails.seller.firstName}`}
+                            : `Recebendo de ${pendingTransaction.bookDetails.seller.name}`}
                         </span>
                       </div>
                       <div className="hidden items-center gap-1 justify-self-center md:flex">
@@ -146,7 +147,7 @@ export default function PendingExchanges() {
                         <span className="block truncate text-xs-140 md:text-sm-140">
                           {pendingTransaction.type === 'send'
                             ? `Enviando para ${pendingTransaction.buyer.firstName}`
-                            : `Recebendo de ${pendingTransaction.bookDetails.seller.firstName}`}
+                            : `Recebendo de ${pendingTransaction.bookDetails.seller.name}`}
                         </span>
                       </div>
                       <div className="flex items-center gap-1 justify-self-end text-gray-500 dark:text-yellow-500 md:hidden">

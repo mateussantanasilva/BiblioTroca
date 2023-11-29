@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { Card } from '@/components/Card'
 import { Header } from '@/components/Header'
 import { Navigation } from '@/components/Navigation'
@@ -80,7 +81,7 @@ export default function Wishlist() {
                 <Tooltip.Root>
                   <Tooltip.Trigger asChild>
                     <Button
-                      componentType="a"
+                      componentType={Link}
                       href="/perfil/lista-desejos/novo-desejo"
                       className="p-2"
                     >
@@ -156,7 +157,7 @@ export default function Wishlist() {
                             <Tooltip.Trigger asChild>
                               <Button
                                 variant="cardEdit"
-                                componentType="a"
+                                componentType={Link}
                                 href={`/perfil/lista-desejos/${wish.id}/atualizar-desejo`}
                               >
                                 <Icon.PencilSimple weight="bold" />

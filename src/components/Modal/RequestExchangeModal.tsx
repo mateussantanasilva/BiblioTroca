@@ -1,4 +1,5 @@
 import { useParams, useRouter } from 'next/navigation'
+// import { cookies } from 'next/headers'
 import { useEffect } from 'react'
 import { ModalContext } from '@/contexts/ModalContext'
 import { useContextSelector } from 'use-context-selector'
@@ -8,15 +9,15 @@ import { TransactionData } from '@/@types/transactionData'
 import { Button } from '../Button'
 
 export function RequestExchangeModal() {
+  const router = useRouter()
+
   const changeModalVisibility = useContextSelector(ModalContext, (context) => {
     return context.changeModalVisibility
   })
 
   const { mutate, isSuccess, isLoading } = useTransaction()
 
-  const router = useRouter()
-  const { id } = useParams()
-  const { data: bookDetails } = useSingleBook(id.toString())
+  const transactionCreated = isSuccess || isLoading
 
   useEffect(() => {
     if (isSuccess) {
@@ -24,9 +25,18 @@ export function RequestExchangeModal() {
     }
   }, [isSuccess, router])
 
+  const { id } = useParams()
+  const { data: bookDetails } = useSingleBook(id.toString())
+
   if (!bookDetails) return
 
-  const transactionCreated = isSuccess || isLoading
+  // const isAuthenticated = cookies().has('token')
+
+  // if (!isAuthenticated) {
+  //   router.push('/login')
+
+  //   return
+  // }
 
   const currentTime = JSON.stringify(new Date())
 

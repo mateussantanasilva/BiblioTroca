@@ -164,7 +164,7 @@ export default function ExchangeHistory({ params }: PagePropos) {
                 <p className="mb-3 text-base-140-md">
                   {transaction?.type === 'send'
                     ? `Enviado para ${transaction?.buyer.firstName} ${transaction?.buyer.lastName}`
-                    : `Recebido de ${transaction?.bookDetails.seller.firstName} ${transaction?.bookDetails.seller.lastName}`}
+                    : `Recebido de ${transaction?.bookDetails.seller.name} ${transaction?.bookDetails.seller.surname}`}
                 </p>
                 <p className="mb-4 flex items-center gap-1">
                   <Icon.Star
