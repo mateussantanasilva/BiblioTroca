@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { PublicHeader } from '../components/PublicHeader'
+import { SessionButton } from '@/components/PublicHeader/SessionButton'
 import { Presentation } from './components/Presentation'
 import { AboutUs } from './components/AboutUs'
 import { GetStarted } from './components/GetStarted'
@@ -14,7 +15,9 @@ export default function Home() {
   return (
     <>
       <div className="relative h-screen overflow-hidden bg-radial-gradient dark:bg-dark-mode">
-        <PublicHeader variant="home" />
+        <PublicHeader variant="home">
+          <SessionButton variant="home" />
+        </PublicHeader>
 
         <Reveal isHero>
           <section className="relative mx-auto flex max-w-[73rem] flex-col items-center">

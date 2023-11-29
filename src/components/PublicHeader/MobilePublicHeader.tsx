@@ -3,8 +3,8 @@
 import Link from 'next/link'
 import { useThemes } from '@/hooks/useThemes'
 import { SwitchTheme } from './SwitchTheme'
-import { Button } from './Button'
-import { Logo } from './Logo'
+import { Button } from '../Button'
+import { Logo } from '../Logo'
 import { motion } from 'framer-motion'
 import { X } from '@phosphor-icons/react'
 
