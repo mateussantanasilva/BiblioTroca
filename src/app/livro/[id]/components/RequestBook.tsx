@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 import { BookCompleteData } from '@/@types/bookCompleteData'
 import { useContextSelector } from 'use-context-selector'
@@ -41,7 +43,7 @@ export function RequestBook({ book }: RequestBookProps) {
 
           <section className="mb-5 flex flex-col gap-1">
             <p className="text-base-140">
-              Enviado por {book?.seller.firstName + ' ' + book?.seller.lastName}
+              Enviado por {book?.seller.name + ' ' + book?.seller.surname}
             </p>
 
             <div className="flex items-center gap-1">
@@ -59,9 +61,9 @@ export function RequestBook({ book }: RequestBookProps) {
           </section>
 
           <p className="mb-2 text-base-160">
-            Negocie diretamente com {book?.seller.firstName} e defina os
-            detalhes da troca antes de prosseguir com a solicitação. Toque
-            abaixo para iniciar a conversa.
+            Negocie diretamente com {book?.seller.name} e defina os detalhes da
+            troca antes de prosseguir com a solicitação. Toque abaixo para
+            iniciar a conversa.
           </p>
 
           <Button
