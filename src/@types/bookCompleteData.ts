@@ -11,5 +11,5 @@ export interface BookCompleteData {
   state: string
   description: string
   createdAt: string
-  seller: SellerData
+  user: SellerData
 }

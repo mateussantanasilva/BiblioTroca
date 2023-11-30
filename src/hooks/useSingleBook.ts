@@ -3,7 +3,7 @@ import { api } from '@/lib/axios'
 import { useQuery } from '@tanstack/react-query'
 
 async function fetchBookById(id: string) {
-  const response = await api.get(`/books-details/${id}`)
+  const response = await api.get(`/livros/${id}`)
 
   return response.data
 }

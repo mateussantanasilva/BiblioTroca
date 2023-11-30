@@ -1,18 +1,18 @@
 import { ReactNode, useState } from 'react'
 import { createContext } from 'use-context-selector'
 
-interface QueryProviderProps {
+interface BooksQueryProviderProps {
   children: ReactNode
 }
 
-interface QueryContextType {
+interface BooksQueryContextType {
   query: string | undefined
   createQuery: (query: string) => void
 }
 
-export const QueryContext = createContext({} as QueryContextType)
+export const BooksQueryContext = createContext({} as BooksQueryContextType)
 
-export function QueryProvider({ children }: QueryProviderProps) {
+export function BooksQueryProvider({ children }: BooksQueryProviderProps) {
   const [query, setQuery] = useState<string | undefined>(undefined)
 
   function createQuery(query: string) {
@@ -20,8 +20,8 @@ export function QueryProvider({ children }: QueryProviderProps) {
   }
 
   return (
-    <QueryContext.Provider value={{ query, createQuery }}>
+    <BooksQueryContext.Provider value={{ query, createQuery }}>
       {children}
-    </QueryContext.Provider>
+    </BooksQueryContext.Provider>
   )
 }

@@ -6,10 +6,10 @@ import { SearchForm } from './SearchForm'
 
 import SeachBooksImage from '@/assets/search-books.png'
 import { useContextSelector } from 'use-context-selector'
-import { QueryContext } from '@/contexts/QueryContext'
+import { BooksQueryContext } from '@/contexts/BooksQueryContext'
 
 export function HeroBanner() {
-  const createQuery = useContextSelector(QueryContext, (context) => {
+  const createQuery = useContextSelector(BooksQueryContext, (context) => {
     return context.createQuery
   })
 
