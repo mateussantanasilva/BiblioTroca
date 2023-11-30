@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { ThemesProvider } from '@/lib/NextThemes'
+import { AuthProvider } from '@/contexts/AuthContext'
 import { QueryProvider } from '@/lib/ReactQuery'
 import { VLibrasPlugin } from '@/components/VLibrasPlugin'
 import { MotionConfigs } from '@/lib/FramerMotion'
@@ -52,7 +53,9 @@ export default function RootLayout({
           <VLibrasPlugin />
 
           <ThemesProvider>
-            <QueryProvider>{children}</QueryProvider>
+            <AuthProvider>
+              <QueryProvider>{children}</QueryProvider>
+            </AuthProvider>
           </ThemesProvider>
         </MotionConfigs>
       </body>

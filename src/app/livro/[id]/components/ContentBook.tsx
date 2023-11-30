@@ -6,12 +6,20 @@ import { DetailsSkeleton } from './DetailsSkeleton'
 import { RequestSkeleton } from './RequestSkeleton'
 import { DetailsBook } from './DetailsBook'
 import { RequestBook } from './RequestBook'
+import { useContextSelector } from 'use-context-selector'
+import { AuthContext } from '@/contexts/AuthContext'
 
 interface ContentBookProps {
   bookId: string
+  userToken: string | null
 }
 
-export function ContentBook({ bookId }: ContentBookProps) {
+export function ContentBook({ bookId, userToken }: ContentBookProps) {
+  const createToken = useContextSelector(AuthContext, (context) => {
+    return context.createToken
+  })
+  createToken(userToken)
+
   const { data: book, isLoading, isSuccess, isError } = useSingleBook(bookId)
 
   const router = useRouter()

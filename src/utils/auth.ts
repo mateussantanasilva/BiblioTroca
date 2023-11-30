@@ -1,21 +1,20 @@
 import { cookies } from 'next/headers'
 import { jwtDecode } from 'jwt-decode'
+import { UserToken } from '@/@types/UserToken'
 
-interface UserToken {
-  firstName: string
-  lastName: string
-  email: string
-  picture: string
+interface ReturnValues {
+  user: UserToken | null
+  token: string | null
 }
 
-export function getUser(isAuthenticated: boolean) {
-  if (isAuthenticated) {
-    const token = cookies().get('token')?.value
+export function getAuthentication(isAuthenticated: boolean): ReturnValues {
+  if (!isAuthenticated) return { user: null, token: null }
 
-    if (!token) throw new Error('Unauthenticated')
+  const token = cookies().get('token')?.value
 
-    const userToken: UserToken = jwtDecode(token)
+  if (!token) throw new Error('Unauthenticated')
 
-    return userToken
-  }
+  const user: UserToken = jwtDecode(token)
+
+  return { user, token }
 }

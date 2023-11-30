@@ -9,6 +9,9 @@ import { MobilePublicHeader } from './MobilePublicHeader'
 import { SwitchTheme } from './SwitchTheme'
 import { AnimatePresence } from 'framer-motion'
 import { List } from '@phosphor-icons/react'
+import { SessionButton } from './SessionButton'
+import { useContextSelector } from 'use-context-selector'
+import { AuthContext } from '@/contexts/AuthContext'
 
 const header = tv({
   base: 'py-6 mb-9 dark:bg-black',
@@ -30,6 +33,10 @@ type PublicHeaderProps = ComponentProps<'header'> &
   }
 
 export function PublicHeader({ variant, children }: PublicHeaderProps) {
+  const user = useContextSelector(AuthContext, (context) => {
+    return context.user
+  })
+
   const [openMenu, setOpenMenu] = useState(false)
   const { isDarkTheme } = useThemes()
 
@@ -104,7 +111,9 @@ export function PublicHeader({ variant, children }: PublicHeaderProps) {
         <MobilePublicHeader
           openMenu={openMenu}
           openMobileMenu={handleOpenMobileMenu}
-        />
+        >
+          <SessionButton size="mobile" user={user} />
+        </MobilePublicHeader>
       </AnimatePresence>
     </>
   )
