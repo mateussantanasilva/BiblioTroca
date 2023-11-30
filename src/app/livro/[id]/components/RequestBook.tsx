@@ -11,6 +11,8 @@ import * as Dialog from '@radix-ui/react-dialog'
 import { Modal } from '@/components/Modal'
 import { MapPin, Star } from '@phosphor-icons/react'
 import { AuthContext } from '@/contexts/AuthContext'
+import { useAddress } from '@/hooks/useAddress'
+import { useQuery } from '@tanstack/react-query'
 
 interface RequestBookProps {
   book: BookCompleteData
@@ -29,6 +31,17 @@ export function RequestBook({ book }: RequestBookProps) {
   const token = useContextSelector(AuthContext, (context) => {
     return context.token
   })
+
+  const { checkCep, bairro, cidade, isError } = useAddress()
+
+  useQuery({
+    queryKey: ['address', checkCep, book.user.location],
+    queryFn: () => checkCep(book.user.location),
+
+    enabled: !!book.user.location, // only runs if the location exists
+  })
+
+  const address = isError ? book.user.location : `${bairro}, ${cidade}`
 
   return (
     <motion.div
@@ -61,7 +74,7 @@ export function RequestBook({ book }: RequestBookProps) {
 
             <p className="flex items-center gap-1 text-base-140">
               <MapPin size={'0.75rem'} />
-              {book?.user.location}
+              {address}
             </p>
           </section>
 

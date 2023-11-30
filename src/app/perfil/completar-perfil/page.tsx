@@ -4,39 +4,19 @@ import { Avatar } from '@/components/Avatar'
 import { Button } from '@/components/Button'
 import { Header } from '@/components/Header'
 import { TextField } from '@/components/TextField'
-import { FocusEvent, useState } from 'react'
+import { FocusEvent } from 'react'
 import { useForm } from 'react-hook-form'
 import * as Icon from '@phosphor-icons/react'
-import axios from 'axios'
 import { useRouter } from 'next/navigation'
-import { ViaCEPData } from '@/@types/viaCepData'
 import { Input } from '@/components/Input'
+import { useAddress } from '@/hooks/useAddress'
 
 export default function CompleteProfile() {
-  const [bairro, setBairro] = useState<string | undefined>('')
-  const [cidade, setCidade] = useState<string | undefined>('')
-
-  const [isLoading, setIsLoading] = useState(false)
-  const [isError, setIsError] = useState(false)
+  const router = useRouter()
 
   const { register } = useForm()
 
-  function checkCep(cep: string) {
-    setIsLoading(true)
-    axios
-      .get<ViaCEPData>(`https://viacep.com.br/ws/${cep}/json`)
-      .then(({ data: { bairro, localidade } }) => {
-        setBairro(bairro)
-        setCidade(localidade)
-        setIsError(false)
-      })
-      .catch(
-        (error) => error && (setIsError(true), setBairro(''), setCidade('')),
-      )
-      .finally(() => setIsLoading(false))
-  }
-
-  const router = useRouter()
+  const { checkCep, bairro, cidade, isError, isLoading } = useAddress()
 
   return (
     <>

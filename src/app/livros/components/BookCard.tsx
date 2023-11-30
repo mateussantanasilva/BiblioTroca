@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import { BookSimpleData } from '@/@types/bookSimpleData'
+import { useAddress } from '@/hooks/useAddress'
+import { useQuery } from '@tanstack/react-query'
 import { Card } from '@/components/Card'
 import { ArrowRight, PaperPlaneTilt, MapPin, Star } from '@phosphor-icons/react'
 
@@ -8,6 +10,17 @@ interface BookCardProps {
 }
 
 export function BookCard({ book }: BookCardProps) {
+  const { checkCep, bairro, cidade, isError } = useAddress()
+
+  useQuery({
+    queryKey: ['address', checkCep, book.user.location],
+    queryFn: () => checkCep(book.user.location),
+
+    enabled: !!book.user.location, // only runs if the location exists
+  })
+
+  const address = isError ? book.user.location : `${bairro}, ${cidade}`
+
   return (
     <Card
       componentType="article"
@@ -49,7 +62,7 @@ export function BookCard({ book }: BookCardProps) {
           </p>
           <p className="flex items-center gap-1 text-sm-140 text-gray-400 dark:text-white">
             <MapPin size={'0.75rem'} />
-            {book.user.location}
+            {address}
           </p>
         </div>
 

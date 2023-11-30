@@ -272,8 +272,8 @@ export default function PendingExchange({ params }: PagePropos) {
                       <>
                         Recebendo de: <br />
                         <span className="text-xl">
-                          {transaction?.bookDetails.seller.name}{' '}
-                          {transaction?.bookDetails.seller.surname}
+                          {transaction?.bookDetails.user.name}{' '}
+                          {transaction?.bookDetails.user.surname}
                         </span>
                       </>
                     )}
@@ -286,11 +286,9 @@ export default function PendingExchange({ params }: PagePropos) {
                     />
                     {transaction?.type === 'send'
                       ? transaction?.buyer.averageRating.toFixed(1)
-                      : transaction?.bookDetails.seller.averageRating.toFixed(
-                          1,
-                        )}
+                      : transaction?.bookDetails.user.averageRating.toFixed(1)}
                     <span className="text-sm-140 text-gray-400">
-                      ({transaction?.bookDetails.seller.avaliationsNumber})
+                      ({transaction?.bookDetails.user.avaliationsNumber})
                     </span>
                   </p>
                   <Button
@@ -299,7 +297,7 @@ export default function PendingExchange({ params }: PagePropos) {
                     href={
                       transaction?.type === 'send'
                         ? `https://wa.me/${transaction?.buyer.phoneNumber}`
-                        : `https://wa.me/${transaction?.bookDetails.seller.phoneNumber}`
+                        : `https://wa.me/${transaction?.bookDetails.user.phoneNumber}`
                     }
                   >
                     Entrar em Contato
@@ -310,7 +308,7 @@ export default function PendingExchange({ params }: PagePropos) {
                       <Icon.MapPin size={16} />
                       {transaction?.type === 'send'
                         ? 'Itaquera, São Paulo'
-                        : transaction?.bookDetails.seller.location}
+                        : transaction?.bookDetails.user.location}
                     </span>
                   </div>
                   <p>

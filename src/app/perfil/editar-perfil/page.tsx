@@ -8,35 +8,15 @@ import { Modal } from '@/components/Modal'
 import * as Icon from '@phosphor-icons/react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { useForm } from 'react-hook-form'
-import { ViaCEPData } from '@/@types/viaCepData'
 import Link from 'next/link'
-import axios from 'axios'
-import { FocusEvent, useState } from 'react'
+import { FocusEvent } from 'react'
 import { Input } from '@/components/Input'
+import { useAddress } from '@/hooks/useAddress'
 
 export default function EditProfile() {
-  const [bairro, setBairro] = useState<string | undefined>('')
-  const [cidade, setCidade] = useState<string | undefined>('')
-
-  const [isLoading, setIsLoading] = useState(false)
-  const [isError, setIsError] = useState(false)
-
   const { register } = useForm()
 
-  function checkCep(cep: string) {
-    setIsLoading(true)
-    axios
-      .get<ViaCEPData>(`https://viacep.com.br/ws/${cep}/json`)
-      .then(({ data: { bairro, localidade } }) => {
-        setBairro(bairro)
-        setCidade(localidade)
-        setIsError(false)
-      })
-      .catch(
-        (error) => error && (setIsError(true), setBairro(''), setCidade('')),
-      )
-      .finally(() => setIsLoading(false))
-  }
+  const { checkCep, bairro, cidade, isError, isLoading } = useAddress()
 
   return (
     <>

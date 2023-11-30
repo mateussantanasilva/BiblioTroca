@@ -124,7 +124,7 @@ export default function History() {
                       <Icon.PaperPlaneTilt size={10} />
                       <span className="block truncate">
                         {transaction.type === 'receive'
-                          ? `Recebendo de ${transaction.bookDetails.seller.name}`
+                          ? `Recebendo de ${transaction.bookDetails.user.name}`
                           : `Enviando para ${transaction.buyer.firstName}`}
                       </span>
                     </div>

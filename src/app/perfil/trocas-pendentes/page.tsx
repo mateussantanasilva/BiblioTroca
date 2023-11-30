@@ -125,7 +125,7 @@ export default function PendingExchanges() {
                         <span className="block truncate text-sm-140">
                           {pendingTransaction.type === 'send'
                             ? `Enviando para ${pendingTransaction.buyer.firstName}`
-                            : `Recebendo de ${pendingTransaction.bookDetails.seller.name}`}
+                            : `Recebendo de ${pendingTransaction.bookDetails.user.name}`}
                         </span>
                       </div>
                       <div className="hidden items-center gap-1 justify-self-center md:flex">
@@ -147,7 +147,7 @@ export default function PendingExchanges() {
                         <span className="block truncate text-xs-140 md:text-sm-140">
                           {pendingTransaction.type === 'send'
                             ? `Enviando para ${pendingTransaction.buyer.firstName}`
-                            : `Recebendo de ${pendingTransaction.bookDetails.seller.name}`}
+                            : `Recebendo de ${pendingTransaction.bookDetails.user.name}`}
                         </span>
                       </div>
                       <div className="flex items-center gap-1 justify-self-end text-gray-500 dark:text-yellow-500 md:hidden">
