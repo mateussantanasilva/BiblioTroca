@@ -1,13 +1,12 @@
 'use client'
 
-import { ComponentProps, useState } from 'react'
+import { ComponentProps, ReactNode, useState } from 'react'
 import Link from 'next/link'
 import { useThemes } from '@/hooks/useThemes'
 import { VariantProps, tv } from 'tailwind-variants'
-import { Logo } from './Logo'
+import { Logo } from '../Logo'
 import { MobilePublicHeader } from './MobilePublicHeader'
 import { SwitchTheme } from './SwitchTheme'
-import { Button } from './Button'
 import { AnimatePresence } from 'framer-motion'
 import { List } from '@phosphor-icons/react'
 
@@ -25,9 +24,12 @@ const header = tv({
   },
 })
 
-type PublicHeaderProps = ComponentProps<'header'> & VariantProps<typeof header>
+type PublicHeaderProps = ComponentProps<'header'> &
+  VariantProps<typeof header> & {
+    children: ReactNode
+  }
 
-export function PublicHeader({ variant }: PublicHeaderProps) {
+export function PublicHeader({ variant, children }: PublicHeaderProps) {
   const [openMenu, setOpenMenu] = useState(false)
   const { isDarkTheme } = useThemes()
 
@@ -74,14 +76,7 @@ export function PublicHeader({ variant }: PublicHeaderProps) {
           </nav>
 
           <div className="hidden items-center gap-5 sm:flex">
-            <Button
-              componentType="a"
-              href="/login"
-              variant={isHomeHeader ? 'ghostWhite' : 'ghostPurple'}
-              size="sm"
-            >
-              Entrar
-            </Button>
+            {children}
 
             <SwitchTheme id="change-theme" isHomeHeader={isHomeHeader} />
           </div>

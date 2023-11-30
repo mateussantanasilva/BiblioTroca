@@ -77,7 +77,7 @@ export default function MyBooks() {
                 <Tooltip.Root>
                   <Tooltip.Trigger asChild>
                     <Button
-                      componentType="a"
+                      componentType={Link}
                       href="/perfil/meus-livros/cadastrar-livro"
                       className="p-2"
                     >
@@ -173,7 +173,7 @@ export default function MyBooks() {
                             <Tooltip.Trigger asChild>
                               <Button
                                 variant="cardEdit"
-                                componentType="a"
+                                componentType={Link}
                                 href={`/perfil/meus-livros/${book.id}/atualizar-livro`}
                               >
                                 <Icon.PencilSimple weight="bold" />

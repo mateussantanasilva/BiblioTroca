@@ -6,5 +6,5 @@ export interface BookSimpleData {
   author: string
   shortDescription: string
   category: string
-  seller: SellerData
+  user: SellerData
 }

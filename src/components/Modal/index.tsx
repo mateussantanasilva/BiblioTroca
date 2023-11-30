@@ -1,14 +1,14 @@
 /* eslint-disable prettier/prettier */
 import Image from 'next/image'
-import { Card } from './Card'
+import { Card } from '../Card'
 import * as Dialog from '@radix-ui/react-dialog'
 import { contentVariants } from '@/constants/modalVariants'
-import { RequestExchangeModal } from './modalVariants/RequestExchangeModal'
-import { DeleteAccountModal } from './modalVariants/DeleteAccountModal'
-import { RefuseExchangeModal } from './modalVariants/RefuseExchangeModal'
-import { EvaluateModal } from './modalVariants/EvaluateModal'
-import { DeleteBookModal } from './modalVariants/DeleteBookModal'
-import { StarRating } from './StarRating'
+import { RequestExchangeModal } from './RequestExchangeModal'
+import { DeleteAccountModal } from './DeleteAccountModal'
+import { RefuseExchangeModal } from './RefuseExchangeModal'
+import { EvaluateModal } from './EvaluateModal'
+import { DeleteBookModal } from './DeleteBookModal'
+import { StarRating } from '../StarRating'
 import { X } from '@phosphor-icons/react'
 
 interface ModalProps {

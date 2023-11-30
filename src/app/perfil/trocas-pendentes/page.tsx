@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { Card, status } from '@/components/Card'
 import { Header } from '@/components/Header'
 import { Navigation } from '@/components/Navigation'
@@ -106,7 +107,7 @@ export default function PendingExchanges() {
                   <Card
                     className="grid grid-cols-2"
                     type="common"
-                    componentType="a"
+                    componentType={Link}
                     href={`/perfil/trocas-pendentes/troca/${pendingTransaction.id}`}
                   >
                     <div className="flex flex-col gap-6 md:grid md:grid-cols-2 md:gap-0">

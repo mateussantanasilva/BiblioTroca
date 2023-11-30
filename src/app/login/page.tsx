@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import { useThemes } from '@/hooks/useThemes'
 import { Logo } from '@/components/Logo'
 import { Button } from '@/components/Button'
@@ -40,7 +41,7 @@ export default function Login() {
 
         <Button
           className="mx-auto"
-          componentType="a"
+          componentType={Link}
           href="/perfil/completar-perfil"
         >
           <Image src="/google.svg" alt="Google Logo" width={22} height={22} />
@@ -69,7 +70,7 @@ export default function Login() {
 
         <Button
           className="mx-auto"
-          componentType="a"
+          componentType={Link}
           href="/perfil/completar-perfil"
         >
           <Image src="/google.svg" alt="Google Logo" width={22} height={22} />

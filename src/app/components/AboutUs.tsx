@@ -24,7 +24,7 @@ export function AboutUs() {
       <dl className="mb-5 flex w-fit gap-8 md:mx-auto">
         <div>
           <dt className="mb-1 font-secondary text-title-base text-primary-500 dark:text-white">
-            + {bookCount}
+            + {bookCount || 0}
           </dt>
           <dd className="text-base-140 text-gray-500 dark:text-white">
             Livros cadastrados
