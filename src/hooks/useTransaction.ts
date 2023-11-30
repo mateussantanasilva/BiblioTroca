@@ -1,8 +1,8 @@
 import { useMutation } from '@tanstack/react-query'
 import { api } from '@/lib/axios'
-import { TransactionData } from '@/@types/transactionData'
+import { TransactionToAdd } from '@/@types/transactionToAdd'
 
-async function createExchangeRequest(transaction: TransactionData) {
+async function createExchangeRequest(transaction: TransactionToAdd) {
   return await api.post('/transacoes', transaction)
 }
 
