@@ -21,7 +21,7 @@ export function useBooks(filterQuery?: string) {
   const query = useQuery<BookSimpleData[]>({
     queryKey: ['bookList', filterQuery],
     queryFn: async () => await fetchBooks(filterQuery),
-    refetchInterval: 1000 * 60 * 5, // 5 minutes in miliseconds
+    // refetchInterval: 1000 * 60 * 5, // 5 minutes in miliseconds
   })
 
   const bookCount = query.data?.length
