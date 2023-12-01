@@ -3,16 +3,16 @@
 import Link from 'next/link'
 import { BookCompleteData } from '@/@types/bookCompleteData'
 import { useContextSelector } from 'use-context-selector'
+import { AuthContext } from '@/contexts/AuthContext'
 import { ModalContext } from '@/contexts/ModalContext'
+import { useQuery } from '@tanstack/react-query'
+import { useAddress } from '@/hooks/useAddress'
 import { motion } from 'framer-motion'
+import * as Dialog from '@radix-ui/react-dialog'
 import { Button } from '@/components/Button'
 import { Card } from '@/components/Card'
-import * as Dialog from '@radix-ui/react-dialog'
 import { Modal } from '@/components/Modal'
 import { MapPin, Star } from '@phosphor-icons/react'
-import { AuthContext } from '@/contexts/AuthContext'
-import { useAddress } from '@/hooks/useAddress'
-import { useQuery } from '@tanstack/react-query'
 
 interface RequestBookProps {
   book: BookCompleteData

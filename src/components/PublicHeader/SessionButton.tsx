@@ -1,6 +1,6 @@
 import Link from 'next/link'
+import { UserToken } from '@/@types/userToken'
 import { Button } from '../Button'
-import { UserToken } from '@/@types/UserToken'
 
 interface SessionButtonProps {
   size?: 'desktop' | 'mobile'

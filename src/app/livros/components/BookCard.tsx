@@ -1,7 +1,7 @@
 import Link from 'next/link'
+import { useQuery } from '@tanstack/react-query'
 import { BookSimpleData } from '@/@types/bookSimpleData'
 import { useAddress } from '@/hooks/useAddress'
-import { useQuery } from '@tanstack/react-query'
 import { Card } from '@/components/Card'
 import { ArrowRight, PaperPlaneTilt, MapPin, Star } from '@phosphor-icons/react'
 

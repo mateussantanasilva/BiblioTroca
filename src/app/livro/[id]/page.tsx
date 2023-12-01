@@ -1,9 +1,9 @@
 import { cookies } from 'next/headers'
+import { getAuthentication } from '@/utils/auth'
 import { PublicHeader } from '@/components/PublicHeader'
 import { SessionButton } from '@/components/PublicHeader/SessionButton'
 import { ContentBook } from './components/ContentBook'
 import { Footer } from '@/components/Footer'
-import { getAuthentication } from '@/utils/auth'
 
 interface BookProps {
   params: {

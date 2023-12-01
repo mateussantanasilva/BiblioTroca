@@ -2,16 +2,16 @@
 
 import { ComponentProps, ReactNode, useState } from 'react'
 import Link from 'next/link'
+import { useContextSelector } from 'use-context-selector'
+import { AuthContext } from '@/contexts/AuthContext'
 import { useThemes } from '@/hooks/useThemes'
 import { VariantProps, tv } from 'tailwind-variants'
 import { Logo } from '../Logo'
 import { MobilePublicHeader } from './MobilePublicHeader'
 import { SwitchTheme } from './SwitchTheme'
+import { SessionButton } from './SessionButton'
 import { AnimatePresence } from 'framer-motion'
 import { List } from '@phosphor-icons/react'
-import { SessionButton } from './SessionButton'
-import { useContextSelector } from 'use-context-selector'
-import { AuthContext } from '@/contexts/AuthContext'
 
 const header = tv({
   base: 'py-6 mb-9 dark:bg-black',

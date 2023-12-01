@@ -1,11 +1,11 @@
 'use client'
 
 import Link from 'next/link'
+import { questionsAndAnswers } from '@/constants/questionsAndAnswers'
 import * as Accordion from '@radix-ui/react-accordion'
 import { Card } from '@/components/Card'
 import { Button } from '@/components/Button'
 import { CaretDown } from '@phosphor-icons/react'
-import { questionsAndAnswers } from '@/constants/questionsAndAnswers'
 
 export function FAQ() {
   return (

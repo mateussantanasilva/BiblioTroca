@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
+import Script from 'next/script'
+import { MotionConfigs } from '@/lib/FramerMotion'
+import { VLibrasPlugin } from '@/components/VLibrasPlugin'
 import { ThemesProvider } from '@/lib/NextThemes'
 import { AuthProvider } from '@/contexts/AuthContext'
 import { QueryProvider } from '@/lib/ReactQuery'
-import { VLibrasPlugin } from '@/components/VLibrasPlugin'
-import { MotionConfigs } from '@/lib/FramerMotion'
 import { barlow, inter } from '@/styles/fonts'
+
 import '@/styles/globals.css'
-import Script from 'next/script'
 
 export const metadata: Metadata = {
   title: 'BiblioTroca',

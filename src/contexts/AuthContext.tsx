@@ -1,8 +1,8 @@
 'use client'
 
-import { UserToken } from '@/@types/UserToken'
 import { ReactNode, useState } from 'react'
 import { createContext } from 'use-context-selector'
+import { UserToken } from '@/@types/userToken'
 
 interface AuthProviderProps {
   children: ReactNode

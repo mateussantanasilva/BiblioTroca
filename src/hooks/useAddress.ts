@@ -1,6 +1,6 @@
-import { ViaCEPData } from '@/@types/viaCepData'
-import axios from 'axios'
 import { useState } from 'react'
+import axios from 'axios'
+import { ViaCEPData } from '@/@types/viaCepData'
 
 export function useAddress() {
   const [bairro, setBairro] = useState<string | undefined>('')

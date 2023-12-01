@@ -1,6 +1,6 @@
-import { BookSimpleData } from '@/@types/bookSimpleData'
-import { api } from '@/lib/axios'
 import { useQuery } from '@tanstack/react-query'
+import { api } from '@/lib/axios'
+import { BookSimpleData } from '@/@types/bookSimpleData'
 
 interface ApiParams {
   q?: string

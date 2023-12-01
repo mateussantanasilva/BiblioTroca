@@ -1,13 +1,12 @@
-import { useParams, useRouter } from 'next/navigation'
 import { useEffect } from 'react'
-import { ModalContext } from '@/contexts/ModalContext'
+import { useParams, useRouter } from 'next/navigation'
 import { useContextSelector } from 'use-context-selector'
+import { AuthContext } from '@/contexts/AuthContext'
+import { ModalContext } from '@/contexts/ModalContext'
 import { useTransaction } from '@/hooks/useTransaction'
 import { useSingleBook } from '@/hooks/useSingleBook'
-import { Button } from '../Button'
 import { TransactionToAdd } from '@/@types/transactionToAdd'
-import { AuthContext } from '@/contexts/AuthContext'
-import { v4 as uuidv4 } from 'uuid'
+import { Button } from '../Button'
 
 export function RequestExchangeModal() {
   const router = useRouter()
@@ -34,26 +33,6 @@ export function RequestExchangeModal() {
   const { data: bookDetails } = useSingleBook(id.toString())
 
   if (!bookDetails || !user) return
-
-  // const currentTime = JSON.stringify(new Date())
-
-  // const transactionToAdd: TransactionData = {
-  //   id: currentTime,
-  //   status: 'Pendente',
-  //   createdAt: currentTime,
-  //   bookDetails,
-  //   // gets user data by session
-  //   buyer: {
-  //     firstName: 'Mateus',
-  //     lastName: 'Santana',
-  //     email: 'santanasilva1778@gmail.com',
-  //     phoneNumber: '11912345678',
-  //     averageRating: 4.7,
-  //     avaliationsNumber: 12,
-  //   },
-  //   type: 'send',
-  //   endedAt: '2023-10-25T20:29:59.153Z',
-  // }
 
   const transactionToAdd: TransactionToAdd = {
     bookRegistry: bookDetails.id,
