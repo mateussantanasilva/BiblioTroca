@@ -37,7 +37,7 @@ export function RequestExchangeModal() {
   const transactionToAdd: TransactionToAdd = {
     bookRegistry: bookDetails.id,
     buyerEmail: user.email,
-    sellerId: bookDetails.user.id,
+    sellerEmail: bookDetails.user.email,
   }
 
   function handleCreateRequest() {
