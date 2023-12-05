@@ -46,32 +46,32 @@ export default function CompleteProfile() {
       setIsLoadingToken(true)
 
       const token = Cookies.get('token')
-      const tokenDecoded = jwtDecode<UserToken>(token)
+      // const tokenDecoded = jwtDecode<UserToken>(token)
 
-      Cookies.set(
-        'bibliotroca.userName',
-        `${tokenDecoded.firstName}-${tokenDecoded.lastName.split(' ')[0]}`,
-      )
-      Cookies.set('bibliotroca.userPicture', tokenDecoded.picture)
-      Cookies.set('bibliotroca.userEmail', tokenDecoded.email)
+      // Cookies.set(
+      //   'bibliotroca.userName',
+      //   `${tokenDecoded.firstName}-${tokenDecoded.lastName.split(' ')[0]}`,
+      // )
+      // Cookies.set('bibliotroca.userPicture', tokenDecoded.picture)
+      // Cookies.set('bibliotroca.userEmail', tokenDecoded.email)
 
-      const { data: user } = await api.get<UserData>(
-        `/usuarios/${tokenDecoded.email}`,
-      )
+      // const { data: user } = await api.get<UserData>(
+      //   `/usuarios/${tokenDecoded.email}`,
+      // )
 
-      setUser(user)
+      // setUser(user)
 
-      if (user?.phoneNumber === null && user?.location === null) {
-        setEmail(tokenDecoded.email)
-        setName(
-          `${tokenDecoded.firstName} ${tokenDecoded.lastName.split(' ')[0]}`,
-        )
-        setPicture(tokenDecoded.picture)
+      // if (user?.phoneNumber === null && user?.location === null) {
+      //   setEmail(tokenDecoded.email)
+      //   setName(
+      //     `${tokenDecoded.firstName} ${tokenDecoded.lastName.split(' ')[0]}`,
+      //   )
+      //   setPicture(tokenDecoded.picture)
 
-        setIsLoadingToken(false)
-      } else {
-        router.push('/perfil/trocas-pendentes')
-      }
+      //   setIsLoadingToken(false)
+      // } else {
+      //   router.push('/perfil/trocas-pendentes')
+      // }
     })()
   }, [])
 
