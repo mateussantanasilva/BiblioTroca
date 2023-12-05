@@ -113,7 +113,7 @@ export function RequestBook({ book }: RequestBookProps) {
 
         <Dialog.Root onOpenChange={changeModalVisibility} open={modalIsOpen}>
           <Dialog.Trigger asChild>
-            <Button>Solicitar troca</Button>
+            <Button disabled={!token}>Solicitar troca</Button>
           </Dialog.Trigger>
 
           <Modal variant="requestExchange" />
