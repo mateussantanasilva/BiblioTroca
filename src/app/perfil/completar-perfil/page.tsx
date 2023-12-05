@@ -8,7 +8,7 @@ import { FocusEvent, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import * as Icon from '@phosphor-icons/react'
 import axios from 'axios'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { ViaCEPData } from '@/@types/viaCepData'
 import { Input } from '@/components/Input'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -21,6 +21,8 @@ import { api } from '@/lib/axios'
 import { UserData } from '@/@types/userData'
 
 export default function CompleteProfile() {
+  const searchParams = useSearchParams()
+
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
   const [picture, setPicture] = useState('')
@@ -45,33 +47,37 @@ export default function CompleteProfile() {
     ;(async () => {
       setIsLoadingToken(true)
 
-      const token = Cookies.get('token')
-      // const tokenDecoded = jwtDecode<UserToken>(token)
+      const token = searchParams.get('token')
+      if (!token) {
+        router.push('/login')
+      } else {
+        const tokenDecoded = jwtDecode<UserToken>(token)
+        Cookies.set('token', token)
+        Cookies.set(
+          'bibliotroca.userName',
+          `${tokenDecoded.firstName}-${tokenDecoded.lastName.split(' ')[0]}`,
+        )
+        Cookies.set('bibliotroca.userPicture', tokenDecoded.picture)
+        Cookies.set('bibliotroca.userEmail', tokenDecoded.email)
 
-      // Cookies.set(
-      //   'bibliotroca.userName',
-      //   `${tokenDecoded.firstName}-${tokenDecoded.lastName.split(' ')[0]}`,
-      // )
-      // Cookies.set('bibliotroca.userPicture', tokenDecoded.picture)
-      // Cookies.set('bibliotroca.userEmail', tokenDecoded.email)
+        const { data: user } = await api.get<UserData>(
+          `/usuarios/${tokenDecoded.email}`,
+        )
 
-      // const { data: user } = await api.get<UserData>(
-      //   `/usuarios/${tokenDecoded.email}`,
-      // )
+        setUser(user)
 
-      // setUser(user)
+        if (user?.phoneNumber === null && user?.location === null) {
+          setEmail(tokenDecoded.email)
+          setName(
+            `${tokenDecoded.firstName} ${tokenDecoded.lastName.split(' ')[0]}`,
+          )
+          setPicture(tokenDecoded.picture)
 
-      // if (user?.phoneNumber === null && user?.location === null) {
-      //   setEmail(tokenDecoded.email)
-      //   setName(
-      //     `${tokenDecoded.firstName} ${tokenDecoded.lastName.split(' ')[0]}`,
-      //   )
-      //   setPicture(tokenDecoded.picture)
-
-      //   setIsLoadingToken(false)
-      // } else {
-      //   router.push('/perfil/trocas-pendentes')
-      // }
+          setIsLoadingToken(false)
+        } else {
+          router.push('/perfil/trocas-pendentes')
+        }
+      }
     })()
   }, [])
 
