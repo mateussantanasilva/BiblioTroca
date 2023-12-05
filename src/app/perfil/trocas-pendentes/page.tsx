@@ -1,55 +1,87 @@
 'use client'
 
-import Link from 'next/link'
 import { Card, status } from '@/components/Card'
 import { Header } from '@/components/Header'
 import { Navigation } from '@/components/Navigation'
 import * as Icon from '@phosphor-icons/react'
-import { formatDate } from '@/utils/format-date'
-import { useTransactions } from '@/hooks/useTransactions'
 import { Skeleton } from '@/components/Skeleton'
 import { generateArrayWithId } from '@/utils/generate-array-with-id'
-import { useMyBooks } from '@/hooks/useMyBooks'
-import { useMyWishlist } from '@/hooks/useMyWishlist'
 import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
+import Cookies from 'js-cookie'
+import { TransactionData } from '@/@types/transactionData'
+import { api } from '@/lib/axios'
+import { WishData } from '@/@types/wishData'
 
 export default function PendingExchanges() {
-  const {
-    query: { data: history },
-  } = useTransactions('Cancelado&Concluído')
+  const [picture, setPicture] = useState<string | undefined>(undefined)
+  const [name, setName] = useState<string | undefined>(undefined)
 
-  const {
-    query: { data: myBooks },
-  } = useMyBooks()
+  const [isLoading, setIsLoading] = useState(true)
 
-  const {
-    query: { data: myWishlist },
-  } = useMyWishlist()
+  const [pendingTransactions, setPendingTransactions] = useState<
+    TransactionData[] | undefined
+  >(undefined)
+  const [myBooksSize, setMyBooksSize] = useState<number | undefined>(undefined)
+  const [wishlistSize, setWishlistSize] = useState<number | undefined>(
+    undefined,
+  )
+  const [historySize, setHistorySize] = useState<number | undefined>(undefined)
 
-  const {
-    query: { data: pendingTransactions, isLoading, isSuccess },
-  } = useTransactions('Pendente')
+  useEffect(() => {
+    ;(async () => {
+      const email = Cookies.get('bibliotroca.userEmail')
+      const { data: pendingTransactions } = await api.get<TransactionData[]>(
+        `/transacoes/usuario/${email}/status/PENDING`,
+      )
 
+      const { data: myBooks } = await api.get(`/usuarios/${email}/livros`)
+
+      const { data: wishlist } = await api.get<WishData[]>(`/desejos`)
+
+      const { data: cancelledTransactions } = await api.get<TransactionData[]>(
+        `/transacoes/usuario/${email}/status/CANCELLED`,
+      )
+
+      const { data: concludedTransactions } = await api.get<TransactionData[]>(
+        `/transacoes/usuario/${email}/status/CONCLUDED`,
+      )
+
+      setPendingTransactions(pendingTransactions)
+      setMyBooksSize(myBooks.books.length)
+      setWishlistSize(wishlist.length)
+      setHistorySize(
+        cancelledTransactions.length + concludedTransactions.length,
+      )
+
+      setPicture(Cookies.get('bibliotroca.userPicture'))
+      setName(Cookies.get('bibliotroca.userName'))
+
+      setIsLoading(false)
+    })()
+  }, [])
+
+  // GERAÇÃO DA QUANTIDADE DE SKELETONS
   const quantityToRepeat = generateArrayWithId(4)
 
   return (
     <>
       <Header className="h-[233px]">
         <Navigation
-          name="Ana Clara"
-          src="https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80"
+          name={name}
+          src={picture}
           pendingTransactions={pendingTransactions?.length}
-          myBooks={myBooks?.length}
-          wishList={myWishlist?.length}
-          history={history?.length}
+          myBooks={myBooksSize}
+          wishList={wishlistSize}
+          history={historySize}
           isLoading={isLoading}
         />
       </Header>
       <main className="mt-28 px-6 pb-10 md:mt-32">
-        <section className="mx-auto max-w-5xl">
+        <section className="mx-auto max-w-[73rem]">
           <h1 className="mb-5 flex items-baseline gap-1 font-secondary text-title-xs text-gray-500 dark:text-white">
             Trocas
-            {isSuccess && pendingTransactions?.length !== 0 && (
+            {!isLoading && pendingTransactions?.length !== 0 && (
               <span className="font-primary text-sm-140 text-gray-400 dark:text-white">
                 | {pendingTransactions?.length} troca(s)
               </span>
@@ -96,7 +128,7 @@ export default function PendingExchanges() {
                 Sem transações pendentes
               </span>
             )}
-            {isSuccess &&
+            {!isLoading &&
               pendingTransactions?.map((pendingTransaction) => (
                 <motion.div
                   initial={{ opacity: 0 }}
@@ -107,7 +139,7 @@ export default function PendingExchanges() {
                   <Card
                     className="grid grid-cols-2"
                     type="common"
-                    componentType={Link}
+                    componentType="a"
                     href={`/perfil/trocas-pendentes/troca/${pendingTransaction.id}`}
                   >
                     <div className="flex flex-col gap-6 md:grid md:grid-cols-2 md:gap-0">
@@ -116,16 +148,13 @@ export default function PendingExchanges() {
                           {pendingTransaction.bookDetails.name}
                         </p>
                         <span className="text-sm-140 text-gray-400 dark:text-yellow-500">
-                          {pendingTransaction.type === 'send' ? '+' : '-'}20
-                          pontos
+                          + 20 pontos
                         </span>
                       </div>
                       <div className="flex items-center gap-1 text-gray-500 dark:text-yellow-500 md:hidden">
                         <Icon.PaperPlaneTilt size={12} />
                         <span className="block truncate text-sm-140">
-                          {pendingTransaction.type === 'send'
-                            ? `Enviando para ${pendingTransaction.buyer.firstName}`
-                            : `Recebendo de ${pendingTransaction.bookDetails.user.name}`}
+                          {`Enviando para ${pendingTransaction.buyer.name}`}
                         </span>
                       </div>
                       <div className="hidden items-center gap-1 justify-self-center md:flex">
@@ -137,7 +166,14 @@ export default function PendingExchanges() {
                           })}
                         />
                         <span className="text-sm-140 text-gray-500 dark:text-yellow-500">
-                          {pendingTransaction.status}
+                          {pendingTransaction.status
+                            .substring(0, 1)
+                            .toUpperCase()
+                            .concat(
+                              pendingTransaction.status
+                                .substring(1)
+                                .toLowerCase(),
+                            )}
                         </span>
                       </div>
                     </div>
@@ -145,9 +181,7 @@ export default function PendingExchanges() {
                       <div className="hidden items-center justify-center gap-1 text-gray-500 dark:text-yellow-500 md:flex">
                         <Icon.PaperPlaneTilt size={12} />
                         <span className="block truncate text-xs-140 md:text-sm-140">
-                          {pendingTransaction.type === 'send'
-                            ? `Enviando para ${pendingTransaction.buyer.firstName}`
-                            : `Recebendo de ${pendingTransaction.bookDetails.user.name}`}
+                          {`Enviando para ${pendingTransaction.buyer.name}`}
                         </span>
                       </div>
                       <div className="flex items-center gap-1 justify-self-end text-gray-500 dark:text-yellow-500 md:hidden">
@@ -159,13 +193,20 @@ export default function PendingExchanges() {
                           })}
                         />
                         <span className="text-sm-140">
-                          {pendingTransaction.status}
+                          {pendingTransaction.status
+                            .substring(0, 1)
+                            .toUpperCase()
+                            .concat(
+                              pendingTransaction.status
+                                .substring(1)
+                                .toLowerCase(),
+                            )}
                         </span>
                       </div>
                       <div className="flex items-center gap-1 text-gray-500 dark:text-yellow-500 md:justify-self-end">
                         <Icon.CalendarBlank size={12} />
                         <span className="text-sm-140">
-                          {formatDate(Date.parse(pendingTransaction.createdAt))}
+                          {new Date().toLocaleDateString()}
                         </span>
                       </div>
                     </div>

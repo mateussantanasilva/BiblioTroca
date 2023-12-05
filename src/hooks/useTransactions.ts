@@ -2,43 +2,25 @@ import { TransactionData } from '@/@types/transactionData'
 import { api } from '@/lib/axios'
 import { useQuery } from '@tanstack/react-query'
 
-export type Status = 'Pendente' | 'Cancelado&Concluído'
+type Status = 'CONCLUDED' | 'CANCELLED' | 'PENDING'
 
-interface ApiParams {
-  _sort: string
-  _order: string
+type TransactionsRequestProps = {
+  email: string | undefined
   status: Status
 }
 
-async function fetchTransactions(status: Status) {
-  const params: ApiParams = {
-    _sort: 'createdAt',
-    _order: 'desc',
-    status,
-  }
+async function fetchTransactions({ email, status }: TransactionsRequestProps) {
+  const response = await api.get(
+    `/transacoes/usuario/${email}/status/${status}`,
+  )
 
-  if (params.status === 'Cancelado&Concluído') {
-    const response = await api.get(
-      '/transactions?status=Cancelado&status=Concluído',
-      {
-        params: { _sort: params._sort, _order: params._order },
-      },
-    )
-
-    return response.data
-  } else {
-    const response = await api.get('/transactions', {
-      params,
-    })
-
-    return response.data
-  }
+  return response.data
 }
 
-export function useTransactions(status: Status) {
+export function useTransactions(props: TransactionsRequestProps) {
   const query = useQuery<TransactionData[]>({
-    queryKey: ['transactionsList', status],
-    queryFn: async () => await fetchTransactions(status),
+    queryKey: ['transactionsList', props],
+    queryFn: async () => await fetchTransactions(props),
     refetchInterval: 1000 * 60 * 5, // 5 minutes in miliseconds
   })
 

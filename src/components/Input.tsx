@@ -6,7 +6,8 @@ const input = tv({
   outline-none placeholder:font-primary placeholder:text-base-140
   placeholder:text-gray-400 focus:ring-2 focus:ring-primary-500
   data-[type='radio']:hidden dark:bg-black dark:text-white
-  dark:placeholder:text-white dark:focus:ring-white`,
+  dark:placeholder:text-white dark:focus:ring-white disabled:cursor-not-allowed
+  disabled:text-gray-400 disabled:focus:ring-0`,
   variants: {
     variant: {
       textarea: 'h-[156px]',
@@ -18,6 +19,7 @@ const input = tv({
 type InputProps<T extends ElementType> = ComponentProps<T> &
   VariantProps<typeof input> & {
     componentType?: T // changes components type based on choice
+    register?: any
   }
 
 export function Input<T extends ElementType = 'input' | 'textarea' | 'select'>({
@@ -25,13 +27,28 @@ export function Input<T extends ElementType = 'input' | 'textarea' | 'select'>({
   className,
   componentType: ComponentType = 'input',
   variant,
+  register,
+  name,
   ...rest
 }: InputProps<T>) {
   return (
-    <ComponentType
-      id={id}
-      className={input({ variant, className })}
-      {...rest}
-    />
+    <>
+      {register ? (
+        <ComponentType
+          id={id}
+          className={input({ variant, className })}
+          name={name}
+          {...register(name)}
+          {...rest}
+        />
+      ) : (
+        <ComponentType
+          id={id}
+          className={input({ variant, className })}
+          name={name}
+          {...rest}
+        />
+      )}
+    </>
   )
 }

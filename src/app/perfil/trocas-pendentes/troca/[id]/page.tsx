@@ -1,18 +1,27 @@
 'use client'
 
-import { Button } from '@/components/Button'
-import { Card, status } from '@/components/Card'
-import { Header } from '@/components/Header'
-import { InputRadio } from '@/components/InputRadio'
-import * as Icon from '@phosphor-icons/react'
-import Link from 'next/link'
+import { ViaCEPData } from '@/@types/viaCepData'
 import { useSingleTransaction } from '@/hooks/useSingleTransaction'
+import { api } from '@/lib/axios'
+import {
+  TransactionFormSchema,
+  transactionFormSchema,
+} from '@/schemas/transactionFormSchema'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Header } from '@radix-ui/react-accordion'
+import axios from 'axios'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { Skeleton } from '@/components/Skeleton'
-import { formatDate } from '@/utils/format-date'
-import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import * as Icon from '@phosphor-icons/react'
+import { Skeleton } from '@/components/Skeleton'
+import { motion } from 'framer-motion'
+import { Card, status } from '@/components/Card'
 import { Input } from '@/components/Input'
+import { InputRadio } from '@/components/InputRadio'
+import { Button } from '@/components/Button'
+import { SpanError } from '@/components/SpanError'
 
 type PagePropos = {
   params: {
@@ -21,6 +30,8 @@ type PagePropos = {
 }
 
 export default function PendingExchange({ params }: PagePropos) {
+  const [location, setLocation] = useState('')
+
   const {
     data: transaction,
     isLoading,
@@ -32,10 +43,35 @@ export default function PendingExchange({ params }: PagePropos) {
   isError && router.push('/perfil/trocas-pendentes')
 
   isSuccess &&
-    transaction?.status !== 'Pendente' &&
+    transaction?.status !== 'PENDENTE' &&
     router.push('/perfil/trocas-pendentes')
 
-  const { register } = useForm()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<TransactionFormSchema>({
+    resolver: zodResolver(transactionFormSchema),
+  })
+
+  async function updatePendingExchange(data: TransactionFormSchema) {
+    await api.put(`transacoes/${params.id}/${data.status}`)
+
+    router.push('/perfil/trocas-pendentes')
+  }
+
+  useEffect(() => {
+    isSuccess &&
+      (async () => {
+        const {
+          data: { bairro, localidade },
+        } = await axios.get<ViaCEPData>(
+          `https://viacep.com.br/ws/${transaction?.seller.location}/json`,
+        )
+
+        setLocation(`${bairro}, ${localidade}`)
+      })()
+  }, [isSuccess, transaction?.seller.location])
 
   return (
     <>
@@ -56,7 +92,7 @@ export default function PendingExchange({ params }: PagePropos) {
         </h2>
       </Header>
       <main className="relative z-[2] px-6 pb-10">
-        <section className="mx-auto -mt-12 max-w-5xl">
+        <section className="mx-auto -mt-12 max-w-[73rem]">
           {isLoading && (
             <>
               <Skeleton
@@ -162,7 +198,10 @@ export default function PendingExchange({ params }: PagePropos) {
                       weight="fill"
                       className={status({ color: transaction?.status })}
                     />
-                    {transaction?.status}
+                    {transaction.status
+                      .substring(0, 1)
+                      .toUpperCase()
+                      .concat(transaction.status.substring(1).toLowerCase())}
                   </span>
                 </div>
                 <strong className="hidden w-max font-secondary text-title-xs md:block md:text-title-sm">
@@ -173,11 +212,12 @@ export default function PendingExchange({ params }: PagePropos) {
                     weight="fill"
                     className={status({ color: transaction?.status })}
                   />
-                  {transaction?.status}
+                  {transaction.status
+                    .substring(0, 1)
+                    .toUpperCase()
+                    .concat(transaction.status.substring(1).toLowerCase())}
                 </span>
-                <p className="font-primary text-sm-140">
-                  {transaction?.type === 'send' ? '+' : '-'} 20 pontos
-                </p>
+                <p className="font-primary text-sm-140">+ 20 pontos</p>
                 <div className="flex items-center gap-1 text-sm-140">
                   <Icon.CalendarBlank className="h-3 w-3 md:h-4 md:w-4" />
                   Solicitada há x dias
@@ -195,16 +235,20 @@ export default function PendingExchange({ params }: PagePropos) {
                       ? 'Selecione o status certo para manter todos informados sobre o progresso da troca.'
                       : 'Você enviou uma solicitação de troca. Aguarde a decisão do vendedor de confirmar ou recusar a solicitação. Se mudar de ideia, você tem a opção de cancelar a solicitação a qualquer momento antes da confirmação.'}
                   </p>
-                  <form className="flex flex-col gap-11">
+                  <form
+                    className="flex flex-col gap-11"
+                    onSubmit={handleSubmit(updatePendingExchange)}
+                  >
                     {transaction?.type === 'send' ? (
                       <>
                         <div className="flex flex-col gap-4">
                           <Input
                             id="accept"
-                            value="Ao selecionar essa opção, você está aceitando prosseguir com a troca."
+                            value="CONCLUDED"
                             type="radio"
                             data-type="radio"
-                            {...register('status')}
+                            register={register}
+                            name="status"
                             defaultChecked
                           />
                           <InputRadio
@@ -214,10 +258,11 @@ export default function PendingExchange({ params }: PagePropos) {
                           />
                           <Input
                             id="refuse"
-                            value="Selecione esta opção caso não deseje seguir com esta troca atual."
+                            value="CANCELLED"
                             type="radio"
                             data-type="radio"
-                            {...register('status')}
+                            register={register}
+                            name="status"
                           />
                           <InputRadio
                             title="Recusar Solicitação"
@@ -233,11 +278,12 @@ export default function PendingExchange({ params }: PagePropos) {
                       <>
                         <Input
                           id="cancel"
-                          value="Ao selecionar essa opção, você está aceitando prosseguir com a troca."
+                          value="CANCELLED"
                           type="radio"
                           data-type="radio"
                           data-variant="danger"
-                          {...register('status')}
+                          register={register}
+                          name="status"
                           defaultChecked
                         />
                         <InputRadio
@@ -253,6 +299,9 @@ export default function PendingExchange({ params }: PagePropos) {
                         </Button>
                       </>
                     )}
+                    {errors.status && (
+                      <SpanError>{errors.status.message}</SpanError>
+                    )}
                   </form>
                 </Card>
                 <Card
@@ -260,23 +309,10 @@ export default function PendingExchange({ params }: PagePropos) {
                   className="flex flex-col items-center justify-center lg:w-[35%]"
                 >
                   <p className="mb-3 text-center text-base-140-md">
-                    {transaction?.type === 'send' ? (
-                      <>
-                        Enviando para: <br />
-                        <span className="text-xl">
-                          {transaction?.buyer.firstName}{' '}
-                          {transaction?.buyer.lastName}
-                        </span>
-                      </>
-                    ) : (
-                      <>
-                        Recebendo de: <br />
-                        <span className="text-xl">
-                          {transaction?.bookDetails.user.name}{' '}
-                          {transaction?.bookDetails.user.surname}
-                        </span>
-                      </>
-                    )}
+                    Enviando para: <br />
+                    <span className="text-xl">
+                      {transaction?.buyer.name} {transaction?.buyer.surname}
+                    </span>
                   </p>
                   <p className="mb-4 flex items-baseline gap-1">
                     <Icon.Star
@@ -284,21 +320,15 @@ export default function PendingExchange({ params }: PagePropos) {
                       className="text-orange-500"
                       weight="fill"
                     />
-                    {transaction?.type === 'send'
-                      ? transaction?.buyer.averageRating.toFixed(1)
-                      : transaction?.bookDetails.user.averageRating.toFixed(1)}
+                    {transaction?.seller.averageRating.toFixed(1)}
                     <span className="text-sm-140 text-gray-400">
-                      ({transaction?.bookDetails.user.avaliationsNumber})
+                      ({transaction?.seller.avaliationsNumber})
                     </span>
                   </p>
                   <Button
                     className="mb-5"
                     variant="whatsapp"
-                    href={
-                      transaction?.type === 'send'
-                        ? `https://wa.me/${transaction?.buyer.phoneNumber}`
-                        : `https://wa.me/${transaction?.bookDetails.user.phoneNumber}`
-                    }
+                    href={`https://wa.me/${transaction?.seller.phoneNumber}`}
                   >
                     Entrar em Contato
                   </Button>
@@ -306,15 +336,10 @@ export default function PendingExchange({ params }: PagePropos) {
                     <span className="text-base-140-md">Localização:</span>
                     <span className="flex items-center gap-1 text-base-140">
                       <Icon.MapPin size={16} />
-                      {transaction?.type === 'send'
-                        ? 'Itaquera, São Paulo'
-                        : transaction?.bookDetails.user.location}
+                      {location}
                     </span>
                   </div>
-                  <p>
-                    Solicitada em{' '}
-                    {formatDate(Date.parse(transaction?.createdAt))}
-                  </p>
+                  <p>Solicitada em {new Date().toLocaleDateString()}</p>
                 </Card>
               </div>
               <Card type="content">

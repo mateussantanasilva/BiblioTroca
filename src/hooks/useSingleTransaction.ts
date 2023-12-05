@@ -3,7 +3,7 @@ import { api } from '@/lib/axios'
 import { useQuery } from '@tanstack/react-query'
 
 async function fetchTransactionById(id: string) {
-  const response = await api.get(`/transactions/${id}`)
+  const response = await api.get(`/transacoes/${id}`)
 
   return response.data
 }

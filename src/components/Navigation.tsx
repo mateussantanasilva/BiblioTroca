@@ -51,7 +51,7 @@ export function Navigation({
     {
       link: '/perfil/trocas-pendentes',
       name: 'Trocas',
-      subtitle: `${pendingTransactions} pendete(s)`,
+      subtitle: `${pendingTransactions} pendente(s)`,
       icon: (
         <Icon.Swap
           weight="bold"
@@ -99,11 +99,11 @@ export function Navigation({
   ]
 
   return (
-    <nav className="mx-auto max-w-5xl font-primary">
+    <nav className="mx-auto max-w-[73rem] font-primary">
       <section className="mb-10 flex items-start justify-between">
         <div>
           <p className="font-secondary text-title-sm md:text-title-base">
-            Olá, {name}!
+            Olá, {name?.replace('-', ' ')}!
           </p>
           <span className="font-primary text-xs-140 text-gray-300 md:text-lg">
             Sua jornada já lhe rendeu
@@ -129,6 +129,16 @@ export function Navigation({
 
           <DropdownMenu.Portal>
             <Dropdown.Content>
+              <Dropdown.Item>
+                <Link
+                  className="flex h-full w-full items-center justify-between px-3 dark:text-yellow-500"
+                  href="/"
+                >
+                  <span>Início</span>
+                  <Icon.House size={14} />
+                </Link>
+              </Dropdown.Item>
+              <Dropdown.Separator />
               <Dropdown.Item>
                 <Link
                   className="flex h-full w-full items-center justify-between px-3 dark:text-yellow-500"

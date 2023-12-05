@@ -13,30 +13,60 @@ import * as Tooltip from '@radix-ui/react-tooltip'
 import { TooltipContent } from '@/components/TooltipContent'
 import { ModalContext } from '@/contexts/ModalContext'
 import { useContextSelector } from 'use-context-selector'
-import { useMyBooks } from '@/hooks/useMyBooks'
-import { useTransactions } from '@/hooks/useTransactions'
-import { useMyWishlist } from '@/hooks/useMyWishlist'
 import { Skeleton } from '@/components/Skeleton'
 import { generateArrayWithId } from '@/utils/generate-array-with-id'
-import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
+import { useState, useEffect } from 'react'
+import { api } from '@/lib/axios'
+import Cookies from 'js-cookie'
+import { TransactionData } from '@/@types/transactionData'
+import { WishData } from '@/@types/wishData'
 
 export default function Wishlist() {
-  const {
-    query: { data: pendingTransactions },
-  } = useTransactions('Pendente')
+  const [picture, setPicture] = useState<string | undefined>(undefined)
+  const [name, setName] = useState<string | undefined>(undefined)
 
-  const {
-    query: { data: history },
-  } = useTransactions('Cancelado&Concluído')
+  const [isLoading, setIsLoading] = useState(true)
 
-  const {
-    query: { data: myBooks },
-  } = useMyBooks()
+  const [pendingTransactionsSize, setPendingTransactionsSize] = useState<
+    number | undefined
+  >(undefined)
+  const [myBooksSize, setMyBooksSize] = useState<number | undefined>(undefined)
+  const [wishlist, setWishlist] = useState<WishData[] | undefined>(undefined)
+  const [historySize, setHistorySize] = useState<number | undefined>(undefined)
 
-  const {
-    query: { data: myWishlist, isLoading, isError, isSuccess },
-  } = useMyWishlist()
+  useEffect(() => {
+    ;(async () => {
+      const email = Cookies.get('bibliotroca.userEmail')
+      const { data: pendingTransactions } = await api.get<TransactionData[]>(
+        `/transacoes/usuario/${email}/status/PENDING`,
+      )
+
+      const { data: myBooks } = await api.get(`/usuarios/${email}/livros`)
+
+      const { data: wishlist } = await api.get<WishData[]>(`/desejos`)
+
+      const { data: cancelledTransactions } = await api.get<TransactionData[]>(
+        `/transacoes/usuario/${email}/status/CANCELLED`,
+      )
+
+      const { data: concludedTransactions } = await api.get<TransactionData[]>(
+        `/transacoes/usuario/${email}/status/CONCLUDED`,
+      )
+
+      setPendingTransactionsSize(pendingTransactions.length)
+      setMyBooksSize(myBooks.books.length)
+      setWishlist(wishlist)
+      setHistorySize(
+        cancelledTransactions.length + concludedTransactions.length,
+      )
+
+      setPicture(Cookies.get('bibliotroca.userPicture'))
+      setName(Cookies.get('bibliotroca.userName'))
+
+      setIsLoading(false)
+    })()
+  }, [])
 
   const { modalIsOpen, changeModalVisibility } = useContextSelector(
     ModalContext,
@@ -47,21 +77,18 @@ export default function Wishlist() {
     },
   )
 
-  const router = useRouter()
-  isError && router.push('/perfil/lista-desejos')
-
   const quantityToRepeat = generateArrayWithId(4)
 
   return (
     <div>
       <Header className="h-[233px]">
         <Navigation
-          name="Ana Clara"
-          src="https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80"
-          pendingTransactions={pendingTransactions?.length}
-          myBooks={myBooks?.length}
-          wishList={myWishlist?.length}
-          history={history?.length}
+          name={name}
+          src={picture}
+          pendingTransactions={pendingTransactionsSize}
+          myBooks={myBooksSize}
+          wishList={wishlist?.length}
+          history={historySize}
           isLoading={isLoading}
         />
       </Header>
@@ -70,9 +97,9 @@ export default function Wishlist() {
           <div className="mb-5 flex items-center justify-between font-secondary text-title-xs text-gray-500 dark:text-white">
             <h1 className="flex items-baseline gap-1">
               Lista de desejos
-              {isSuccess && myWishlist?.length !== 0 && (
+              {!isLoading && wishlist?.length !== 0 && (
                 <span className="font-primary text-sm-140 text-gray-400 dark:text-white">
-                  | {myWishlist?.length} livro(s)
+                  | {wishlist?.length} livro(s)
                 </span>
               )}
             </h1>
@@ -120,13 +147,13 @@ export default function Wishlist() {
                   </div>
                 </Skeleton>
               ))}
-            {myWishlist?.length === 0 && (
+            {wishlist?.length === 0 && (
               <span className="mx-auto font-secondary text-title-base text-gray-400 dark:text-white">
                 Sem livros cadastrados
               </span>
             )}
-            {isSuccess &&
-              myWishlist?.map((wish) => (
+            {!isLoading &&
+              wishlist?.map((wish) => (
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -195,7 +222,7 @@ export default function Wishlist() {
                       </div>
                       <div className="flex items-center gap-1 justify-self-end text-sm-140 text-gray-500 dark:text-white">
                         <Icon.CalendarBlank size={10} />
-                        <span>{formatDate(Date.parse(wish.createdAt))}</span>
+                        <span>{new Date().toLocaleDateString()}</span>
                       </div>
                     </div>
                   </Card>
