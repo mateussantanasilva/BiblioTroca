@@ -1,20 +1,24 @@
 import { BookCompleteData } from './bookCompleteData'
+import { SellerData } from './sellerData'
 
-interface Buyer {
-  firstName: string
-  lastName: string
+interface BuyerData {
+  id: string
+  name: string
+  surname: string
   email: string
+  phoneNumber: string
+  location: string
   averageRating: number
   avaliationsNumber: number
-  phoneNumber: string
 }
 
 export interface TransactionData {
   id: string
-  status: 'Pendente' | 'Concluído' | 'Cancelado'
-  type: 'send' | 'receive'
+  seller: SellerData
+  buyer: BuyerData
+  bookDetails: BookCompleteData
   createdAt: string
   endedAt: string
-  bookDetails: BookCompleteData
-  buyer: Buyer
+  status: 'CANCELADO' | 'CONCLUÍDO' | 'PENDENTE'
+  type: string
 }

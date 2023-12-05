@@ -14,6 +14,11 @@ import { useForm } from 'react-hook-form'
 import { motion } from 'framer-motion'
 import { Input } from '@/components/Input'
 import { InputRadio } from '@/components/InputRadio'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { SpanError } from '@/components/SpanError'
+import { api } from '@/lib/axios'
+import { BookFormSchema, bookFormSchema } from '@/schemas/bookFormSchema'
+import { BookCompleteData } from '@/@types/bookCompleteData'
 
 type PagePropos = {
   params: {
@@ -22,6 +27,30 @@ type PagePropos = {
 }
 
 export default function UpdateBook({ params }: PagePropos) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<BookFormSchema>({
+    resolver: zodResolver(bookFormSchema),
+  })
+
+  async function updateBook(data: BookFormSchema) {
+    await api.put<BookCompleteData>(`/livros/${params.id}`, {
+      name: data.name,
+      author: data.author,
+      category: data.category,
+      language: data.language,
+      year: data.year.toString(),
+      description: data.description,
+      shortDescription: data.description.substring(0, 95).concat('...'),
+      publishingCompany: data.publishingCompany,
+      state: data.state,
+    })
+
+    router.push('/perfil/meus-livros')
+  }
+
   const {
     data: book,
     isLoading,
@@ -33,8 +62,6 @@ export default function UpdateBook({ params }: PagePropos) {
 
   const router = useRouter()
   isError && router.push('/perfil/meus-livros')
-
-  const { register } = useForm()
 
   return (
     <>
@@ -95,21 +122,32 @@ export default function UpdateBook({ params }: PagePropos) {
               animate={{ opacity: 1 }}
               transition={{ type: 'spring', stiffness: 50 }}
             >
-              <form className="mx-auto flex max-w-[540px] flex-col gap-11">
+              <form
+                className="mx-auto flex max-w-[540px] flex-col gap-11"
+                onSubmit={handleSubmit(updateBook)}
+              >
                 <Card type="content" className="flex flex-col gap-4 py-8">
                   <TextField label="Título" htmlFor="name">
                     <Input
                       defaultValue={book?.name}
                       id="name"
-                      {...register('name')}
+                      name="name"
+                      register={register}
                     />
+                    {errors.name && (
+                      <SpanError>{errors.name.message}</SpanError>
+                    )}
                   </TextField>
                   <TextField label="Autor" htmlFor="author">
                     <Input
                       defaultValue={book?.author}
                       id="author"
-                      {...register('author')}
+                      name="author"
+                      register={register}
                     />
+                    {errors.author && (
+                      <SpanError>{errors.author.message}</SpanError>
+                    )}
                   </TextField>
                   <TextField label="Categoria" htmlFor="category">
                     <div className="select">
@@ -118,7 +156,8 @@ export default function UpdateBook({ params }: PagePropos) {
                         variant="select"
                         defaultValue={book?.category}
                         id="category"
-                        {...register('category')}
+                        name="category"
+                        register={register}
                       >
                         <option selected disabled>
                           Selecione...
@@ -145,30 +184,44 @@ export default function UpdateBook({ params }: PagePropos) {
                         className="absolute right-3 top-[calc(50%-10px)] z-[1]"
                       />
                     </div>
+                    {errors.category && (
+                      <SpanError>{errors.category.message}</SpanError>
+                    )}
                   </TextField>
                   <TextField label="Editora" htmlFor="publishingCompany">
                     <Input
                       defaultValue={book?.publishingCompany}
                       id="publishingCompany"
-                      {...register('publishingCompany')}
+                      name="publishingCompany"
+                      register={register}
                     />
+                    {errors.publishingCompany && (
+                      <SpanError>{errors.publishingCompany.message}</SpanError>
+                    )}
                   </TextField>
                   <TextField label="Ano de Lançamento" htmlFor="year">
                     <Input
                       defaultValue={book?.year}
                       id="year"
-                      {...register('year')}
+                      type="number"
+                      name="year"
+                      className="appearance-none"
+                      register={register}
                     />
+                    {errors.year && (
+                      <SpanError>{errors.year.message}</SpanError>
+                    )}
                   </TextField>
                   <div>
                     <p className="mb-1 text-base-140-md">Condição do Livro</p>
                     <div className="flex flex-col gap-3">
                       <Input
                         id="new"
-                        value="Lido apenas uma ou poucas vezes, sem marcas."
+                        value="Novo"
                         type="radio"
                         data-type="radio"
-                        {...register('state')}
+                        name="state"
+                        register={register}
                       />
                       <InputRadio
                         title="Novo"
@@ -177,10 +230,11 @@ export default function UpdateBook({ params }: PagePropos) {
                       />
                       <Input
                         id="good"
-                        value="Pode ter algumas marcas leves de manuseio, sem rasuras."
+                        value="Seminovo"
                         type="radio"
                         data-type="radio"
-                        {...register('state')}
+                        name="state"
+                        register={register}
                         defaultChecked
                       />
                       <InputRadio
@@ -190,10 +244,11 @@ export default function UpdateBook({ params }: PagePropos) {
                       />
                       <Input
                         id="warn-out"
-                        value="Bastante usado, com várias marcas de uso e anotações."
+                        value="Usado"
                         type="radio"
                         data-type="radio"
-                        {...register('state')}
+                        name="state"
+                        register={register}
                       />
                       <InputRadio
                         title="Desgastado"
@@ -201,13 +256,20 @@ export default function UpdateBook({ params }: PagePropos) {
                         htmlFor="warn-out"
                       />
                     </div>
+                    {errors.state && (
+                      <SpanError>{errors.state.message}</SpanError>
+                    )}
                   </div>
                   <TextField label="Idioma" htmlFor="language">
                     <Input
                       defaultValue={book?.language}
                       id="language"
-                      {...register('language')}
+                      name="language"
+                      register={register}
                     />
+                    {errors.language && (
+                      <SpanError>{errors.language.message}</SpanError>
+                    )}
                   </TextField>
                   <TextField label="Descrição" htmlFor="description">
                     <Input
@@ -215,8 +277,12 @@ export default function UpdateBook({ params }: PagePropos) {
                       variant="textarea"
                       defaultValue={book?.description}
                       id="description"
-                      {...register('description')}
+                      name="description"
+                      register={register}
                     />
+                    {errors.description && (
+                      <SpanError>{errors.description.message}</SpanError>
+                    )}
                   </TextField>
                 </Card>
                 <Button className="lg:max-w-full">Atualizar</Button>

@@ -13,29 +13,71 @@ import Link from 'next/link'
 import { useContextSelector } from 'use-context-selector'
 import { ModalContext } from '@/contexts/ModalContext'
 import { TooltipContent } from '@/components/TooltipContent'
-import { useMyBooks } from '@/hooks/useMyBooks'
-import { useTransactions } from '@/hooks/useTransactions'
 import { Skeleton } from '@/components/Skeleton'
 import { generateArrayWithId } from '@/utils/generate-array-with-id'
-import { useMyWishlist } from '@/hooks/useMyWishlist'
 import { motion } from 'framer-motion'
+import { useState, useEffect } from 'react'
+import Cookies from 'js-cookie'
+import { TransactionData } from '@/@types/transactionData'
+import { api } from '@/lib/axios'
+import { WishData } from '@/@types/wishData'
+import { BookCompleteData } from '@/@types/bookCompleteData'
+
+type BookRequestData = {
+  books: BookCompleteData[]
+}
 
 export default function MyBooks() {
-  const {
-    query: { data: pendingTransactions },
-  } = useTransactions('Pendente')
+  const [picture, setPicture] = useState<string | undefined>(undefined)
+  const [name, setName] = useState<string | undefined>(undefined)
 
-  const {
-    query: { data: history },
-  } = useTransactions('Cancelado&Concluído')
+  const [isLoading, setIsLoading] = useState(true)
 
-  const {
-    query: { data: myWishlist },
-  } = useMyWishlist()
+  const [pendingTransactionsSize, setPendingTransactionsSize] = useState<
+    number | undefined
+  >(undefined)
+  const [myBooks, setMyBooks] = useState<BookCompleteData[] | undefined>(
+    undefined,
+  )
+  const [wishlistSize, setWishlistSize] = useState<number | undefined>(
+    undefined,
+  )
+  const [historySize, setHistorySize] = useState<number | undefined>(undefined)
 
-  const {
-    query: { data: myBooks, isLoading, isSuccess },
-  } = useMyBooks()
+  useEffect(() => {
+    ;(async () => {
+      const email = Cookies.get('bibliotroca.userEmail')
+      const { data: pendingTransactions } = await api.get<TransactionData[]>(
+        `/transacoes/usuario/${email}/status/PENDING`,
+      )
+
+      const {
+        data: { books },
+      } = await api.get<BookRequestData>(`/usuarios/${email}/livros`)
+
+      const { data: wishlist } = await api.get<WishData[]>(`/desejos`)
+
+      const { data: cancelledTransactions } = await api.get<TransactionData[]>(
+        `/transacoes/usuario/${email}/status/CANCELLED`,
+      )
+
+      const { data: concludedTransactions } = await api.get<TransactionData[]>(
+        `/transacoes/usuario/${email}/status/CONCLUDED`,
+      )
+
+      setPendingTransactionsSize(pendingTransactions.length)
+      setMyBooks(books)
+      setWishlistSize(wishlist.length)
+      setHistorySize(
+        cancelledTransactions.length + concludedTransactions.length,
+      )
+
+      setPicture(Cookies.get('bibliotroca.userPicture'))
+      setName(Cookies.get('bibliotroca.userName'))
+
+      setIsLoading(false)
+    })()
+  }, [])
 
   const { modalIsOpen, changeModalVisibility } = useContextSelector(
     ModalContext,
@@ -46,49 +88,41 @@ export default function MyBooks() {
     },
   )
 
+  // GERAÇÃO DA QUANTIDADE DE SKELETONS
   const quantityToRepeat = generateArrayWithId(4)
 
   return (
     <div>
       <Header className="h-[233px]">
         <Navigation
-          name="Ana Clara"
-          src="https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80"
-          pendingTransactions={pendingTransactions?.length}
+          name={name}
+          src={picture}
+          pendingTransactions={pendingTransactionsSize}
           myBooks={myBooks?.length}
-          wishList={myWishlist?.length}
-          history={history?.length}
+          wishList={wishlistSize}
+          history={historySize}
           isLoading={isLoading}
         />
       </Header>
       <main className="mt-28 px-6 pb-10 md:mt-32">
-        <section className="mx-auto max-w-5xl">
+        <section className="mx-auto max-w-[73rem]">
           <div className="mb-5 flex items-center justify-between font-secondary text-title-xs text-gray-500 dark:text-white">
             <h1 className="flex items-baseline gap-1">
               Meus Livros
-              {isSuccess && myBooks?.length !== 0 && (
+              {!isLoading && myBooks?.length !== 0 && (
                 <span className="font-primary text-sm-140 text-gray-400 dark:text-white">
                   | {myBooks?.length} livro(s)
                 </span>
               )}
             </h1>
             <span>
-              <Tooltip.Provider delayDuration={300}>
-                <Tooltip.Root>
-                  <Tooltip.Trigger asChild>
-                    <Button
-                      componentType={Link}
-                      href="/perfil/meus-livros/cadastrar-livro"
-                      className="p-2"
-                    >
-                      <Icon.Plus size={20} weight="bold" />
-                    </Button>
-                  </Tooltip.Trigger>
-                  <Tooltip.Portal>
-                    <TooltipContent>Cadastrar Livro</TooltipContent>
-                  </Tooltip.Portal>
-                </Tooltip.Root>
-              </Tooltip.Provider>
+              <Button
+                componentType={Link}
+                href="/perfil/meus-livros/cadastrar-livro"
+                className="p-2"
+              >
+                <Icon.Plus size={20} weight="bold" />
+              </Button>
             </span>
           </div>
           <div className="flex flex-col gap-4">
@@ -130,7 +164,7 @@ export default function MyBooks() {
                 Sem livros cadastrados
               </span>
             )}
-            {isSuccess &&
+            {myBooks &&
               myBooks?.map((book) => (
                 <motion.div
                   initial={{ opacity: 0 }}
@@ -143,21 +177,14 @@ export default function MyBooks() {
                     className="grid grid-cols-2 items-center justify-between gap-y-7"
                   >
                     <div className="flex grid-cols-2 flex-col gap-6 md:grid md:items-center md:gap-0">
-                      <Tooltip.Provider delayDuration={300}>
-                        <Tooltip.Root>
-                          <Tooltip.Trigger asChild>
-                            <Link href={`/perfil/meus-livros/${book.id}`}>
-                              <strong className="block truncate text-base-140 text-gray-500 dark:text-yellow-500">
-                                {book.name}
-                              </strong>
-                              <p className="block truncate text-xs-140 text-gray-400 dark:text-yellow-500">
-                                por {book.author}
-                              </p>
-                            </Link>
-                          </Tooltip.Trigger>
-                          <TooltipContent>Visualizar Livro</TooltipContent>
-                        </Tooltip.Root>
-                      </Tooltip.Provider>
+                      <Link href={`/perfil/meus-livros/${book.id}`}>
+                        <strong className="block truncate text-base-140 text-gray-500 dark:text-yellow-500">
+                          {book.name}
+                        </strong>
+                        <p className="block truncate text-xs-140 text-gray-400 dark:text-yellow-500">
+                          por {book.author}
+                        </p>
+                      </Link>
                       <span className="h-max w-max rounded-lg border-[1px] border-primary-500 px-2 py-1 text-xs text-primary-500 dark:border-white dark:text-white md:justify-self-center">
                         {book.category}
                       </span>
@@ -168,22 +195,13 @@ export default function MyBooks() {
                         <span>{formatDate(Date.parse(book.createdAt))}</span>
                       </div>
                       <div className="flex items-center justify-end gap-2">
-                        <Tooltip.Provider delayDuration={300}>
-                          <Tooltip.Root>
-                            <Tooltip.Trigger asChild>
-                              <Button
-                                variant="cardEdit"
-                                componentType={Link}
-                                href={`/perfil/meus-livros/${book.id}/atualizar-livro`}
-                              >
-                                <Icon.PencilSimple weight="bold" />
-                              </Button>
-                            </Tooltip.Trigger>
-                            <Tooltip.Portal>
-                              <TooltipContent>Editar Livro</TooltipContent>
-                            </Tooltip.Portal>
-                          </Tooltip.Root>
-                        </Tooltip.Provider>
+                        <Button
+                          variant="cardEdit"
+                          componentType={Link}
+                          href={`/perfil/meus-livros/${book.id}/atualizar-livro`}
+                        >
+                          <Icon.PencilSimple weight="bold" />
+                        </Button>
 
                         <Dialog.Root
                           onOpenChange={changeModalVisibility}

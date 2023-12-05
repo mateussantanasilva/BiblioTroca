@@ -30,8 +30,6 @@ export default function ExchangeHistory({ params }: PagePropos) {
   const router = useRouter()
   isError && router.push('perfil/historico')
 
-  transaction?.status === 'Pendente' && router.push('perfil/historico')
-
   const { modalIsOpen, changeModalVisibility } = useContextSelector(
     ModalContext,
     (context) => {
@@ -163,8 +161,8 @@ export default function ExchangeHistory({ params }: PagePropos) {
               >
                 <p className="mb-3 text-base-140-md">
                   {transaction?.type === 'send'
-                    ? `Enviado para ${transaction?.buyer.firstName} ${transaction?.buyer.lastName}`
-                    : `Recebido de ${transaction?.bookDetails.seller.name} ${transaction?.bookDetails.seller.surname}`}
+                    ? `Enviado para ${transaction?.buyer.name} ${transaction?.buyer.surname}`
+                    : `Recebido de ${transaction?.bookDetails.user.name} ${transaction?.bookDetails.user.surname}`}
                 </p>
                 <p className="mb-4 flex items-center gap-1">
                   <Icon.Star
@@ -174,11 +172,11 @@ export default function ExchangeHistory({ params }: PagePropos) {
                   />
                   {transaction?.type === 'send'
                     ? transaction?.buyer.averageRating.toFixed(1)
-                    : transaction?.bookDetails.seller.averageRating.toFixed(1)}
+                    : transaction?.bookDetails.user.averageRating.toFixed(1)}
                   <span className="text-sm-140 text-gray-400">
                     {transaction?.type === 'send'
                       ? transaction?.buyer.avaliationsNumber
-                      : transaction?.bookDetails.seller.avaliationsNumber}
+                      : transaction?.bookDetails.user.avaliationsNumber}
                   </span>
                 </p>
                 <Dialog.Root

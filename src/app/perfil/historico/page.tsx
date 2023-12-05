@@ -6,32 +6,65 @@ import { Navigation } from '@/components/Navigation'
 import * as Icon from '@phosphor-icons/react'
 import Link from 'next/link'
 import { formatDate } from '@/utils/format-date'
-import { useTransactions } from '@/hooks/useTransactions'
-import { useMyBooks } from '@/hooks/useMyBooks'
-import { useMyWishlist } from '@/hooks/useMyWishlist'
-import { useRouter } from 'next/navigation'
 import { Skeleton } from '@/components/Skeleton'
 import { generateArrayWithId } from '@/utils/generate-array-with-id'
+import { useEffect, useState } from 'react'
+import Cookies from 'js-cookie'
+import { api } from '@/lib/axios'
+import { TransactionData } from '@/@types/transactionData'
 
 export default function History() {
-  const {
-    query: { data: pendingTransactions },
-  } = useTransactions('Pendente')
+  const [picture, setPicture] = useState<string | undefined>(undefined)
+  const [name, setName] = useState<string | undefined>(undefined)
 
-  const {
-    query: { data: myBooks },
-  } = useMyBooks()
+  const [isLoading, setIsLoading] = useState(true)
 
-  const {
-    query: { data: myWishlist },
-  } = useMyWishlist()
+  const [pendingTransactionsSize, setPendingTransactionsSize] = useState<
+    number | undefined
+  >(undefined)
+  const [myBooksSize, setMyBooksSize] = useState<number | undefined>(undefined)
+  const [wishlistSize, setWishlistSize] = useState<number | undefined>(
+    undefined,
+  )
+  const history: TransactionData[] = []
 
-  const {
-    query: { data: transactions, isLoading, isError, isSuccess },
-  } = useTransactions('Cancelado&Concluído')
+  useEffect(() => {
+    ;(async () => {
+      const email = Cookies.get('bibliotroca.userEmail')
+      const { data: pendingTransactions } = await api.get<TransactionData[]>(
+        `/transacoes/usuario/${email}/status/PENDING`,
+      )
 
-  const router = useRouter()
-  isError && router.push('/perfil/historico')
+      const { data: myBooks } = await api.get(`/usuarios/${email}/livros`)
+
+      const { data: wishlist } = await api.get(`/desejos`)
+
+      const { data: cancelledTransactions } = await api.get<TransactionData[]>(
+        `/transacoes/usuario/${email}/status/CANCELLED`,
+      )
+
+      const { data: concludedTransactions } = await api.get<TransactionData[]>(
+        `/transacoes/usuario/${email}/status/CONCLUDED`,
+      )
+
+      setPendingTransactionsSize(pendingTransactions.length)
+      setMyBooksSize(myBooks.books.length)
+      setWishlistSize(wishlist)
+
+      cancelledTransactions.forEach((transaction) => {
+        history.push(transaction)
+      })
+
+      concludedTransactions.forEach((transaction) => {
+        history.push(transaction)
+      })
+
+      setPicture(Cookies.get('bibliotroca.userPicture'))
+      setName(Cookies.get('bibliotroca.userName'))
+
+      setIsLoading(false)
+    })()
+  }, [])
 
   const quantityToRepeat = generateArrayWithId(4)
 
@@ -39,12 +72,12 @@ export default function History() {
     <>
       <Header className="h-[233px]">
         <Navigation
-          name="Ana Clara"
-          src="https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?&w=128&h=128&dpr=2&q=80"
-          pendingTransactions={pendingTransactions?.length}
-          myBooks={myBooks?.length}
-          wishList={myWishlist?.length}
-          history={transactions?.length}
+          name={name}
+          src={picture}
+          pendingTransactions={pendingTransactionsSize}
+          myBooks={myBooksSize}
+          wishList={wishlistSize}
+          history={history?.length}
           isLoading={isLoading}
         />
       </Header>
@@ -52,9 +85,9 @@ export default function History() {
         <section className="mx-auto max-w-5xl">
           <h1 className="mb-5 flex items-center gap-1 font-secondary text-title-xs text-gray-500 dark:text-white">
             Histórico
-            {isSuccess && transactions?.length !== 0 && (
+            {!isLoading && history?.length !== 0 && (
               <span className="font-primary text-sm-140 text-gray-400 dark:text-white">
-                | {transactions?.length} troca(s)
+                | {history?.length} troca(s)
               </span>
             )}
           </h1>
@@ -89,13 +122,13 @@ export default function History() {
                   </div>
                 </Skeleton>
               ))}
-            {transactions?.length === 0 && (
+            {history?.length === 0 && (
               <span className="mx-auto font-secondary text-title-base text-gray-400 dark:text-white">
                 Sem trocas realizadas
               </span>
             )}
-            {isSuccess &&
-              transactions?.map((transaction) => (
+            {!isLoading &&
+              history?.map((transaction) => (
                 <Link
                   key={transaction.bookDetails.id}
                   href={`/perfil/historico/troca/${transaction.id}`}
@@ -124,8 +157,8 @@ export default function History() {
                       <Icon.PaperPlaneTilt size={10} />
                       <span className="block truncate">
                         {transaction.type === 'receive'
-                          ? `Recebendo de ${transaction.bookDetails.seller.name}`
-                          : `Enviando para ${transaction.buyer.firstName}`}
+                          ? `Recebendo de ${transaction.bookDetails.user.name}`
+                          : `Enviando para ${transaction.buyer.surname}`}
                       </span>
                     </div>
                     <div className="flex items-center gap-1 justify-self-end text-sm-140 text-gray-500 dark:text-yellow-500">

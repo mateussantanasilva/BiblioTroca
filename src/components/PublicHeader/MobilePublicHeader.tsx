@@ -1,9 +1,9 @@
 'use client'
 
+import { ReactNode } from 'react'
 import Link from 'next/link'
 import { useThemes } from '@/hooks/useThemes'
 import { SwitchTheme } from './SwitchTheme'
-import { Button } from '../Button'
 import { Logo } from '../Logo'
 import { motion } from 'framer-motion'
 import { X } from '@phosphor-icons/react'
@@ -11,11 +11,13 @@ import { X } from '@phosphor-icons/react'
 interface MobileHeaderProps {
   openMenu: boolean
   openMobileMenu: () => void
+  children: ReactNode
 }
 
 export function MobilePublicHeader({
   openMenu,
   openMobileMenu,
+  children,
 }: MobileHeaderProps) {
   const { isDarkTheme } = useThemes()
 
@@ -72,11 +74,7 @@ export function MobilePublicHeader({
             <SwitchTheme id="change-mobile-theme" />
           </li>
 
-          <li className="text-btn-base">
-            <Button componentType={Link} href="/login">
-              Entrar
-            </Button>
-          </li>
+          <li className="text-btn-base">{children}</li>
         </ul>
       </nav>
     </motion.header>

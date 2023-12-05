@@ -1,6 +1,6 @@
-import { BookSimpleData } from '@/@types/bookSimpleData'
-import { api } from '@/lib/axios'
 import { useQuery } from '@tanstack/react-query'
+import { api } from '@/lib/axios'
+import { BookSimpleData } from '@/@types/bookSimpleData'
 
 interface ApiParams {
   q?: string
@@ -21,7 +21,7 @@ export function useBooks(filterQuery?: string) {
   const query = useQuery<BookSimpleData[]>({
     queryKey: ['bookList', filterQuery],
     queryFn: async () => await fetchBooks(filterQuery),
-    // refetchInterval: 1000 * 60 * 5, // 5 minutes in miliseconds
+    refetchInterval: 1000 * 60 * 5, // 5 minutes in miliseconds
   })
 
   const bookCount = query.data?.length

@@ -20,9 +20,9 @@ export const status = tv({
   base: 'rounded-fu ll w-[0.625rem] h-[0.625rem]',
   variants: {
     color: {
-      Pendente: 'text-orange-500',
-      Cancelado: 'text-red-500',
-      Concluído: 'text-green-500',
+      PENDENTE: 'text-orange-500',
+      CANCELADO: 'text-red-500',
+      CONCLUÍDO: 'text-green-500',
     },
   },
 })

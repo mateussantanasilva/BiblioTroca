@@ -2,11 +2,14 @@
 
 import { ComponentProps, ReactNode, useState } from 'react'
 import Link from 'next/link'
+import { useContextSelector } from 'use-context-selector'
+import { AuthContext } from '@/contexts/AuthContext'
 import { useThemes } from '@/hooks/useThemes'
 import { VariantProps, tv } from 'tailwind-variants'
 import { Logo } from '../Logo'
 import { MobilePublicHeader } from './MobilePublicHeader'
 import { SwitchTheme } from './SwitchTheme'
+import { SessionButton } from './SessionButton'
 import { AnimatePresence } from 'framer-motion'
 import { List } from '@phosphor-icons/react'
 
@@ -30,6 +33,10 @@ type PublicHeaderProps = ComponentProps<'header'> &
   }
 
 export function PublicHeader({ variant, children }: PublicHeaderProps) {
+  const user = useContextSelector(AuthContext, (context) => {
+    return context.user
+  })
+
   const [openMenu, setOpenMenu] = useState(false)
   const { isDarkTheme } = useThemes()
 
@@ -104,7 +111,9 @@ export function PublicHeader({ variant, children }: PublicHeaderProps) {
         <MobilePublicHeader
           openMenu={openMenu}
           openMobileMenu={handleOpenMobileMenu}
-        />
+        >
+          <SessionButton size="mobile" user={user} />
+        </MobilePublicHeader>
       </AnimatePresence>
     </>
   )

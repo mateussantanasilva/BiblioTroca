@@ -1,4 +1,6 @@
+import { cookies } from 'next/headers'
 import Image from 'next/image'
+import { getAuthentication } from '@/utils/auth'
 import { PublicHeader } from '../components/PublicHeader'
 import { SessionButton } from '@/components/PublicHeader/SessionButton'
 import { Presentation } from './components/Presentation'
@@ -12,11 +14,14 @@ import MobileHero from '../assets/mobile-hero.svg'
 import ShadowHero from '../assets/shadow-hero.png'
 
 export default function Home() {
+  const isAuthenticated = cookies().has('token')
+  const { user } = getAuthentication(isAuthenticated)
+
   return (
     <>
       <div className="relative h-screen overflow-hidden bg-radial-gradient dark:bg-dark-mode">
         <PublicHeader variant="home">
-          <SessionButton variant="home" />
+          <SessionButton variant="home" user={user} />
         </PublicHeader>
 
         <Reveal isHero>

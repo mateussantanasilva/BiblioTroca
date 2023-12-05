@@ -1,0 +1,4 @@
+{
+  "framework": "nextjs",
+  "buildCommand": "next lint --fix && next build"
+}

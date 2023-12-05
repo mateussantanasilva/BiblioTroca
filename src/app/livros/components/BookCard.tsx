@@ -1,5 +1,7 @@
 import Link from 'next/link'
+import { useQuery } from '@tanstack/react-query'
 import { BookSimpleData } from '@/@types/bookSimpleData'
+import { useAddress } from '@/hooks/useAddress'
 import { Card } from '@/components/Card'
 import { ArrowRight, PaperPlaneTilt, MapPin, Star } from '@phosphor-icons/react'
 
@@ -8,6 +10,28 @@ interface BookCardProps {
 }
 
 export function BookCard({ book }: BookCardProps) {
+  const { checkCep, bairro, cidade, isError } = useAddress()
+
+  useQuery({
+    queryKey: ['address', book.user.location, book.id],
+    queryFn: () => {
+      checkCep(book.user.location)
+
+      return book.user.location
+    },
+
+    enabled: !!book.user.location, // only runs if the location exists
+  })
+
+  const address = isError ? book.user.location : `${bairro}, ${cidade}`
+
+  const existingAverageRating = book.user.averageRating
+    ? book.user.averageRating
+    : '-'
+  const existingAvaliationsNumber = book.user.avaliationsNumber
+    ? book.user.avaliationsNumber
+    : '0'
+
   return (
     <Card
       componentType="article"
@@ -49,16 +73,16 @@ export function BookCard({ book }: BookCardProps) {
           </p>
           <p className="flex items-center gap-1 text-sm-140 text-gray-400 dark:text-white">
             <MapPin size={'0.75rem'} />
-            {book.user.location}
+            {address}
           </p>
         </div>
 
         <div className="flex items-center gap-1 px-4 max-[350px]:mt-[0.125rem]">
           <p className="flex items-center gap-1 text-base-140">
             <Star weight="fill" className="text-orange-500" />
-            {book.user.averageRating}
+            {existingAverageRating}
           </p>
-          <span className="text-sm-140 text-gray-400 dark:text-white">{`(${book.user.avaliationsNumber})`}</span>
+          <span className="text-sm-140 text-gray-400 dark:text-white">{`(${existingAvaliationsNumber})`}</span>
         </div>
       </footer>
     </Card>

@@ -1,14 +1,14 @@
 'use client'
 
+import { useContextSelector } from 'use-context-selector'
+import { BooksQueryContext } from '@/contexts/BooksQueryContext'
 import { useBooks } from '@/hooks/useBooks'
+import { motion } from 'framer-motion'
 import { BookCard } from './BookCard'
 import { SkeletonList } from './SkeletonList'
-import { motion } from 'framer-motion'
-import { useContextSelector } from 'use-context-selector'
-import { QueryContext } from '@/contexts/QueryContext'
 
 export function BookList() {
-  const query = useContextSelector(QueryContext, (context) => {
+  const query = useContextSelector(BooksQueryContext, (context) => {
     return context.query
   })
 

@@ -4,15 +4,13 @@ import * as AvatarUI from '@radix-ui/react-avatar'
 import { twMerge } from 'tailwind-merge'
 
 export type AvatarProps = {
-  src: string
-  name: string
+  src: string | undefined
+  name: string | undefined
   className?: string
 }
 
 export function Avatar({ src, name, className }: AvatarProps) {
-  const nameArray = name.split(' ')
-
-  const initials = nameArray[0][0] + nameArray[1][0]
+  const nameArray = name?.split('-')
 
   return (
     <AvatarUI.Root
@@ -27,9 +25,6 @@ export function Avatar({ src, name, className }: AvatarProps) {
         alt={name}
         referrerPolicy="no-referrer"
       />
-      <AvatarUI.Fallback className="leading-1 flex h-full w-full items-center justify-center bg-white font-primary text-title-base text-primary-500">
-        {initials}
-      </AvatarUI.Fallback>
     </AvatarUI.Root>
   )
 }

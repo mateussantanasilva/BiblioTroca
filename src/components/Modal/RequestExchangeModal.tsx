@@ -1,11 +1,11 @@
-import { useParams, useRouter } from 'next/navigation'
-// import { cookies } from 'next/headers'
 import { useEffect } from 'react'
-import { ModalContext } from '@/contexts/ModalContext'
+import { useParams, useRouter } from 'next/navigation'
 import { useContextSelector } from 'use-context-selector'
+import { AuthContext } from '@/contexts/AuthContext'
+import { ModalContext } from '@/contexts/ModalContext'
 import { useTransaction } from '@/hooks/useTransaction'
 import { useSingleBook } from '@/hooks/useSingleBook'
-import { TransactionData } from '@/@types/transactionData'
+import { TransactionToAdd } from '@/@types/transactionToAdd'
 import { Button } from '../Button'
 
 export function RequestExchangeModal() {
@@ -13,6 +13,10 @@ export function RequestExchangeModal() {
 
   const changeModalVisibility = useContextSelector(ModalContext, (context) => {
     return context.changeModalVisibility
+  })
+
+  const user = useContextSelector(AuthContext, (context) => {
+    return context.user
   })
 
   const { mutate, isSuccess, isLoading } = useTransaction()
@@ -28,34 +32,12 @@ export function RequestExchangeModal() {
   const { id } = useParams()
   const { data: bookDetails } = useSingleBook(id.toString())
 
-  if (!bookDetails) return
+  if (!bookDetails || !user) return
 
-  // const isAuthenticated = cookies().has('token')
-
-  // if (!isAuthenticated) {
-  //   router.push('/login')
-
-  //   return
-  // }
-
-  const currentTime = JSON.stringify(new Date())
-
-  const transactionToAdd: TransactionData = {
-    id: currentTime,
-    status: 'Pendente',
-    createdAt: currentTime,
-    bookDetails,
-    // gets user data by session
-    buyer: {
-      firstName: 'Mateus',
-      lastName: 'Santana',
-      email: 'santanasilva1778@gmail.com',
-      phoneNumber: '11912345678',
-      averageRating: 4.7,
-      avaliationsNumber: 12,
-    },
-    type: 'send',
-    endedAt: '2023-10-25T20:29:59.153Z',
+  const transactionToAdd: TransactionToAdd = {
+    bookRegistry: bookDetails.id,
+    buyerEmail: user.email,
+    sellerEmail: bookDetails.user.email,
   }
 
   function handleCreateRequest() {

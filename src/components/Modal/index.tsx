@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
 import Image from 'next/image'
-import { Card } from '../Card'
-import * as Dialog from '@radix-ui/react-dialog'
 import { contentVariants } from '@/constants/modalVariants'
+import * as Dialog from '@radix-ui/react-dialog'
+import { Card } from '../Card'
 import { RequestExchangeModal } from './RequestExchangeModal'
 import { DeleteAccountModal } from './DeleteAccountModal'
 import { RefuseExchangeModal } from './RefuseExchangeModal'

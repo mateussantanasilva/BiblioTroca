@@ -1,6 +1,8 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
+import { useContextSelector } from 'use-context-selector'
+import { AuthContext } from '@/contexts/AuthContext'
 import { useSingleBook } from '@/hooks/useSingleBook'
 import { DetailsSkeleton } from './DetailsSkeleton'
 import { RequestSkeleton } from './RequestSkeleton'
@@ -9,9 +11,15 @@ import { RequestBook } from './RequestBook'
 
 interface ContentBookProps {
   bookId: string
+  userToken: string | null
 }
 
-export function ContentBook({ bookId }: ContentBookProps) {
+export function ContentBook({ bookId, userToken }: ContentBookProps) {
+  const createToken = useContextSelector(AuthContext, (context) => {
+    return context.createToken
+  })
+  createToken(userToken)
+
   const { data: book, isLoading, isSuccess, isError } = useSingleBook(bookId)
 
   const router = useRouter()

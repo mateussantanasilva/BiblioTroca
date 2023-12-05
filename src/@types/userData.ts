@@ -1,10 +1,10 @@
-export interface SellerData {
+export type UserData = {
   id: string
   name: string
   surname: string
   email: string
-  location: string
-  averageRating: number
-  avaliationsNumber: number
   phoneNumber: string
+  location: string
+  avaliationsNumber: number
+  averageRating: number
 }
