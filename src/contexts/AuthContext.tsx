@@ -2,7 +2,7 @@
 
 import { ReactNode, useState } from 'react'
 import { createContext } from 'use-context-selector'
-import { UserToken } from '@/@types/userToken'
+import { UserToken } from '@/@types/UserToken'
 
 interface AuthProviderProps {
   children: ReactNode

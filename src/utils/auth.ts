@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers'
 import { jwtDecode } from 'jwt-decode'
-import { UserToken } from '@/@types/userToken'
+import { UserToken } from '@/@types/UserToken'
 
 interface ReturnValues {
   user: UserToken | null
