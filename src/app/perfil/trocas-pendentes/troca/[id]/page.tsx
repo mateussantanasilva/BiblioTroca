@@ -8,7 +8,7 @@ import {
   transactionFormSchema,
 } from '@/schemas/transactionFormSchema'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Header } from '@radix-ui/react-accordion'
+import { Header } from '@/components/Header'
 import axios from 'axios'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'

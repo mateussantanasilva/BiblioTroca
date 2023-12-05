@@ -4,9 +4,11 @@ import Image from 'next/image'
 import { useBooks } from '@/hooks/useBooks'
 
 import AboutUsImage from '../../assets/about-us-image.jpg'
+import { useAllTransactions } from '@/hooks/useAllTransactions'
 
 export function AboutUs() {
   const { bookCount } = useBooks()
+  const { transactionsCount } = useAllTransactions()
 
   return (
     <section className="mx-auto max-w-[73rem] px-6 py-9 text-gray-500 md:text-center">
@@ -33,7 +35,7 @@ export function AboutUs() {
 
         <div>
           <dt className="mb-1 font-secondary text-title-base text-primary-500 dark:text-white">
-            + 50
+            + {transactionsCount || 0}
           </dt>
           <dd className="text-base-140 text-gray-500 dark:text-white">
             Trocas realizadas
