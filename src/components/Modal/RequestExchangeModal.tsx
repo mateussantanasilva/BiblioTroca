@@ -7,6 +7,8 @@ import { useTransaction } from '@/hooks/useTransaction'
 import { useSingleBook } from '@/hooks/useSingleBook'
 import { TransactionToAdd } from '@/@types/transactionToAdd'
 import { Button } from '../Button'
+import { jwtDecode } from 'jwt-decode'
+import { UserToken } from '@/@types/UserToken'
 
 export function RequestExchangeModal() {
   const router = useRouter()
@@ -15,8 +17,8 @@ export function RequestExchangeModal() {
     return context.changeModalVisibility
   })
 
-  const user = useContextSelector(AuthContext, (context) => {
-    return context.user
+  const token = useContextSelector(AuthContext, (context) => {
+    return context.token
   })
 
   const { mutate, isSuccess, isLoading } = useTransaction()
@@ -32,7 +34,11 @@ export function RequestExchangeModal() {
   const { id } = useParams()
   const { data: bookDetails } = useSingleBook(id.toString())
 
-  if (!bookDetails || !user) return
+  if (!bookDetails || !token) return
+
+  const user = jwtDecode<UserToken>(token)
+
+  console.log(user)
 
   const transactionToAdd: TransactionToAdd = {
     bookRegistry: bookDetails.id,

@@ -42,7 +42,7 @@ export default function Login() {
         <Button
           className="mx-auto"
           componentType={Link}
-          href="http://localhost:8080/oauth2/authorization/google"
+          href="https://serverbibliotroca-production.up.railway.app/oauth2/authorization/google"
         >
           <Image src="/google.svg" alt="Google Logo" width={22} height={22} />
           Continue com o Google
@@ -71,7 +71,7 @@ export default function Login() {
         <Button
           className="mx-auto"
           componentType={Link}
-          href="http://localhost:8080/oauth2/authorization/google"
+          href="https://serverbibliotroca-production.up.railway.app/oauth2/authorization/google"
         >
           <Image src="/google.svg" alt="Google Logo" width={22} height={22} />
           Continue com o Google

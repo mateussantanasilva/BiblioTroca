@@ -3,6 +3,7 @@
 import { ReactNode, useState } from 'react'
 import { createContext } from 'use-context-selector'
 import { UserToken } from '@/@types/UserToken'
+import Cookies from 'js-cookie'
 
 interface AuthProviderProps {
   children: ReactNode
