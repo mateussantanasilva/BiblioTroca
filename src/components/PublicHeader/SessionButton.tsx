@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { UserToken } from '@/@types/userToken'
+import { UserToken } from '@/@types/UserToken'
 import { Button } from '../Button'
 
 interface SessionButtonProps {
