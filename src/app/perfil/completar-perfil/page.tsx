@@ -79,7 +79,7 @@ export default function CompleteProfile() {
         }
       }
     })()
-  }, [])
+  }, [router, searchParams])
 
   function checkCep(cep: string) {
     setIsLoadingCEP(true)

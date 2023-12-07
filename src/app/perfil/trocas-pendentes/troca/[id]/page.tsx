@@ -21,7 +21,6 @@ import {
   TransactionFormSchema,
   transactionFormSchema,
 } from '@/schemas/transactionFormSchema'
-import Cookies from 'js-cookie'
 import { TransactionData } from '@/@types/transactionData'
 import { formatDate } from '@/utils/format-date'
 
