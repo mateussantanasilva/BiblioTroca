@@ -12,6 +12,8 @@ import Cookies from 'js-cookie'
 import { TransactionData } from '@/@types/transactionData'
 import { api } from '@/lib/axios'
 import { WishData } from '@/@types/wishData'
+import { formatDate } from '@/utils/format-date'
+import { PointsData } from '@/@types/pointsData'
 
 export default function PendingExchanges() {
   const [picture, setPicture] = useState<string | undefined>(undefined)
@@ -27,6 +29,8 @@ export default function PendingExchanges() {
     undefined,
   )
   const [historySize, setHistorySize] = useState<number | undefined>(undefined)
+
+  const [points, setPoints] = useState(0)
 
   useEffect(() => {
     ;(async () => {
@@ -47,12 +51,16 @@ export default function PendingExchanges() {
         `/transacoes/usuario/${email}/status/CONCLUDED`,
       )
 
+      const { data: points } = await api.get<PointsData>(`/pontos/${email}`)
+
       setPendingTransactions(pendingTransactions)
       setMyBooksSize(myBooks.books.length)
       setWishlistSize(wishlist.length)
       setHistorySize(
         cancelledTransactions.length + concludedTransactions.length,
       )
+
+      setPoints(points.walletPoints)
 
       setPicture(Cookies.get('bibliotroca.userPicture'))
       setName(Cookies.get('bibliotroca.userName'))
@@ -74,6 +82,7 @@ export default function PendingExchanges() {
           myBooks={myBooksSize}
           wishList={wishlistSize}
           history={historySize}
+          points={points}
           isLoading={isLoading}
         />
       </Header>
@@ -206,7 +215,7 @@ export default function PendingExchanges() {
                       <div className="flex items-center gap-1 text-gray-500 dark:text-yellow-500 md:justify-self-end">
                         <Icon.CalendarBlank size={12} />
                         <span className="text-sm-140">
-                          {new Date().toLocaleDateString()}
+                          {formatDate(Date.parse(pendingTransaction.createdAt))}
                         </span>
                       </div>
                     </div>

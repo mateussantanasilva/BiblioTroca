@@ -13,6 +13,11 @@ import { generateArrayWithId } from '@/utils/generate-array-with-id'
 import { useForm } from 'react-hook-form'
 import { Input } from '@/components/Input'
 import { motion } from 'framer-motion'
+import { WishFormSchema, wishFormSchema } from '@/schemas/wishFormSchema'
+import { api } from '@/lib/axios'
+import Cookies from 'js-cookie'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { SpanError } from '@/components/SpanError'
 
 type PagePropos = {
   params: {
@@ -26,9 +31,24 @@ export default function UpdateWish({ params }: PagePropos) {
   const router = useRouter()
   isError && router.push('/perfil/lista-desejos')
 
-  const { register } = useForm()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<WishFormSchema>({ resolver: zodResolver(wishFormSchema) })
 
   const quantityToRepeat = generateArrayWithId(3)
+
+  async function updateWish(data: WishFormSchema) {
+    api.put(`/desejos/${wish?.id}`, {
+      name: data.name,
+      author: data.author,
+      category: data.category,
+      user: Cookies.get('bibliotroca.userEmail'),
+    })
+
+    router.push('/perfil/lista-desejos')
+  }
 
   return (
     <>
@@ -77,21 +97,32 @@ export default function UpdateWish({ params }: PagePropos) {
               animate={{ opacity: 1 }}
               transition={{ type: 'spring', stiffness: 50 }}
             >
-              <form className="mx-auto flex max-w-[540px] flex-col gap-10">
+              <form
+                className="mx-auto flex max-w-[540px] flex-col gap-10"
+                onSubmit={handleSubmit(updateWish)}
+              >
                 <Card type="content" className="flex flex-col gap-4 py-8">
                   <TextField label="Título" htmlFor="name">
                     <Input
                       id="name"
+                      name="name"
                       defaultValue={wish?.name}
-                      {...register('name')}
+                      register={register}
                     />
+                    {errors.name && (
+                      <SpanError>{errors.name.message}</SpanError>
+                    )}
                   </TextField>
                   <TextField label="Autor" htmlFor="author">
                     <Input
                       id="author"
-                      defaultValue={wish?.name}
-                      {...register('author')}
+                      name="author"
+                      defaultValue={wish?.author}
+                      register={register}
                     />
+                    {errors.author && (
+                      <SpanError>{errors.author.message}</SpanError>
+                    )}
                   </TextField>
 
                   <TextField label="Categoria" htmlFor="category">
@@ -101,7 +132,8 @@ export default function UpdateWish({ params }: PagePropos) {
                         variant="select"
                         defaultValue={wish?.category}
                         id="category"
-                        {...register('category')}
+                        name="category"
+                        register={register}
                       >
                         <option selected disabled>
                           Selecione...
@@ -127,12 +159,13 @@ export default function UpdateWish({ params }: PagePropos) {
                         size={20}
                         className="absolute right-3 top-[calc(50%-10px)] z-[1]"
                       />
+                      {errors.category && (
+                        <SpanError>{errors.category.message}</SpanError>
+                      )}
                     </div>
                   </TextField>
                 </Card>
-                <Button className="lg:max-w-full" disabled>
-                  Atualizar
-                </Button>
+                <Button className="lg:max-w-full">Atualizar</Button>
               </form>
             </motion.div>
           )}

@@ -6,8 +6,9 @@ import * as Icon from '@phosphor-icons/react'
 import Link from 'next/link'
 import { Skeleton } from '@/components/Skeleton'
 import { useRouter } from 'next/navigation'
-import { useMySingleBook } from '@/hooks/useMySingleBook'
 import { motion } from 'framer-motion'
+import Cookies from 'js-cookie'
+import { useSingleBook } from '@/hooks/useSingleBook'
 
 type PagePropos = {
   params: {
@@ -16,14 +17,14 @@ type PagePropos = {
 }
 
 export default function Book({ params }: PagePropos) {
-  const {
-    data: book,
-    isLoading,
-    isError,
-    isSuccess,
-  } = useMySingleBook(params.id)
-
   const router = useRouter()
+
+  const { data: book, isError, isSuccess, isLoading } = useSingleBook(params.id)
+
+  const email = Cookies.get('bibliotroca.userEmail')
+
+  if (email !== book?.user.email) router.push('/perfil/meus-livros')
+
   isError && router.push('/perfil/meus-livros')
 
   return (

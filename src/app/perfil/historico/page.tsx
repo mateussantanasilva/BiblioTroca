@@ -9,13 +9,15 @@ import { formatDate } from '@/utils/format-date'
 import { Skeleton } from '@/components/Skeleton'
 import { generateArrayWithId } from '@/utils/generate-array-with-id'
 import { useEffect, useState } from 'react'
+import { WishData } from '@/@types/wishData'
 import Cookies from 'js-cookie'
 import { api } from '@/lib/axios'
 import { TransactionData } from '@/@types/transactionData'
+import { PointsData } from '@/@types/pointsData'
 
 export default function History() {
-  const [picture, setPicture] = useState<string | undefined>(undefined)
   const [name, setName] = useState<string | undefined>(undefined)
+  const [picture, setPicture] = useState<string | undefined>(undefined)
 
   const [isLoading, setIsLoading] = useState(true)
 
@@ -26,18 +28,25 @@ export default function History() {
   const [wishlistSize, setWishlistSize] = useState<number | undefined>(
     undefined,
   )
-  const history: TransactionData[] = []
+
+  const [history, setHistory] = useState<TransactionData[]>([])
+
+  const [points, setPoints] = useState(0)
 
   useEffect(() => {
+    setName(Cookies.get('bibliotroca.userName'))
+    setPicture(Cookies.get('bibliotroca.userPicture'))
     ;(async () => {
       const email = Cookies.get('bibliotroca.userEmail')
       const { data: pendingTransactions } = await api.get<TransactionData[]>(
         `/transacoes/usuario/${email}/status/PENDING`,
       )
 
-      const { data: myBooks } = await api.get(`/usuarios/${email}/livros`)
+      const {
+        data: { books },
+      } = await api.get(`/usuarios/${email}/livros`)
 
-      const { data: wishlist } = await api.get(`/desejos`)
+      const { data: wishlist } = await api.get<WishData[]>(`/desejos`)
 
       const { data: cancelledTransactions } = await api.get<TransactionData[]>(
         `/transacoes/usuario/${email}/status/CANCELLED`,
@@ -47,20 +56,24 @@ export default function History() {
         `/transacoes/usuario/${email}/status/CONCLUDED`,
       )
 
+      const { data: points } = await api.get<PointsData>(`/pontos/${email}`)
+
       setPendingTransactionsSize(pendingTransactions.length)
-      setMyBooksSize(myBooks.books.length)
-      setWishlistSize(wishlist)
+      setMyBooksSize(books.length)
+      setWishlistSize(wishlist.length)
 
       cancelledTransactions.forEach((transaction) => {
-        history.push(transaction)
+        setHistory([...history, transaction])
       })
 
       concludedTransactions.forEach((transaction) => {
-        history.push(transaction)
+        setHistory([...history, transaction])
       })
 
       setPicture(Cookies.get('bibliotroca.userPicture'))
       setName(Cookies.get('bibliotroca.userName'))
+
+      setPoints(points.walletPoints)
 
       setIsLoading(false)
     })()
@@ -78,6 +91,7 @@ export default function History() {
           myBooks={myBooksSize}
           wishList={wishlistSize}
           history={history?.length}
+          points={points}
           isLoading={isLoading}
         />
       </Header>
@@ -151,14 +165,17 @@ export default function History() {
                         weight="fill"
                         className={status({ color: transaction.status })}
                       />
-                      {transaction.status}
+                      {transaction.status
+                        .substring(0, 1)
+                        .toUpperCase()
+                        .concat(transaction.status.substring(1).toLowerCase())}
                     </span>
                     <div className="flex items-center gap-1 text-sm-140 text-gray-500 dark:text-yellow-500 md:justify-self-center">
                       <Icon.PaperPlaneTilt size={10} />
                       <span className="block truncate">
                         {transaction.type === 'receive'
-                          ? `Recebendo de ${transaction.bookDetails.user.name}`
-                          : `Enviando para ${transaction.buyer.surname}`}
+                          ? `Recebendo de ${transaction.seller.name}`
+                          : `Enviando para ${transaction.buyer.name}`}
                       </span>
                     </div>
                     <div className="flex items-center gap-1 justify-self-end text-sm-140 text-gray-500 dark:text-yellow-500">

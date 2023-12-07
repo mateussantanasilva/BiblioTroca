@@ -5,7 +5,6 @@ import { Card } from '@/components/Card'
 import { Header } from '@/components/Header'
 import { Navigation } from '@/components/Navigation'
 import * as Icon from '@phosphor-icons/react'
-import { formatDate } from '@/utils/format-date'
 import { Button } from '@/components/Button'
 import * as Dialog from '@radix-ui/react-dialog'
 import { Modal } from '@/components/Modal'
@@ -17,14 +16,15 @@ import { Skeleton } from '@/components/Skeleton'
 import { generateArrayWithId } from '@/utils/generate-array-with-id'
 import { motion } from 'framer-motion'
 import { useState, useEffect } from 'react'
-import { api } from '@/lib/axios'
 import Cookies from 'js-cookie'
 import { TransactionData } from '@/@types/transactionData'
+import { api } from '@/lib/axios'
 import { WishData } from '@/@types/wishData'
+import { PointsData } from '@/@types/pointsData'
 
 export default function Wishlist() {
-  const [picture, setPicture] = useState<string | undefined>(undefined)
   const [name, setName] = useState<string | undefined>(undefined)
+  const [picture, setPicture] = useState<string | undefined>(undefined)
 
   const [isLoading, setIsLoading] = useState(true)
 
@@ -35,14 +35,20 @@ export default function Wishlist() {
   const [wishlist, setWishlist] = useState<WishData[] | undefined>(undefined)
   const [historySize, setHistorySize] = useState<number | undefined>(undefined)
 
+  const [points, setPoints] = useState(0)
+
   useEffect(() => {
+    setName(Cookies.get('bibliotroca.userName'))
+    setPicture(Cookies.get('bibliotroca.userPicture'))
     ;(async () => {
       const email = Cookies.get('bibliotroca.userEmail')
       const { data: pendingTransactions } = await api.get<TransactionData[]>(
         `/transacoes/usuario/${email}/status/PENDING`,
       )
 
-      const { data: myBooks } = await api.get(`/usuarios/${email}/livros`)
+      const {
+        data: { books },
+      } = await api.get(`/usuarios/${email}/livros`)
 
       const { data: wishlist } = await api.get<WishData[]>(`/desejos`)
 
@@ -54,8 +60,10 @@ export default function Wishlist() {
         `/transacoes/usuario/${email}/status/CONCLUDED`,
       )
 
+      const { data: points } = await api.get<PointsData>(`/pontos/${email}`)
+
       setPendingTransactionsSize(pendingTransactions.length)
-      setMyBooksSize(myBooks.books.length)
+      setMyBooksSize(books.length)
       setWishlist(wishlist)
       setHistorySize(
         cancelledTransactions.length + concludedTransactions.length,
@@ -63,6 +71,8 @@ export default function Wishlist() {
 
       setPicture(Cookies.get('bibliotroca.userPicture'))
       setName(Cookies.get('bibliotroca.userName'))
+
+      setPoints(points.walletPoints)
 
       setIsLoading(false)
     })()
@@ -88,12 +98,13 @@ export default function Wishlist() {
           pendingTransactions={pendingTransactionsSize}
           myBooks={myBooksSize}
           wishList={wishlist?.length}
+          points={points}
           history={historySize}
           isLoading={isLoading}
         />
       </Header>
       <main className="mt-28 px-6 pb-10 md:mt-32">
-        <section className="mx-auto max-w-5xl">
+        <section className="mx-auto max-w-[73rem]">
           <div className="mb-5 flex items-center justify-between font-secondary text-title-xs text-gray-500 dark:text-white">
             <h1 className="flex items-baseline gap-1">
               Lista de desejos
@@ -173,7 +184,7 @@ export default function Wishlist() {
                           por {wish.author}
                         </p>
                       </div>
-                      <span className="h-max w-max rounded-lg border-[1px] border-primary-500 px-2 py-1 text-xs text-primary-500 dark:border-white dark:text-white md:justify-self-center">
+                      <span className="h-max w-max max-w-[10rem] truncate rounded-lg border-[1px] border-primary-500 px-2 py-1 text-xs text-primary-500 dark:border-white dark:text-white md:justify-self-center">
                         {wish.category}
                       </span>
                     </div>
@@ -217,12 +228,18 @@ export default function Wishlist() {
                             </Tooltip.Provider>
                           </Dialog.Trigger>
 
-                          <Modal variant="deleteBook" />
+                          <Modal
+                            variant="deleteBook"
+                            onClick={async () => {
+                              await api.delete(`/desejos/${wish.id}`)
+
+                              window.location.reload()
+                            }}
+                          />
                         </Dialog.Root>
                       </div>
                       <div className="flex items-center gap-1 justify-self-end text-sm-140 text-gray-500 dark:text-white">
-                        <Icon.CalendarBlank size={10} />
-                        <span>{new Date().toLocaleDateString()}</span>
+                        <span>Criado por {wish.user}</span>
                       </div>
                     </div>
                   </Card>

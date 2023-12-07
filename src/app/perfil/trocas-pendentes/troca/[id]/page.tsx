@@ -1,27 +1,29 @@
 'use client'
 
+import { Button } from '@/components/Button'
+import { Card, status } from '@/components/Card'
+import { Header } from '@/components/Header'
+import { InputRadio } from '@/components/InputRadio'
+import * as Icon from '@phosphor-icons/react'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { Skeleton } from '@/components/Skeleton'
+import { motion } from 'framer-motion'
+import { useForm } from 'react-hook-form'
+import { Input } from '@/components/Input'
+import axios from 'axios'
 import { ViaCEPData } from '@/@types/viaCepData'
-import { useSingleTransaction } from '@/hooks/useSingleTransaction'
+import { useEffect, useState } from 'react'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { SpanError } from '@/components/SpanError'
 import { api } from '@/lib/axios'
 import {
   TransactionFormSchema,
   transactionFormSchema,
 } from '@/schemas/transactionFormSchema'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Header } from '@/components/Header'
-import axios from 'axios'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import * as Icon from '@phosphor-icons/react'
-import { Skeleton } from '@/components/Skeleton'
-import { motion } from 'framer-motion'
-import { Card, status } from '@/components/Card'
-import { Input } from '@/components/Input'
-import { InputRadio } from '@/components/InputRadio'
-import { Button } from '@/components/Button'
-import { SpanError } from '@/components/SpanError'
+import Cookies from 'js-cookie'
+import { TransactionData } from '@/@types/transactionData'
+import { formatDate } from '@/utils/format-date'
 
 type PagePropos = {
   params: {
@@ -32,19 +34,40 @@ type PagePropos = {
 export default function PendingExchange({ params }: PagePropos) {
   const [location, setLocation] = useState('')
 
-  const {
-    data: transaction,
-    isLoading,
-    isSuccess,
-    isError,
-  } = useSingleTransaction(params.id)
+  const [isLoading, setIsLoading] = useState(true)
+  const [isSuccess, setIsSuccess] = useState(false)
+  const [transaction, setTransaction] = useState<TransactionData | undefined>(
+    undefined,
+  )
 
   const router = useRouter()
-  isError && router.push('/perfil/trocas-pendentes')
 
-  isSuccess &&
-    transaction?.status !== 'PENDENTE' &&
-    router.push('/perfil/trocas-pendentes')
+  useEffect(() => {
+    ;(async () => {
+      await api
+        .get<TransactionData>(`/transacoes/${params.id}`)
+        .then(async (response) => {
+          setTransaction(response.data)
+
+          console.log(response.data.buyer.location)
+
+          const {
+            data: { bairro, localidade },
+          } = await axios.get<ViaCEPData>(
+            `https://viacep.com.br/ws/${response.data.buyer.location}/json`,
+          )
+
+          setLocation(`${bairro}, ${localidade}`)
+        })
+        .catch((error) => {
+          error && router.push('/perfil/trocas-pendentes')
+        })
+        .finally(() => {
+          setIsLoading(false)
+          setIsSuccess(true)
+        })
+    })()
+  }, [location, params.id, router])
 
   const {
     register,
@@ -59,19 +82,6 @@ export default function PendingExchange({ params }: PagePropos) {
 
     router.push('/perfil/trocas-pendentes')
   }
-
-  useEffect(() => {
-    isSuccess &&
-      (async () => {
-        const {
-          data: { bairro, localidade },
-        } = await axios.get<ViaCEPData>(
-          `https://viacep.com.br/ws/${transaction?.seller.location}/json`,
-        )
-
-        setLocation(`${bairro}, ${localidade}`)
-      })()
-  }, [isSuccess, transaction?.seller.location])
 
   return (
     <>
@@ -198,7 +208,7 @@ export default function PendingExchange({ params }: PagePropos) {
                       weight="fill"
                       className={status({ color: transaction?.status })}
                     />
-                    {transaction.status
+                    {transaction?.status
                       .substring(0, 1)
                       .toUpperCase()
                       .concat(transaction.status.substring(1).toLowerCase())}
@@ -212,7 +222,7 @@ export default function PendingExchange({ params }: PagePropos) {
                     weight="fill"
                     className={status({ color: transaction?.status })}
                   />
-                  {transaction.status
+                  {transaction?.status
                     .substring(0, 1)
                     .toUpperCase()
                     .concat(transaction.status.substring(1).toLowerCase())}
@@ -339,7 +349,11 @@ export default function PendingExchange({ params }: PagePropos) {
                       {location}
                     </span>
                   </div>
-                  <p>Solicitada em {new Date().toLocaleDateString()}</p>
+                  <p>
+                    Solicitada em{' '}
+                    {transaction &&
+                      formatDate(Date.parse(transaction.createdAt))}
+                  </p>
                 </Card>
               </div>
               <Card type="content">

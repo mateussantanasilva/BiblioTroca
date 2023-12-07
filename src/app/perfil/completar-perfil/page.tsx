@@ -121,7 +121,7 @@ export default function CompleteProfile() {
             />
             <p className="animate-pulseSlow text-center font-primary text-title-base dark:text-white">
               Carregando
-              <br className="lg:hidden" />
+              <br />
               Informações
             </p>
           </div>

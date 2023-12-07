@@ -10,6 +10,8 @@ const skeleton = tv({
     variant: {
       card: 'min-w-[12.5rem] min-h-[12.5rem] px-4 py-5 shadow-container animate-pulse bg-white dark:bg-black dark:shadow-solid-white',
       line: 'h-[1rem] bg-gray-300 dark:bg-black dark:shadow-solid-white',
+      circle:
+        'rounded-full dark:shadow-solid-white bg-gray-300 dark:bg-black animate-pulse',
     },
     size: {
       content: 'p-4 w-full min-w-0 min-h-0',
