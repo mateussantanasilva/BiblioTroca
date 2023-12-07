@@ -3,7 +3,7 @@ import { api } from '@/lib/axios'
 import { useQuery } from '@tanstack/react-query'
 
 async function fetchWishById(id: string) {
-  const response = await api.get(`/wishlist/${id}`)
+  const response = await api.get(`/desejos/${id}`)
 
   return response.data
 }

@@ -19,6 +19,7 @@ import { SpanError } from '@/components/SpanError'
 import { api } from '@/lib/axios'
 import { BookFormSchema, bookFormSchema } from '@/schemas/bookFormSchema'
 import { BookCompleteData } from '@/@types/bookCompleteData'
+import Cookies from 'js-cookie'
 
 type PagePropos = {
   params: {
@@ -35,17 +36,19 @@ export default function UpdateBook({ params }: PagePropos) {
     resolver: zodResolver(bookFormSchema),
   })
 
+  const email = Cookies.get('bibliotroca.userEmail')
+
   async function updateBook(data: BookFormSchema) {
     await api.put<BookCompleteData>(`/livros/${params.id}`, {
-      name: data.name,
+      title: data.name,
       author: data.author,
-      category: data.category,
+      field: data.category,
       language: data.language,
-      year: data.year.toString(),
+      edition: data.year.toString(),
       description: data.description,
-      shortDescription: data.description.substring(0, 95).concat('...'),
       publishingCompany: data.publishingCompany,
       state: data.state,
+      userEmail: email,
     })
 
     router.push('/perfil/meus-livros')

@@ -8,9 +8,32 @@ import Link from 'next/link'
 import { TextField } from '@/components/TextField'
 import { Input } from '@/components/Input'
 import { useForm } from 'react-hook-form'
+import { WishFormSchema, wishFormSchema } from '@/schemas/wishFormSchema'
+import { api } from '@/lib/axios'
+import { zodResolver } from '@hookform/resolvers/zod'
+import Cookies from 'js-cookie'
+import { SpanError } from '@/components/SpanError'
+import { useRouter } from 'next/navigation'
 
 export default function CreateWish() {
-  const { register } = useForm()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<WishFormSchema>({ resolver: zodResolver(wishFormSchema) })
+
+  const router = useRouter()
+
+  async function createWish(data: WishFormSchema) {
+    await api.post('/desejos', {
+      name: data.name,
+      author: data.author,
+      category: data.category,
+      user: Cookies.get('bibliotroca.userEmail'),
+    })
+
+    router.push('/perfil/lista-desejos')
+  }
 
   return (
     <>
@@ -32,13 +55,20 @@ export default function CreateWish() {
       </Header>
       <main className="relative z-[2] px-6 pb-10">
         <section className="mx-auto -mt-12 max-w-5xl">
-          <form className="mx-auto flex max-w-[540px] flex-col gap-10">
+          <form
+            className="mx-auto flex max-w-[540px] flex-col gap-10"
+            onSubmit={handleSubmit(createWish)}
+          >
             <Card type="content" className="flex flex-col gap-4 py-8">
               <TextField label="Título" htmlFor="name">
-                <Input id="name" {...register('name')} />
+                <Input id="name" name="name" register={register} />
+                {errors.name && <SpanError>{errors.name.message}</SpanError>}
               </TextField>
               <TextField label="Autor" htmlFor="author">
-                <Input id="author" {...register('author')} />
+                <Input id="author" name="author" register={register} />
+                {errors.author && (
+                  <SpanError>{errors.author.message}</SpanError>
+                )}
               </TextField>
 
               <TextField label="Categoria" htmlFor="category">
@@ -47,7 +77,8 @@ export default function CreateWish() {
                     id="category"
                     componentType="select"
                     variant="select"
-                    {...register('category')}
+                    name="category"
+                    register={register}
                   >
                     <option selected disabled>
                       Selecione...
@@ -69,12 +100,13 @@ export default function CreateWish() {
                     size={20}
                     className="absolute right-3 top-[calc(50%-10px)] z-[1]"
                   />
+                  {errors.category && (
+                    <SpanError>{errors.category.message}</SpanError>
+                  )}
                 </div>
               </TextField>
             </Card>
-            <Button className="lg:max-w-full" disabled>
-              Cadastrar
-            </Button>
+            <Button className="lg:max-w-full">Cadastrar</Button>
           </form>
         </section>
       </main>

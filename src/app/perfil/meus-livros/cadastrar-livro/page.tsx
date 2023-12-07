@@ -28,8 +28,8 @@ export default function CreateBook() {
   const email = Cookies.get('bibliotroca.userEmail')
 
   async function createBook(data: BookFormSchema) {
-    const response = await api.post(`/usuarios/${email}/cadastrar-livro`, {
-      name: data.name,
+    await api.post(`/livros`, {
+      title: data.name,
       author: data.author,
       field: data.category,
       language: data.language,
@@ -37,9 +37,10 @@ export default function CreateBook() {
       description: data.description,
       publishingCompany: data.publishingCompany,
       state: data.state,
+      userEmail: email,
     })
 
-    console.log(response)
+    router.push('perfil/meus-livros')
   }
 
   return (
@@ -136,7 +137,7 @@ export default function CreateBook() {
                 <div className="flex flex-col gap-3">
                   <Input
                     id="new"
-                    value="Lido apenas uma ou poucas vezes, sem marcas."
+                    value="Novo"
                     type="radio"
                     data-type="radio"
                     register={register}
@@ -149,7 +150,7 @@ export default function CreateBook() {
                   />
                   <Input
                     id="good"
-                    value="Pode ter algumas marcas leves de manuseio, sem rasuras."
+                    value="Seminovo"
                     type="radio"
                     data-type="radio"
                     register={register}
@@ -162,7 +163,7 @@ export default function CreateBook() {
                   />
                   <Input
                     id="warn-out"
-                    value="Bastante usado, com várias marcas de uso e anotações."
+                    value="Usado"
                     type="radio"
                     data-type="radio"
                     register={register}

@@ -22,6 +22,7 @@ import { TransactionData } from '@/@types/transactionData'
 import { api } from '@/lib/axios'
 import { WishData } from '@/@types/wishData'
 import { BookCompleteData } from '@/@types/bookCompleteData'
+import { PointsData } from '@/@types/pointsData'
 
 type BookRequestData = {
   books: BookCompleteData[]
@@ -44,6 +45,8 @@ export default function MyBooks() {
   )
   const [historySize, setHistorySize] = useState<number | undefined>(undefined)
 
+  const [points, setPoints] = useState(0)
+
   useEffect(() => {
     ;(async () => {
       const email = Cookies.get('bibliotroca.userEmail')
@@ -65,12 +68,16 @@ export default function MyBooks() {
         `/transacoes/usuario/${email}/status/CONCLUDED`,
       )
 
+      const { data: points } = await api.get<PointsData>(`/pontos/${email}`)
+
       setPendingTransactionsSize(pendingTransactions.length)
       setMyBooks(books)
       setWishlistSize(wishlist.length)
       setHistorySize(
         cancelledTransactions.length + concludedTransactions.length,
       )
+
+      setPoints(points.walletPoints)
 
       setPicture(Cookies.get('bibliotroca.userPicture'))
       setName(Cookies.get('bibliotroca.userName'))
@@ -101,6 +108,7 @@ export default function MyBooks() {
           myBooks={myBooks?.length}
           wishList={wishlistSize}
           history={historySize}
+          points={points}
           isLoading={isLoading}
         />
       </Header>
@@ -165,7 +173,7 @@ export default function MyBooks() {
               </span>
             )}
             {myBooks &&
-              myBooks?.map((book) => (
+              myBooks.map((book) => (
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -222,7 +230,14 @@ export default function MyBooks() {
                             </Tooltip.Provider>
                           </Dialog.Trigger>
 
-                          <Modal variant="deleteBook" />
+                          <Modal
+                            variant="deleteBook"
+                            onClick={async () => {
+                              await api.delete(`/livros/${book.id}`)
+
+                              window.location.reload()
+                            }}
+                          />
                         </Dialog.Root>
                       </div>
                       <div className="flex items-center gap-1 justify-self-end text-sm-140 text-gray-500 dark:text-white md:hidden">

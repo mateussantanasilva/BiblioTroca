@@ -19,9 +19,10 @@ interface ModalProps {
   | 'evaluate'
   | 'deleteBook'
   namePersonEvaluated?: string
+  onClick?: () => void
 }
 
-export function Modal({ variant }: ModalProps) {
+export function Modal({ variant, onClick }: ModalProps) {
   const selectedVariant = contentVariants[variant]
 
   function selectButtonSchema() {
@@ -35,7 +36,7 @@ export function Modal({ variant }: ModalProps) {
       case 'evaluate':
         return <EvaluateModal />
       case 'deleteBook':
-        return <DeleteBookModal />
+        return <DeleteBookModal onClick={onClick} />
     }
   }
 

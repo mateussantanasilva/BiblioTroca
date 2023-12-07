@@ -10,8 +10,6 @@ export type AvatarProps = {
 }
 
 export function Avatar({ src, name, className }: AvatarProps) {
-  const nameArray = name?.split('-')
-
   return (
     <AvatarUI.Root
       className={twMerge(
