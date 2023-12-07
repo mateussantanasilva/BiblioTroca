@@ -163,8 +163,8 @@ export default function ExchangeHistory({ params }: PagePropos) {
               >
                 <p className="mb-3 text-base-140-md">
                   {transaction?.type === 'send'
-                    ? `Enviado para ${transaction?.buyer.firstName} ${transaction?.buyer.lastName}`
-                    : `Recebido de ${transaction?.bookDetails.seller.name} ${transaction?.bookDetails.seller.surname}`}
+                    ? `Enviado para ${transaction?.buyer.name} ${transaction?.buyer.surname}`
+                    : `Recebido de ${transaction?.seller.name} ${transaction?.seller.surname}`}
                 </p>
                 <p className="mb-4 flex items-center gap-1">
                   <Icon.Star
@@ -178,7 +178,7 @@ export default function ExchangeHistory({ params }: PagePropos) {
                   <span className="text-sm-140 text-gray-400">
                     {transaction?.type === 'send'
                       ? transaction?.buyer.avaliationsNumber
-                      : transaction?.bookDetails.seller.avaliationsNumber}
+                      : transaction?.seller.avaliationsNumber}
                   </span>
                 </p>
                 <Dialog.Root
