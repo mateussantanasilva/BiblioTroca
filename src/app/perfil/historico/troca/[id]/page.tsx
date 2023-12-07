@@ -30,7 +30,7 @@ export default function ExchangeHistory({ params }: PagePropos) {
   const router = useRouter()
   isError && router.push('perfil/historico')
 
-  transaction?.status === 'Pendente' && router.push('perfil/historico')
+  transaction?.status === 'PENDENTE' && router.push('perfil/historico')
 
   const { modalIsOpen, changeModalVisibility } = useContextSelector(
     ModalContext,
