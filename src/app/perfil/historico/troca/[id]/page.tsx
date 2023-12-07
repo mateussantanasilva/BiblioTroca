@@ -174,7 +174,7 @@ export default function ExchangeHistory({ params }: PagePropos) {
                   />
                   {transaction?.type === 'send'
                     ? transaction?.buyer.averageRating.toFixed(1)
-                    : transaction?.bookDetails.seller.averageRating.toFixed(1)}
+                    : transaction?.seller.averageRating.toFixed(1)}
                   <span className="text-sm-140 text-gray-400">
                     {transaction?.type === 'send'
                       ? transaction?.buyer.avaliationsNumber
